@@ -1,0 +1,69 @@
+<!--
+Create tabs with an icon and label, using the tabs-positive style.
+Each tab's child <ion-nav-view> directive will have its own
+navigation history that also transitions its views in and out.
+-->
+
+<ion-side-menus enable-menu-with-back-views="false" ng-controller="GroupsCtrl">
+    <ion-side-menu-content>
+        <ion-nav-bar class="bar-positive">
+            <ion-nav-back-button>
+            </ion-nav-back-button>
+
+            <ion-nav-buttons side="left">
+                <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+                </button>
+            </ion-nav-buttons>
+        </ion-nav-bar>
+
+
+        <ion-tabs class="tabs-icon-top tabs-positive">
+
+            <!-- Groups Tab -->
+            <ion-tab title="Groups" icon="ion-navicon-round" ui-sref="tab.groups">
+                <ion-nav-view name="tab-groups"></ion-nav-view>
+            </ion-tab>
+
+            <!-- Members Tab -->
+            <ion-tab title="Members" icon="ion-android-contacts" ui-sref="group.members">
+                <ion-nav-view name="group-members"></ion-nav-view>
+            </ion-tab>
+
+            <!-- Expenses Tab -->
+            <ion-tab title="Expenses" icon="ion-ios-pricetags" ui-sref="group.expenses">
+                <ion-nav-view name="group-expenses"></ion-nav-view>
+            </ion-tab>
+
+            <!-- Events Tab -->
+            <ion-tab title="Events" icon="ion-android-calendar" ui-sref="group.events">
+                <ion-nav-view name="group-events"></ion-nav-view>
+            </ion-tab>
+
+        </ion-tabs>
+
+
+    </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+        <ion-header-bar class="bar-positive">
+            <h1 class="title">Left</h1>
+        </ion-header-bar>
+        <ion-content>
+            <ion-list>
+                <ion-item nav-clear menu-close ng-click="login()">
+                    Login
+                </ion-item>
+                <ion-item nav-clear menu-close href="#/app/search">
+                    Search
+                </ion-item>
+                <ion-item nav-clear menu-close href="#/app/browse">
+                    Browse
+                </ion-item>
+                <ion-item nav-clear menu-close href="#/app/playlists">
+                    Playlists
+                </ion-item>
+            </ion-list>
+        </ion-content>
+    </ion-side-menu>
+</ion-side-menus>
+
