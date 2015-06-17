@@ -6,6 +6,12 @@ angular.module('starter.controllers', [])
     .controller('GroupsCtrl', function ($scope) {
     })
 
+    .controller('NewExpenseCtrl', function ($scope) {
+    })
+
+    .controller('NewGroupCtrl', function ($scope) {
+    })
+
     .controller('MembersCtrl', function ($scope) {
     })
     .controller('ExpensesCtrl', function ($scope) {

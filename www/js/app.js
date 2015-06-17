@@ -73,6 +73,16 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 }
             })
 
+            .state('tab.newgroup', {
+                url: '/newgroup',
+                views: {
+                    'tab-new-group': {
+                        templateUrl: 'templates/tab-newgroup.html',
+                        controller: 'NewGroupCtrl'
+                    }
+                }
+            })
+
             .state('tab.groups', {
                 url: '/groups',
                 views: {
@@ -90,6 +100,16 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                     'tab-account': {
                         templateUrl: 'templates/tab-account.html',
                         controller: 'AccountCtrl'
+                    }
+                }
+            })
+
+            .state('group.newexpense', {
+                url: '/newexpense',
+                views: {
+                    'group-new-expense': {
+                        templateUrl: 'templates/group-newexpense.html',
+                        controller: 'NewExpenseCtrl'
                     }
                 }
             })
