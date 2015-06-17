@@ -97,7 +97,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.members', {
                 url: '/members',
                 views: {
-                    'menuContent': {
+                    'group-members': {
                         templateUrl: 'templates/group-members.html',
                         controller: 'MembersCtrl'
                     }
@@ -107,7 +107,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.expenses', {
                 url: '/expenses',
                 views: {
-                    'menuContent': {
+                    'group-expenses': {
                         templateUrl: 'templates/group-expenses.html',
                         controller: 'ExpensesCtrl'
                     }
@@ -117,7 +117,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.events', {
                 url: '/events',
                 views: {
-                    'menuContent': {
+                    'group-events': {
                         templateUrl: 'templates/group-events.html',
                         controller: 'EventsCtrl'
                     }
@@ -127,7 +127,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.settings', {
                 url: "/settings",
                 views: {
-                    'menuContent': {
+                    'group-settings': {
                         templateUrl: "templates/group-settings.html",
                         controller: 'SettingsCtrl'
                     }
@@ -137,7 +137,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.settle', {
                 url: "/settle",
                 views: {
-                    'menuContent': {
+                    'group-settle': {
                         templateUrl: "templates/group-settle.html"
                     }
                 }
@@ -146,7 +146,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.achievements', {
                 url: "/achievements",
                 views: {
-                    'menuContent': {
+                    'group-achievements': {
                         templateUrl: "templates/group-achievements.html"
                     }
                 }

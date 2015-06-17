@@ -39,9 +39,25 @@ navigation history that also transitions its views in and out.
                 <ion-nav-view name="group-events"></ion-nav-view>
             </ion-tab>
 
+            <!-- Hidden tabs for side menu. Need separate nav-views to prevent navigation history -->
+
+            <!-- Group Settings Tab -->
+            <ion-tab hidden="true" title="Group Settings" ui-sref="group.settings">
+                <ion-nav-view name="group-settings"></ion-nav-view>
+            </ion-tab>
+
+            <!-- Settle Balance Tab -->
+            <ion-tab hidden="true" title="Settle Balance" ui-sref="group.settle">
+                <ion-nav-view name="group-settle"></ion-nav-view>
+            </ion-tab>
+
+            <!-- Achievements Tab -->
+            <ion-tab hidden="true" title="Achievements" ui-sref="group.achievements">
+                <ion-nav-view name="group-achievements"></ion-nav-view>
+            </ion-tab>
         </ion-tabs>
 
-        <ion-nav-view name="menuContent"></ion-nav-view>
+        <!-- <ion-nav-view name="menuContent"></ion-nav-view> -->
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
@@ -59,7 +75,7 @@ navigation history that also transitions its views in and out.
                     Home
                 </ion-item>
                 <ion-item menu-close ui-sref="group.settings">
-                    Group settings
+                    Group Settings
                 </ion-item>
                 <ion-item menu-close ui-sref="group.settle">
                     Settle Balance
