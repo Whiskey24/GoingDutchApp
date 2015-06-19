@@ -38,7 +38,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
 
             // setup an abstract state for the groups directive
             .state('group', {
-                url: "/group",
+                url: "/group/:gid",
                 abstract: true,
                 templateUrl: "templates/group.html"
             })
@@ -88,7 +88,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 views: {
                     'tab-groups': {
                         templateUrl: 'templates/tab-groups.html',
-                        controller: 'GroupsCtrl'
+                        controller: 'GroupCtrl'
                     }
                 }
             })
@@ -119,7 +119,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 views: {
                     'group-members': {
                         templateUrl: 'templates/group-members.html',
-                        controller: 'MembersCtrl'
+                        controller: 'MemberCtrl'
                     }
                 }
             })
@@ -129,7 +129,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 views: {
                     'group-expenses': {
                         templateUrl: 'templates/group-expenses.html',
-                        controller: 'ExpensesCtrl'
+                        controller: 'ExpenseCtrl'
                     }
                 }
             })
@@ -139,7 +139,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 views: {
                     'group-events': {
                         templateUrl: 'templates/group-events.html',
-                        controller: 'EventsCtrl'
+                        controller: 'EventCtrl'
                     }
                 }
             })
@@ -198,6 +198,6 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
          */
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/dash');
+        $urlRouterProvider.otherwise('/tab/groups');
 
     });

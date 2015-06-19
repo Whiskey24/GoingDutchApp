@@ -3,21 +3,21 @@ angular.module('starter.controllers', [])
     .controller('DashCtrl', function ($scope) {
     })
 
-    .controller('GroupsCtrl', function ($scope) {
-    })
+//    .controller('GroupsCtrl', function ($scope) {
+//    })
 
-    .controller('NewExpenseCtrl', function ($scope) {
-    })
+//    .controller('NewExpenseCtrl', function ($scope) {
+//    })
 
     .controller('NewGroupCtrl', function ($scope) {
     })
 
-    .controller('MembersCtrl', function ($scope) {
-    })
-    .controller('ExpensesCtrl', function ($scope) {
-    })
-    .controller('EventsCtrl', function ($scope) {
-    })
+//    .controller('MembersCtrl', function ($scope) {
+//    })
+//    .controller('ExpensesCtrl', function ($scope) {
+//   })
+//    .controller('EventsCtrl', function ($scope) {
+//    })
 
     .controller('SettingsCtrl', function ($scope) {
     })
@@ -46,3 +46,8 @@ angular.module('starter.controllers', [])
             enableFriends: true
         };
     });
+
+
+/* Groups json
+ {"1":{"name":"group 1","description":"group 1 description","created":1266364800,"members":["person A","Person B","Person C"],"balance":"-1250.35","currency":"&euro;"},"2":{"name":"group 2","description":"group 2 description","created":1166344800,"members":["person D","Person B","Person E"],"balance":"3520.99","currency":"&euro;"},"3":{"name":"group 3","description":"group 3 description","created":1146344800,"members":["person A","Person F","Person E"],"balance":"50.05","currency":"&euro;"}}
+ */
