@@ -9,6 +9,8 @@
 
     function MemberCtrl($stateParams, goingdutchApi) {
 
+        console.log("Running MemberCtrl group ", goingdutchApi.selectedGroup);
+
         var vm = this;
         vm.gid = Number($stateParams.gid);
         vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);

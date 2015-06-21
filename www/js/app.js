@@ -88,7 +88,6 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 views: {
                     'tab-groups': {
                         templateUrl: 'templates/tab-groups.html',
-                        controller: 'GroupCtrl'
                     }
                 }
             })
@@ -118,8 +117,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 url: '/members',
                 views: {
                     'group-members': {
-                        templateUrl: 'templates/group-members.html',
-                        controller: 'MemberCtrl'
+                        templateUrl: 'templates/group-members.html'
                     }
                 }
             })
@@ -128,8 +126,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 url: '/expenses',
                 views: {
                     'group-expenses': {
-                        templateUrl: 'templates/group-expenses.html',
-                        controller: 'ExpenseCtrl'
+                        templateUrl: 'templates/group-expenses.html'
                     }
                 }
             })
