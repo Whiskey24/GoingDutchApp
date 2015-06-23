@@ -87,7 +87,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 url: '/groups',
                 views: {
                     'tab-groups': {
-                        templateUrl: 'templates/tab-groups.html',
+                        templateUrl: 'templates/tab-groups.html'
                     }
                 }
             })
@@ -198,3 +198,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
         $urlRouterProvider.otherwise('/tab/groups');
 
     });
+
+angular.module('GoingDutchApp').config(function($ionicConfigProvider) {
+    $ionicConfigProvider.views.transition('none');
+});

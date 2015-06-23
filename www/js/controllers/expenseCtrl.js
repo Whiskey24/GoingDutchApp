@@ -9,20 +9,28 @@
 
     function ExpenseCtrl($stateParams, $rootScope, $state, $ionicHistory, goingdutchApi) {
 
-        console.log("Running ExpenseCtrl group ", goingdutchApi.selectedGroup);
+        var redirectDone = false;
+
+        console.log("Running ExpenseCtrl group ", goingdutchApi.selectedGroup, $state.current);
         var vm = this;
         vm.gid = Number($stateParams.gid);
         vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
 
-
         $rootScope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
 
-            if (states.fromCache && states.stateName == "group.expenses") {
-                if (Number(goingdutchApi.selectedGroup) != Number($stateParams.gid)) {
-                    console.log("Reload expenses for group ", goingdutchApi.selectedGroup);
-                    $ionicHistory.clearCache();
+            if ($state.current.name == "group.expenses") {
+                redirectDone = true;
 
-                    $state.go('group.expenses', {gid: goingdutchApi.selectedGroup}, 'reload: true');
+                if (Number(goingdutchApi.selectedGroup) != Number($stateParams.gid) ) {
+                    redirectDone = true;
+                    console.log("Reload expenses for group ", goingdutchApi.selectedGroup);
+
+                    $ionicHistory.nextViewOptions({
+                        disableBack: true
+                    });
+
+                    $state.go('group.expenses', {gid: goingdutchApi.selectedGroup}, {location: 'replace'});
+
                 }
             }
 
