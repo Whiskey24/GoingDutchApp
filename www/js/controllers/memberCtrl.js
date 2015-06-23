@@ -16,7 +16,7 @@
         vm.gid = Number($stateParams.gid);
         vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
 
-        $rootScope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
+/*        $rootScope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
 
             if ($state.current.name == "group.members") {
                 redirectDone = true;
@@ -34,7 +34,7 @@
                 }
             }
 
-        });
+        });*/
     }
 
 

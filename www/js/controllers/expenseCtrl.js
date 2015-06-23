@@ -15,8 +15,9 @@
         var vm = this;
         vm.gid = Number($stateParams.gid);
         vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
+        vm.expenses = goingdutchApi.getExpenses(vm.gid);
 
-        $rootScope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
+        /*$rootScope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
 
             if ($state.current.name == "group.expenses") {
                 redirectDone = true;
@@ -34,7 +35,7 @@
                 }
             }
 
-        });
+        });*/
     }
 
 

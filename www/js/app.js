@@ -131,6 +131,11 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 }
             })
 
+            .state('group.expenses.detail', {
+                url: '/:eid',
+                templateUrl: 'templates/expense-detail.html'
+            })
+
             .state('group.events', {
                 url: '/events',
                 views: {
