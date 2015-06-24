@@ -132,17 +132,22 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 }
             })
 
-            .state('group.expenses.detail', {
-                url: '/:eid',
-                templateUrl: 'templates/expense-detail.html'
+            .state('group.expense-detail', {
+                url: '/expenses/:eid',
+                views: {
+                     'group-expenses': {
+                         templateUrl: 'templates/expense-detail.html',
+                         controller: 'ExpenseDetailCtrl'
+                     }
+                }
+
             })
 
             .state('group.events', {
                 url: '/events',
                 views: {
                     'group-events': {
-                        templateUrl: 'templates/group-events.html',
-                        controller: 'EventCtrl'
+                        templateUrl: 'templates/group-events.html'
                     }
                 }
             })
@@ -207,4 +212,5 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
 
 angular.module('GoingDutchApp').config(function($ionicConfigProvider) {
     $ionicConfigProvider.views.transition('none');
+    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
 });

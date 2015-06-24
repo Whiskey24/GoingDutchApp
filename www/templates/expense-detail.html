@@ -1,6 +1,10 @@
-<ion-view view-title="Expense Detail">
+<ion-view view-title="{{vm.groupTitle}}" ng-controller="ExpenseDetailCtrl as vm">
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
 
     <ion-content class="padding">
-
+        Details for expense {{vm.eid}}
     </ion-content>
 </ion-view>

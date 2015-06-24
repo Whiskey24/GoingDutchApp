@@ -1,11 +1,11 @@
-<ion-view view-title="Expenses {{vm.groupTitle}}" ng-controller="ExpenseCtrl as vm">
+<ion-view view-title="{{vm.groupTitle}}" ng-controller="ExpenseCtrl as vm">
 
     <ion-content class="padding">
         <h3>Expenses for group {{vm.gid}}</h3>
         <div class="list">
 
 
-            <a class="item item-icon-right" ng-repeat="expense in vm.expenses" ui-sref="group.expenses.detail({eid: expense.eid})">
+            <a class="item item-icon-right" ng-repeat="expense in vm.expenses" ui-sref="group.expense-detail({eid: expense.eid})">
                 {{expense.etitle}}
                 <span class="item-note">&euro; {{expense.amount}}</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
