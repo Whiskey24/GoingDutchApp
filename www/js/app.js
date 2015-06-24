@@ -40,6 +40,7 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group', {
                 url: "/group/:gid",
                 abstract: true,
+                cache: false,
                 templateUrl: "templates/group.html"
             })
 

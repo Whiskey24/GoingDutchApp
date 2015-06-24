@@ -3,16 +3,18 @@
         <div class="list">
 
 
-            <a class="item item-icon-right" ng-repeat="groups in vm.groups" ng-click="vm.selectGroup(groups.gid)">
-                {{groups.title}}
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </a>
-
             <a class="item item-icon-right" ng-repeat="group in vm.groups" ui-sref="group.members({gid: group.gid})">
                 {{group.title}}
                 <span class="item-note">&euro; {{group.balance}}</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </a>
+
+            <!--
+            <a class="item item-icon-right" ng-repeat="groups in vm.groups" ng-click="vm.selectGroup(groups.gid)">
+                {{groups.title}}
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </a>
+            -->
 
             <!--
                   <a class="item item-icon-left" ui-sref="group.members">
