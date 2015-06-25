@@ -1,11 +1,4 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.services' is found in services.js
-// 'starter.controllers' is found in controllers.js
-angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.services'])
+angular.module('GoingDutchApp', ['ionic'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -23,82 +16,48 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
-        // Ionic uses AngularUI Router which uses the concept of states
-        // Learn more here: https://github.com/angular-ui/ui-router
-        // Set up the various states which the app can be in.
-        // Each state's controller can be found in controllers.js
         $stateProvider
 
-            // setup an abstract state for the tabs directive
-            .state('tab', {
-                url: "/tab",
+            // setup an abstract state for home tabs
+            .state('home', {
+                url: '/home',
                 abstract: true,
-                templateUrl: "templates/tabs.html"
+                templateUrl: 'templates/home.html'
             })
 
-            // setup an abstract state for the groups directive
+            // setup an abstract state for groups tabs
             .state('group', {
-                url: "/group/:gid",
+                url: '/group/:gid',
                 abstract: true,
                 cache: false,
-                templateUrl: "templates/group.html"
+                templateUrl: 'templates/group.html'
             })
 
-            /*
-             .state('groupmenu', {
-             url: "/groupmenu",
-             abstract: true,
-             templateUrl: "templates/group-menu.html"
-             })
-
-
-             .state('groupmenu.settings', {
-             url: "/settings",
-             views: {
-             'menuContent' :{
-             templateUrl: "templates/menu-settings.html"
-             }
-             }
-             })
-             */
-
-            // Each tab has its own nav history stack:
-
-            .state('tab.dash', {
-                url: '/dash',
-                views: {
-                    'tab-dash': {
-                        templateUrl: 'templates/tab-dash.html',
-                        controller: 'DashCtrl'
-                    }
-                }
-            })
-
-            .state('tab.newgroup', {
+            .state('home.newgroup', {
                 url: '/newgroup',
                 views: {
-                    'tab-new-group': {
-                        templateUrl: 'templates/tab-newgroup.html',
+                    'home-new-group': {
+                        templateUrl: 'templates/home-newgroup.html',
                         controller: 'NewGroupCtrl'
                     }
                 }
             })
 
-            .state('tab.groups', {
+            .state('home.groups', {
                 url: '/groups',
                 views: {
-                    'tab-groups': {
-                        templateUrl: 'templates/tab-groups.html'
+                    'home-groups': {
+                        templateUrl: 'templates/home-groups.html',
+                        controller: 'GroupCtrl'
                     }
                 }
             })
 
-
-            .state('tab.account', {
+            .state('home.account', {
                 url: '/account',
                 views: {
-                    'tab-account': {
-                        templateUrl: 'templates/tab-account.html',
+                    'home-account': {
+                        templateUrl: 'templates/home-account.html',
                         controller: 'AccountCtrl'
                     }
                 }
@@ -118,7 +77,8 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 url: '/members',
                 views: {
                     'group-members': {
-                        templateUrl: 'templates/group-members.html'
+                        templateUrl: 'templates/group-members.html',
+                        controller: 'MemberCtrl'
                     }
                 }
             })
@@ -127,7 +87,8 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
                 url: '/expenses',
                 views: {
                     'group-expenses': {
-                        templateUrl: 'templates/group-expenses.html'
+                        templateUrl: 'templates/group-expenses.html',
+                        controller: 'ExpenseCtrl'
                     }
                 }
             })
@@ -135,82 +96,62 @@ angular.module('GoingDutchApp', ['ionic', 'starter.controllers', 'starter.servic
             .state('group.expense-detail', {
                 url: '/expenses/:eid',
                 views: {
-                     'group-expenses': {
-                         templateUrl: 'templates/expense-detail.html',
-                         controller: 'ExpenseDetailCtrl'
-                     }
+                    'group-expenses': {
+                        templateUrl: 'templates/expense-detail.html',
+                        controller: 'ExpenseDetailCtrl'
+                    }
                 }
-
             })
 
             .state('group.events', {
                 url: '/events',
                 views: {
                     'group-events': {
-                        templateUrl: 'templates/group-events.html'
+                        templateUrl: 'templates/group-events.html',
+                        controller: 'EventCtrl'
                     }
                 }
             })
 
             .state('group.settings', {
-                url: "/settings",
+                url: '/settings',
                 views: {
                     'group-settings': {
-                        templateUrl: "templates/group-settings.html",
+                        templateUrl: 'templates/group-settings.html',
                         controller: 'SettingsCtrl'
                     }
                 }
             })
 
             .state('group.settle', {
-                url: "/settle",
+                url: '/settle',
                 views: {
                     'group-settle': {
-                        templateUrl: "templates/group-settle.html"
+                        templateUrl: 'templates/group-settle.html',
+                        controller: 'SettleBalanceCtrl'
                     }
                 }
             })
 
             .state('group.achievements', {
-                url: "/achievements",
+                url: '/achievements',
                 views: {
                     'group-achievements': {
-                        templateUrl: "templates/group-achievements.html"
+                        templateUrl: 'templates/group-achievements.html',
+                        controller: 'AchievementCtrl'
                     }
                 }
             })
 
-
         ;
 
-
-        /*
-         .state('tab.chats', {
-         url: '/chats',
-         views: {
-         'tab-chats': {
-         templateUrl: 'templates/tab-chats.html',
-         controller: 'ChatsCtrl'
-         }
-         }
-         })
-         .state('tab.chat-detail', {
-         url: '/chats/:chatId',
-         views: {
-         'tab-chats': {
-         templateUrl: 'templates/chat-detail.html',
-         controller: 'ChatDetailCtrl'
-         }
-         }
-         })
-         */
-
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/tab/groups');
+        $urlRouterProvider.otherwise('/home/groups');
 
     });
 
-angular.module('GoingDutchApp').config(function($ionicConfigProvider) {
+
+angular.module('GoingDutchApp').config(function ($ionicConfigProvider) {
     $ionicConfigProvider.views.transition('none');
     $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
 });

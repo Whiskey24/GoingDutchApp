@@ -5,39 +5,15 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseCtrl', ['$stateParams', '$rootScope', '$state', '$ionicHistory', 'goingdutchApi', ExpenseCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseCtrl', ['$stateParams', '$scope', 'gdApi', ExpenseCtrl]);
 
-    function ExpenseCtrl($stateParams, $rootScope, $state, $ionicHistory, goingdutchApi) {
+    function ExpenseCtrl($stateParams, $scope, gdApi) {
 
-        var redirectDone = false;
+        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        $scope.gid = $stateParams.gid;
+        $scope.expenses = gdApi.getExpenses($stateParams.gid);
 
-        console.log("Running ExpenseCtrl group ", goingdutchApi.selectedGroup, $state.current);
-        var vm = this;
-        vm.gid = Number($stateParams.gid);
-        vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
-        vm.expenses = goingdutchApi.getExpenses(vm.gid);
-
-        /*$rootScope.$on( "$ionicView.beforeEnter", function( scopes, states ) {
-
-            if ($state.current.name == "group.expenses") {
-                redirectDone = true;
-
-                if (Number(goingdutchApi.selectedGroup) != Number($stateParams.gid) ) {
-                    redirectDone = true;
-                    console.log("Reload expenses for group ", goingdutchApi.selectedGroup);
-
-                    $ionicHistory.nextViewOptions({
-                        disableBack: true
-                    });
-
-                    $state.go('group.expenses', {gid: goingdutchApi.selectedGroup}, {location: 'replace'});
-
-                }
-            }
-
-        });*/
     }
 
 
 })();
-

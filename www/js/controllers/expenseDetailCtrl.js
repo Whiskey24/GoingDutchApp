@@ -5,23 +5,14 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$rootScope', '$state', '$ionicHistory', 'goingdutchApi', ExpenseDetailCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', 'gdApi', ExpenseDetailCtrl]);
 
-    function ExpenseDetailCtrl($stateParams, $rootScope, $state, $ionicHistory, goingdutchApi) {
+    function ExpenseDetailCtrl($stateParams, $scope, gdApi) {
 
-        var redirectDone = false;
-
-
-        var vm = this;
-        vm.gid = Number($stateParams.gid);
-        vm.eid = Number($stateParams.eid);
-
-        vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
-        console.log("Running ExpenseDetailCtrl group ", goingdutchApi.selectedGroup, $state.current);
-
+        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        $scope.gid = Number($stateParams.gid);
+        $scope.eid = Number($stateParams.eid);
 
     }
 
-
 })();
-

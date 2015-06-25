@@ -1,9 +1,9 @@
-<ion-view view-title="Going Dutch" ng-controller="GroupCtrl as vm">
+<ion-view view-title="Going Dutch">
     <ion-content class="has-header">
         <div class="list">
 
 
-            <a class="item item-icon-right" ng-repeat="group in vm.groups" ui-sref="group.members({gid: group.gid})">
+            <a class="item item-icon-right" ng-repeat="group in groups" ui-sref="group.members({gid: group.gid})">
                 {{group.title}}
                 <span class="item-note">&euro; {{group.balance}}</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>

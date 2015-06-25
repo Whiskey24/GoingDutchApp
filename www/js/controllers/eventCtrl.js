@@ -5,16 +5,14 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('EventCtrl', ['$stateParams', 'goingdutchApi', EventCtrl]);
+    angular.module('GoingDutchApp').controller('EventCtrl', ['$stateParams', '$scope', 'gdApi', EventCtrl]);
 
-    function EventCtrl($stateParams, goingdutchApi) {
+    function EventCtrl($stateParams, $scope, gdApi) {
 
-        var vm = this;
-        vm.gid = Number($stateParams.gid);
-        vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
+        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        $scope.gid = $stateParams.gid;
+        $scope.debug = "Event view for group " + $scope.gid + ": " + $scope.groupTitle;
 
     }
 
-
 })();
-

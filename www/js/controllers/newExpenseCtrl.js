@@ -5,16 +5,14 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('NewExpenseCtrl', ['$stateParams', 'goingdutchApi', NewExpenseCtrl]);
+    angular.module('GoingDutchApp').controller('NewExpenseCtrl', ['$scope', '$stateParams', 'gdApi', NewExpenseCtrl]);
 
-    function NewExpenseCtrl($stateParams, goingdutchApi) {
+    function NewExpenseCtrl($scope, $stateParams, gdApi) {
 
-        var vm = this;
-        vm.gid = Number($stateParams.gid);
-        vm.groupTitle = goingdutchApi.getGroupTitle(vm.gid);
+        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+
+        $scope.debug = "New Expense view for group " + $stateParams.gid + ": " + $scope.groupTitle;
 
     }
 
-
 })();
-
