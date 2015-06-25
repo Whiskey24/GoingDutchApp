@@ -83,6 +83,16 @@ angular.module('GoingDutchApp', ['ionic'])
                 }
             })
 
+            .state('group.member-detail', {
+                url: '/members/:uid',
+                views: {
+                    'group-members': {
+                        templateUrl: 'templates/member-detail.html',
+                        controller: 'MemberDetailCtrl'
+                    }
+                }
+            })
+
             .state('group.expenses', {
                 url: '/expenses',
                 views: {
@@ -109,6 +119,16 @@ angular.module('GoingDutchApp', ['ionic'])
                     'group-events': {
                         templateUrl: 'templates/group-events.html',
                         controller: 'EventCtrl'
+                    }
+                }
+            })
+
+            .state('group.event-detail', {
+                url: '/events/:evid',
+                views: {
+                    'group-events': {
+                        templateUrl: 'templates/event-detail.html',
+                        controller: 'EventDetailCtrl'
                     }
                 }
             })
