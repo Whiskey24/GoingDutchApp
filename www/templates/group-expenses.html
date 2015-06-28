@@ -1,7 +1,18 @@
 <ion-view view-title="{{groupTitle}}">
 
-    <ion-content class="padding">
+    <ion-content>
         <h3>Expenses for group {{gid}}</h3>
+
+        <ion-list>
+
+            <ion-item ng-repeat="expense in expenses" type="item-text-wrap" ui-sref="group.expense-detail({eid: expense.eid})">
+                <h3>{{expense.etitle}}</h3>
+                <p>{{expense.amount}}</p>
+            </ion-item>
+
+        </ion-list>
+
+<!--
 
         <div class="list">
 
@@ -13,5 +24,7 @@
             </a>
 
         </div>
+
+        -->
     </ion-content>
 </ion-view>
