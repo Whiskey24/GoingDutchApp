@@ -1,4 +1,4 @@
-angular.module('GoingDutchApp', ['ionic'])
+angular.module('GoingDutchApp', ['ionic', 'isoCurrency'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -135,9 +135,21 @@ angular.module('GoingDutchApp', ['ionic'])
 
             .state('group.settings', {
                 url: '/settings',
+                cache: false,
                 views: {
                     'group-settings': {
                         templateUrl: 'templates/group-settings.html',
+
+                        controller: 'SettingsCtrl'
+                    }
+                }
+            })
+
+            .state('group.settings-currency', {
+                url: '/settings/currency',
+                views: {
+                    'group-settings': {
+                        templateUrl: 'templates/group-settings-currency.html',
                         controller: 'SettingsCtrl'
                     }
                 }

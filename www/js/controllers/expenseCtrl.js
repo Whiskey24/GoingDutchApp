@@ -9,7 +9,12 @@
 
     function ExpenseCtrl($stateParams, $scope, gdApi) {
 
-        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        $scope.$on('$ionicView.enter', function () {
+            // put this here in case group details change
+            $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
+            $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        });
+
         $scope.gid = $stateParams.gid;
         $scope.expenses = gdApi.getExpenses($stateParams.gid);
 

@@ -1,4 +1,5 @@
 {
   "name": "GoingDutchApp",
-  "app_id": "5d424460"
+  "app_id": "5d424460",
+  "defaultBrowser": "chrome"
 }

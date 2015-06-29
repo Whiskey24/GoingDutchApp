@@ -5,14 +5,14 @@
                 <i class="icon ion-android-sad"></i>
                 Person 1
         <span class="item-note">
-          &euro; -1323,23
+          {{ -1323.23 | isoCurrency:currency }}
         </span>
             </a>
             <a class="item item-icon-left" ui-sref="group.member-detail({uid: 2})">
                 <i class="icon ion-android-happy"></i>
                 Person 2
         <span class="item-note">
-          &euro; 50,00
+          {{ 50 | isoCurrency:currency }}
         </span>
             </a>
 
@@ -20,7 +20,7 @@
                 <i class="icon ion-android-happy"></i>
                 Person 3
         <span class="item-note">
-          &euro; 0,02
+          {{ 0.02 | isoCurrency:currency }}
         </span>
             </a>
 

@@ -1,45 +1,15 @@
 <ion-view view-title="Going Dutch">
     <ion-content>
-        <div class="list">
 
+        <div class="list">
 
             <a class="item item-icon-right" ng-repeat="group in groups" ui-sref="group.members({gid: group.gid})">
                 {{group.title}}
-                <span class="item-note">&euro; {{group.balance}}</span>
+                <span class="item-note">{{ group.balance | isoCurrency:getGroupCurrency(group.gid) }}</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </a>
 
-            <!--
-            <a class="item item-icon-right" ng-repeat="groups in vm.groups" ng-click="vm.selectGroup(groups.gid)">
-                {{groups.title}}
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </a>
-            -->
-
-            <!--
-                  <a class="item item-icon-left" ui-sref="group.members">
-                    <i class="icon ion-android-sad"></i>
-                    Group 1
-                    <span class="item-note">
-                      &euro; -1323,23
-                    </span>
-                  </a>
-                  <a class="item item-icon-left" ui-sref="group.members">
-                    <i class="icon ion-android-happy"></i>
-                    Group 2
-                    <span class="item-note">
-                      &euro; 50,00
-                    </span>
-                  </a>
-
-                  <a class="item item-icon-left" ui-sref="group.members">
-                    <i class="icon ion-android-happy"></i>
-                    Group 3
-                    <span class="item-note">
-                      &euro; 0,02
-                    </span>
-                  </a>
-            -->
         </div>
+
     </ion-content>
 </ion-view>

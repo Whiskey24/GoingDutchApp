@@ -5,12 +5,15 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('GroupCtrl', ['$stateParams', '$scope', 'gdApi', GroupCtrl]);
+    angular.module('GoingDutchApp').controller('GroupCtrl', ['$scope', 'gdApi', GroupCtrl]);
 
-    function GroupCtrl($stateParams, $scope, gdApi) {
+    function GroupCtrl($scope, gdApi) {
+
+        $scope.getGroupCurrency = function(gid) {
+            return gdApi.getGroupCurrency(gid);
+        };
 
         $scope.groups = gdApi.getGroups();
-
     }
 
 })();

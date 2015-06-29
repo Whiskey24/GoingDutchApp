@@ -5,9 +5,12 @@
 
         <ion-list>
 
-            <ion-item ng-repeat="expense in expenses" type="item-text-wrap" ui-sref="group.expense-detail({eid: expense.eid})">
+            <ion-item ng-repeat="expense in expenses" class="item item-icon-right" ui-sref="group.expense-detail({eid: expense.eid})">
                 <h3>{{expense.etitle}}</h3>
-                <p>{{expense.amount}}</p>
+                <!-- <p><span id="currency-custom" ng-bind-html>{{expense.amount | currency: currencySign}}</span> - event</p> -->
+                <!-- <p><p id="currency-custom" ng-bind-html>{{currencySign}}</p> <p> {{expense.amount}} - event</p> -->
+                <p>{{ expense.amount | isoCurrency:currency }} - event</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
 
         </ion-list>
