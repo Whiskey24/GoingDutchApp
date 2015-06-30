@@ -36,6 +36,9 @@
             return expenses[gid];
         }
 
+        function getExpense(gid,eid){
+            return _.filter(expenses[gid], {'eid': Number(eid)})[0];
+        }
         function getGroupCurrency(gid)
         {
             return _.pluck(_.filter(groups, {'gid': Number(gid)}), 'currency_sign')[0];
@@ -60,6 +63,7 @@
             getGroupTitle: getGroupTitle,
             getGroupTitleByGid: getGroupTitleByGid,
             getExpenses: getExpenses,
+            getExpense: getExpense,
             getGroupCurrency: getGroupCurrency,
             setGroupCurrency: setGroupCurrency,
             getCurrencies: getCurrencies
