@@ -1,33 +1,16 @@
 <ion-view view-title="{{groupTitle}}">
 
     <ion-content>
-        <h3>Expenses for group {{gid}}</h3>
-
         <ion-list>
 
-            <ion-item ng-repeat="expense in expenses" class="item item-icon-right" ui-sref="group.expense-detail({eid: expense.eid})">
+            <ion-item ng-repeat="expense in expenses" class="item item-icon-right"
+                      ui-sref="group.expense-detail({eid: expense.eid})">
                 <h3>{{expense.etitle}}</h3>
-                <!-- <p><span id="currency-custom" ng-bind-html>{{expense.amount | currency: currencySign}}</span> - event</p> -->
-                <!-- <p><p id="currency-custom" ng-bind-html>{{currencySign}}</p> <p> {{expense.amount}} - event</p> -->
                 <p>{{ expense.amount | isoCurrency:currency }} - event</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
 
         </ion-list>
-
-<!--
-
-        <div class="list">
-
-            <a class="item item-icon-right" ng-repeat="expense in expenses"
-               ui-sref="group.expense-detail({eid: expense.eid})">
-                {{expense.etitle}}
-                <span class="item-note">&euro; {{expense.amount}}</span>
-                <i class="icon ion-chevron-right icon-accessory"></i>
-            </a>
-
-        </div>
-
-        -->
     </ion-content>
+
 </ion-view>

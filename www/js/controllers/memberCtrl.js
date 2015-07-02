@@ -16,7 +16,7 @@
         });
 
         $scope.members = gdApi.getGroupMembers($stateParams.gid);
-        console.log($scope.members);
+
         $scope.memberName = function(uid) {
             return gdApi.getUserName(uid);
         }

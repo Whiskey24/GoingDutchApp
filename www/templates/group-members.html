@@ -8,7 +8,10 @@
                 <i ng-if="val >= 0" class="icon ion-android-happy" ng-style="{'color':'green'}"></i>
                 <i ng-if="val < 0" class="icon ion-android-sad" ng-style="{'color':'red'}"></i>
                 {{memberName(key)}}
-                <span class="item-note">
+                <span class="item-note" ng-if="val >= 0" ng-style="{'color':'green'}">
+                  {{ val | isoCurrency:currency }}
+                </span>
+                <span class="item-note" ng-if="val < 0" ng-style="{'color':'red'}">
                   {{ val | isoCurrency:currency }}
                 </span>
                 <i class="icon ion-chevron-right icon-accessory"></i>

@@ -187,3 +187,15 @@ angular.module('GoingDutchApp').config(function ($ionicConfigProvider) {
     $ionicConfigProvider.views.transition('none');
     $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
 });
+
+angular
+    .module('GoingDutchApp')
+    .config(['$provide', function($provide) {
+        $provide.decorator('$locale', ['$delegate', function($delegate) {
+            if($delegate.id == 'en-us') {
+                $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
+                $delegate.NUMBER_FORMATS.PATTERNS[1].negSuf = '';
+            }
+            return $delegate;
+        }]);
+    }]);

@@ -15,19 +15,23 @@
                     {{expense.ecreated*1000 | date:'EEEE, MMMM d yyyy HH:mm'}}
                     <span class="item-note">{{ expense.amount | isoCurrency:currency }}</span>
                 </p>
-                <p>Jan met de korte achternaam</p>
+                <p>{{memberName(expense.uid)}}</p>
             </ion-item>
 
             <ion-item class="item-text-wrap">
-                <h3>Participants - {{ expense.amount/5 | isoCurrency:currency }} per person</h3>
-                <p>Jan met de korte achternaam</p>
-                <p>Jan met de hele lange achternaam die niet op het scherm past</p>
-                <p>Pietje Nooitgenoeg</p>
-                <p>KLaas Vaak</p>
-                <p>Hertog Jan</p>
+                <h3>{{participants.length}} Participants - {{ expense.amount/participants.length | isoCurrency:currency }} per person</h3>
+                <p ng-repeat="uid in participants">{{memberName(uid)}}</p>
             </ion-item>
-        </ion-list>
 
+            <ion-item class="text-center" >
+                Edit
+            </ion-item>
+            <ion-item class="text-center" ng-click="showConfirm(expense.eid)">
+                Delete
+            </ion-item>
+
+        </ion-list>
+        <small>Last update: {{formatDateTime(expense.eupdated)}}<br />By: {{memberName(expense.eupdateduid)}}</small>
     </ion-content>
 
 </ion-view>
