@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$ionicPopup', '$state', 'gdApi', ExpenseDetailCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', '$cordovaDialogs', 'gdApi', ExpenseDetailCtrl]);
 
-    function ExpenseDetailCtrl($stateParams, $scope, $filter, $ionicPopup, $state, gdApi) {
+    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, $cordovaDialogs, gdApi) {
 
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details change
@@ -27,26 +27,16 @@
             return $filter('date')(timestamp * 1000, gdApi.getDateFormat());
         };
 
-
         $scope.showConfirm = function (eid) {
-            var confirmPopup = $ionicPopup.confirm({
-                title: 'Delete Expense',
-                template: 'Are you sure you want to delete this expense?',
-                cancelText: 'No',
-                cancelType: 'button-cancel',
-                okText: 'Yes',
-                okType: 'button-default'
-            });
-
-            confirmPopup.then(function (res) {
-                if (res) {
-                    gdApi.deleteExpense(eid, $scope.gid);
-                    $state.go('group.expenses', {gid: $scope.gid});
-                } else {
-                    console.log('You are not sure');
-                }
-            });
+            $cordovaDialogs.confirm('Are you sure you want to delete this expense?', 'Delete Expense', ['OK', 'Cancel'])
+                .then(function (buttonIndex) {
+                    if (buttonIndex == 1) {
+                        gdApi.deleteExpense(eid, $scope.gid);
+                        $state.go('group.expenses', {gid: $scope.gid});
+                    }
+                });
         };
+
 
             //console.log($scope.expense);
         }

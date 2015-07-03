@@ -23,8 +23,10 @@
                 <p ng-repeat="uid in participants">{{memberName(uid)}}</p>
             </ion-item>
 
-            <ion-item class="text-center" >
+            <ion-item class="text-center item item-icon-right item-icon-left" ng-click="showConfirm(expense.eid)">
+                <i></i>
                 Edit
+                <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
             <ion-item class="text-center" ng-click="showConfirm(expense.eid)">
                 Delete

@@ -1,4 +1,4 @@
-angular.module('GoingDutchApp', ['ionic', 'isoCurrency'])
+angular.module('GoingDutchApp', ['ionic', 'isoCurrency', 'ngCordova'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
@@ -155,6 +155,16 @@ angular.module('GoingDutchApp', ['ionic', 'isoCurrency'])
                 }
             })
 
+            .state('group.settings-categories', {
+                url: '/settings/categories',
+                views: {
+                    'group-settings': {
+                        templateUrl: 'templates/group-settings-categories.html',
+                        controller: 'SettingsCtrl'
+                    }
+                }
+            })
+
             .state('group.settle', {
                 url: '/settle',
                 views: {
@@ -188,9 +198,7 @@ angular.module('GoingDutchApp').config(function ($ionicConfigProvider) {
     $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
 });
 
-angular
-    .module('GoingDutchApp')
-    .config(['$provide', function($provide) {
+angular.module('GoingDutchApp').config(['$provide', function($provide) {
         $provide.decorator('$locale', ['$delegate', function($delegate) {
             if($delegate.id == 'en-us') {
                 $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
