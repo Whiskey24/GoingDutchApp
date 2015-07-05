@@ -1,0 +1,109 @@
+array (
+  1 => 
+  array(
+     'gid' => 1,
+     'title' => 'Group 1',
+     'subtitle' => 'group 1 subtitle',
+     'picture' => '',
+     'created_ts' => 1434605924,
+     'updated_ts' => 1434615924,
+     'balance' => 120.03,
+     'member_create_events' => 1,
+     'member_other_expense' => 1,
+     'member_add_member' => 1,
+     'currency' => 'EUR',
+                 "members" => array (
+                1 => 23.23,
+                2 => 1542.36,
+                3 => -1000,
+                5 => 565.59,
+            ),
+            "categories" => array (
+                1 => "drinks",
+                2 => "food",
+                3 => "presents",
+                4 => "tickets",
+            )
+  ),
+  2 => 
+  array(
+     'gid' => 2,
+     'title' => 'Group 2',
+     'subtitle' => 'group 2 subtitle',
+     'picture' => '',
+     'created_ts' => 1434605924,
+     'updated_ts' => 1434615924,
+     'balance' => 0.070000000000000007,
+     'member_create_events' => 1,
+     'member_other_expense' => 1,
+     'member_add_member' => 1,
+     'currency' => 'USD',
+                 "members" => array (
+                1 => -857.65,
+                4 => 452.85,
+                6 => 623.88,
+                7 => 219.08,
+            ),
+            "categories" => array (
+                1 => "drinks",
+                2 => "food",
+                3 => "presents",
+                4 => "tickets",
+            )
+  ),
+  3 => 
+  array(
+     'gid' => 3,
+     'title' => 'Group 3',
+     'subtitle' => 'group 3 subtitle',
+     'picture' => '',
+     'created_ts' => 1434605924,
+     'updated_ts' => 1434615924,
+     'balance' => -123.03,
+     'member_create_events' => 1,
+     'member_other_expense' => 1,
+     'member_add_member' => 1,
+     'currency' => 'GBP',
+                 "members" => array (
+                8 => 853.33,
+                1 => 11000.36,
+                3 => -5000.76,
+                5 => -6852,93,
+            ),
+            "categories" => array (
+                1 => "drinks",
+                2 => "food",
+                3 => "presents",
+                4 => "tickets",
+            )
+  ),
+  4 => 
+  array(
+     'gid' => 4,
+     'title' => 'Group 4',
+     'subtitle' => 'group 4 subtitle',
+     'picture' => '',
+     'created_ts' => 1434605924,
+     'updated_ts' => 1434615924,
+     'balance' => 555.48000000000002,
+     'member_create_events' => 1,
+     'member_other_expense' => 1,
+     'member_add_member' => 1,
+     'currency' => 'EUR',
+                      "members" => array (
+                1 => 853.33,
+                2 => 200.36,
+                3 => -2100.76,
+                5 => -1852,93,
+                6 => 782.36,
+                7 => 4503.76,
+                8 => -2386,12,
+            ),
+            "categories" => array (
+                1 => "drinks",
+                2 => "food",
+                3 => "presents",
+                4 => "tickets",
+            )
+  ),
+);
