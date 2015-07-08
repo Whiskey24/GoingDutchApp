@@ -1,4 +1,4 @@
-angular.module('GoingDutchApp', ['ionic', 'isoCurrency', 'ngCordova'])
+angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
