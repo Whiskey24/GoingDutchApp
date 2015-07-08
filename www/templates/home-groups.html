@@ -4,7 +4,8 @@
         <h1 class="title">Going Dutch</h1>
 
         <div class="buttons">
-            <button class="button ion-navicon" ng-click="data.showReorder = !data.showReorder"></button>
+            <button ng-if="!data.showReorder" class="button ion-navicon" ng-click="data.showReorder = !data.showReorder"></button>
+            <button ng-if="data.showReorder" class="button ion-checkmark" ng-click="data.showReorder = !data.showReorder"></button>
         </div>
     </ion-header-bar>
 

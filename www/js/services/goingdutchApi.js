@@ -22,16 +22,11 @@
         }
 
         var groupsArray = [];
-
         function getGroups() {
             return objectToArraySorted(groups, groupsArray);
         }
 
         function moveGroup(group, fromIndex, toIndex) {
-            //groupsArray.splice(fromIndex, 1);
-            //groupsArray.splice(toIndex, 0, group);
-            //updateGroupSortIds();
-            //return groupsArray;
             return moveItemForSort(groupsArray, group, fromIndex, toIndex);
         }
 
@@ -118,11 +113,12 @@
             }
         }
 
+        var groupCategories = [];
         function getGroupCategories(gid) {
 //            return groups[gid]['categories'];
             return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
         }
-
+        
         function setGroupCategory(gid, cid, newTitle) {
             if (cid > 0) {
                 groups[gid]['categories'][cid] = newTitle;
