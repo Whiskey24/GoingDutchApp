@@ -1,29 +1,26 @@
 <ion-view view-title="Going Dutch">
 
     <ion-header-bar class="bar-positive">
-        <div class="buttons">
-            <button class="button button-icon icon ion-ios-minus-outline"
-                    ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
-        </div>
         <h1 class="title">Going Dutch</h1>
+
         <div class="buttons">
-            <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
-                Reorder
-            </button>
+            <button class="button ion-navicon" ng-click="data.showReorder = !data.showReorder"></button>
         </div>
     </ion-header-bar>
 
     <ion-content>
 
-        <div class="list">
+        <ion-list show-reorder="data.showReorder">
 
-            <a class="item item-icon-right" ng-repeat="group in groups" ui-sref="group.members({gid: group.gid})">
+            <ion-item class="item-text-wrap item item-icon-right" ng-repeat="group in groups"
+                      ui-sref="group.members({gid: group.gid})">
                 {{group.title}}
                 <span class="item-note">{{ group.balance | isoCurrency:getGroupCurrency(group.gid) }}</span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
-            </a>
+                <ion-reorder-button class="ion-navicon" on-reorder="moveGroup(group, $fromIndex, $toIndex)"></ion-reorder-button>
+            </ion-item>
 
-        </div>
+        </ion-list>
 
     </ion-content>
 </ion-view>
