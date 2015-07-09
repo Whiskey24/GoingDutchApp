@@ -11,7 +11,7 @@
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
-        var groups = JSON.parse('{"1":{"gid":1,"title":"Group 1","subtitle":"group 1 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":120.03,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"currency":"EUR","sort":1,"email_notify":1,"nickname":"test nick 1","members":{"1":23.23,"2":1542.36,"3":-1000,"5":565.59},"categories":{"1":{"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}},"2":{"gid":2,"title":"Group 2","subtitle":"group 2 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":0.07,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"sort":2,"email_notify":1,"nickname":"test nick 2","currency":"USD","members":{"1":-857.65,"4":452.85,"6":623.88,"7":219.08},"categories":{"1":{"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}},"3":{"gid":3,"title":"Group 3","subtitle":"group 3 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":-123.03,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"currency":"GBP","sort":3,"email_notify":1,"nickname":"test nick 3","members":{"8":853.33,"1":11000.36,"3":-5000.76,"5":-6852,"9":93},"categories":{"1":{"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}},"4":{"gid":4,"title":"Group 4","subtitle":"group 4 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":555.48,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"currency":"EUR","sort":4,"email_notify":1,"nickname":"test nick 4","members":{"1":853.33,"2":200.36,"3":-2100.76,"5":-1852,"6":782.36,"7":4503.76,"8":-2386,"9":12},"categories":{"1":{"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}}}');
+        var groups = JSON.parse('{"1":{"gid":1,"title":"Group 1","subtitle":"group 1 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":120.03,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"currency":"EUR","sort":1,"email_notify":1,"nickname":"test nick 1","members":{"1":23.23,"2":1542.36,"3":-1000,"5":565.59},"categories":{"1":{"cid":1,"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"cid":2,"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"cid":3,"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"cid":4,"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}},"2":{"gid":2,"title":"Group 2","subtitle":"group 2 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":0.07,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"sort":2,"email_notify":1,"nickname":"test nick 2","currency":"USD","members":{"1":-857.65,"4":452.85,"6":623.88,"7":219.08},"categories":{"1":{"cid":1,"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"cid":2,"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"cid":3,"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"cid":4,"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}},"3":{"gid":3,"title":"Group 3","subtitle":"group 3 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":-123.03,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"currency":"GBP","sort":3,"email_notify":1,"nickname":"test nick 3","members":{"8":853.33,"1":11000.36,"3":-5000.76,"5":-6852,"9":93},"categories":{"1":{"cid":1,"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"cid":2,"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"cid":3,"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"cid":4,"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}},"4":{"gid":4,"title":"Group 4","subtitle":"group 4 subtitle","picture":"","created_ts":1434605924,"updated_ts":1434615924,"balance":555.48,"member_create_events":1,"member_other_expense":1,"member_add_member":1,"currency":"EUR","sort":4,"email_notify":1,"nickname":"test nick 4","members":{"1":853.33,"2":200.36,"3":-2100.76,"5":-1852,"6":782.36,"7":4503.76,"8":-2386,"9":12},"categories":{"1":{"cid":1,"title":"drinks","sort":1,"presents":0,"inactive":0,"can_delete":0},"2":{"cid":2,"title":"food","sort":2,"presents":0,"inactive":0,"can_delete":0},"3":{"cid":3,"title":"presents","sort":3,"presents":1,"inactive":0,"can_delete":0},"4":{"cid":4,"title":"tickets","sort":4,"presents":0,"inactive":0,"can_delete":1}}}}');
 
         var expenses = JSON.parse('{"1":[{"eid":1,"etitle":"group 1 expense 1","cid":1,"ctitle":"drinks","uid":1,"uids":"1,2,3","amount":12.24,"ecreated":1437605924,"eupdated":1437605924,"eupdateduid":1},{"eid":2,"etitle":"group 1 expense 2","cid":2,"ctitle":"tickets","uid":2,"uids":"1,5","amount":55.58,"ecreated":1437692324,"eupdated":1437692324,"eupdateduid":1},{"eid":3,"etitle":"group 1 expense 3","cid":3,"ctitle":"presents","uid":1,"uids":"2,3,5","amount":123.85,"ecreated":1437778724,"eupdated":1437778724,"eupdateduid":1},{"eid":4,"etitle":"group 1 expense 4","cid":1,"ctitle":"drinks","uid":3,"uids":"1,2,3","amount":99.63,"ecreated":1437865124,"eupdated":1437865124,"eupdateduid":1},{"eid":5,"etitle":"group 1 expense 5","cid":2,"ctitle":"tickets","uid":1,"uids":"1,2,3","amount":63,"ecreated":1437951524,"eupdated":1437951524,"eupdateduid":1},{"eid":6,"etitle":"group 1 expense 6","cid":3,"ctitle":"presents","uid":5,"uids":"1,2,3","amount":891.2,"ecreated":1438037924,"eupdated":1438037924,"eupdateduid":1},{"eid":7,"etitle":"group 1 expense 7","cid":1,"ctitle":"drinks","uid":5,"uids":"1,5,3","amount":12.24,"ecreated":1438124324,"eupdated":1438124324,"eupdateduid":1},{"eid":8,"etitle":"group 1 expense 8","cid":2,"ctitle":"tickets","uid":3,"uids":"2,3","amount":55.58,"ecreated":1438210724,"eupdated":1438210724,"eupdateduid":1},{"eid":9,"etitle":"group 1 expense 9","cid":3,"ctitle":"presents","uid":5,"uids":"1,3","amount":123.85,"ecreated":1438297124,"eupdated":1438297124,"eupdateduid":1},{"eid":10,"etitle":"group 1 expense 10","cid":1,"ctitle":"drinks","uid":2,"uids":"1,5","amount":99.63,"ecreated":1438383524,"eupdated":1438383524,"eupdateduid":1},{"eid":11,"etitle":"group 1 expense 11","cid":2,"ctitle":"tickets","uid":5,"uids":"2,3,5","amount":63,"ecreated":1438469924,"eupdated":1438469924,"eupdateduid":1},{"eid":12,"etitle":"group 1 expense 12","cid":3,"ctitle":"presents","uid":1,"uids":"1,2,5","amount":891.2,"ecreated":1438556324,"eupdated":1438556324,"eupdateduid":1},{"eid":13,"etitle":"group 1 expense 13","cid":1,"ctitle":"drinks","uid":5,"uids":"1,2","amount":12.24,"ecreated":1438642724,"eupdated":1438642724,"eupdateduid":1},{"eid":14,"etitle":"group 1 expense 14","cid":2,"ctitle":"tickets","uid":3,"uids":"1,3","amount":55.58,"ecreated":1438729124,"eupdated":1438729124,"eupdateduid":1},{"eid":15,"etitle":"group 1 expense 15","cid":3,"ctitle":"presents","uid":2,"uids":"1,2,3,5","amount":123.85,"ecreated":1438815524,"eupdated":1438815524,"eupdateduid":1},{"eid":16,"etitle":"group 1 expense 16","cid":1,"ctitle":"drinks","uid":2,"uids":"1,2,3,5","amount":99.63,"ecreated":1438901924,"eupdated":1438901924,"eupdateduid":1},{"eid":17,"etitle":"group 1 expense 17","cid":2,"ctitle":"tickets","uid":5,"uids":"1,5,3","amount":63,"ecreated":1438988324,"eupdated":1438988324,"eupdateduid":1},{"eid":18,"etitle":"group 1 expense 18","cid":2,"ctitle":"tickets","uid":1,"uids":"5,2,3","amount":891.2,"ecreated":1439074724,"eupdated":1439074724,"eupdateduid":1},{"eid":19,"etitle":"group 1 expense 19","cid":3,"ctitle":"presents","uid":3,"uids":"1,2,5","amount":123,"ecreated":1439161124,"eupdated":1439161124,"eupdateduid":1},{"eid":20,"etitle":"group 1 expense 20","cid":1,"ctitle":"drinks","uid":5,"uids":"1,2,3,5","amount":222.22,"ecreated":1439247524,"eupdated":1439247524,"eupdateduid":1}],"2":[{"eid":21,"etitle":"group 2 expense 1","cid":1,"ctitle":"drinks","uid":1,"uids":"1,4,6,7","amount":12.24,"ecreated":1437605924,"eupdated":1437605924,"eupdateduid":1},{"eid":22,"etitle":"group 2 expense 2","cid":2,"ctitle":"tickets","uid":7,"uids":"1,2,7","amount":55.58,"ecreated":1437692324,"eupdated":1437692324,"eupdateduid":1},{"eid":23,"etitle":"group 2 expense 3","cid":3,"ctitle":"presents","uid":1,"uids":"1,4,7","amount":123.85,"ecreated":1437778724,"eupdated":1437778724,"eupdateduid":1},{"eid":24,"etitle":"group 2 expense 4","cid":1,"ctitle":"drinks","uid":4,"uids":"1,4","amount":99.63,"ecreated":1437865124,"eupdated":1437865124,"eupdateduid":1},{"eid":25,"etitle":"group 2 expense 5","cid":2,"ctitle":"tickets","uid":7,"uids":"1,7","amount":63,"ecreated":1437951524,"eupdated":1437951524,"eupdateduid":1},{"eid":26,"etitle":"group 2 expense 6","cid":3,"ctitle":"presents","uid":7,"uids":"1,6,7","amount":891.2,"ecreated":1438037924,"eupdated":1438037924,"eupdateduid":1},{"eid":27,"etitle":"group 2 expense 7","cid":1,"ctitle":"drinks","uid":1,"uids":"1,4,7","amount":12.24,"ecreated":1438124324,"eupdated":1438124324,"eupdateduid":1},{"eid":28,"etitle":"group 2 expense 8","cid":2,"ctitle":"tickets","uid":7,"uids":"1,4,7","amount":55.58,"ecreated":1438210724,"eupdated":1438210724,"eupdateduid":1},{"eid":29,"etitle":"group 2 expense 9","cid":3,"ctitle":"presents","uid":6,"uids":"1,4","amount":123.85,"ecreated":1438297124,"eupdated":1438297124,"eupdateduid":1},{"eid":30,"etitle":"group 2 expense 10","cid":1,"ctitle":"drinks","uid":4,"uids":"1,4,6","amount":99.63,"ecreated":1438383524,"eupdated":1438383524,"eupdateduid":1},{"eid":31,"etitle":"group 2 expense 11","cid":2,"ctitle":"tickets","uid":4,"uids":"1,4,6","amount":63,"ecreated":1438469924,"eupdated":1438469924,"eupdateduid":1},{"eid":32,"etitle":"group 2 expense 12","cid":3,"ctitle":"presents","uid":1,"uids":"1,7,4","amount":891.2,"ecreated":1438556324,"eupdated":1438556324,"eupdateduid":1},{"eid":33,"etitle":"group 2 expense 13","cid":1,"ctitle":"drinks","uid":1,"uids":"1,6,4","amount":12.24,"ecreated":1438642724,"eupdated":1438642724,"eupdateduid":1},{"eid":34,"etitle":"group 2 expense 14","cid":2,"ctitle":"tickets","uid":6,"uids":"1,6","amount":55.58,"ecreated":1438729124,"eupdated":1438729124,"eupdateduid":1},{"eid":35,"etitle":"group 2 expense 15","cid":3,"ctitle":"presents","uid":4,"uids":"1,7","amount":123.85,"ecreated":1438815524,"eupdated":1438815524,"eupdateduid":1},{"eid":36,"etitle":"group 2 expense 16","cid":1,"ctitle":"drinks","uid":4,"uids":"1,4,7","amount":99.63,"ecreated":1438901924,"eupdated":1438901924,"eupdateduid":1},{"eid":37,"etitle":"group 2 expense 17","cid":2,"ctitle":"tickets","uid":7,"uids":"1,6,7","amount":63,"ecreated":1438988324,"eupdated":1438988324,"eupdateduid":1},{"eid":38,"etitle":"group 2 expense 18","cid":2,"ctitle":"tickets","uid":7,"uids":"6,7","amount":891.2,"ecreated":1439074724,"eupdated":1439074724,"eupdateduid":1},{"eid":39,"etitle":"group 2 expense 19","cid":3,"ctitle":"presents","uid":6,"uids":"4,6,7","amount":123,"ecreated":1439161124,"eupdated":1439161124,"eupdateduid":1},{"eid":40,"etitle":"group 2 expense 20","cid":1,"ctitle":"drinks","uid":6,"uids":"1,4,6","amount":222.22,"ecreated":1439247524,"eupdated":1439247524,"eupdateduid":1}],"3":[{"eid":41,"etitle":"group 3 expense 1","cid":1,"ctitle":"drinks","uid":1,"uids":"1,3,5,8","amount":12.24,"ecreated":1437605924,"eupdated":1437605924,"eupdateduid":1},{"eid":42,"etitle":"group 3 expense 2","cid":2,"ctitle":"tickets","uid":3,"uids":"1,8,3","amount":55.58,"ecreated":1437692324,"eupdated":1437692324,"eupdateduid":1},{"eid":43,"etitle":"group 3 expense 3","cid":3,"ctitle":"presents","uid":5,"uids":"1,8,3","amount":123.85,"ecreated":1437778724,"eupdated":1437778724,"eupdateduid":1},{"eid":44,"etitle":"group 3 expense 4","cid":1,"ctitle":"drinks","uid":8,"uids":"1,5,3","amount":99.63,"ecreated":1437865124,"eupdated":1437865124,"eupdateduid":1},{"eid":45,"etitle":"group 3 expense 5","cid":2,"ctitle":"tickets","uid":1,"uids":"1,5,3","amount":63,"ecreated":1437951524,"eupdated":1437951524,"eupdateduid":1},{"eid":46,"etitle":"group 3 expense 6","cid":3,"ctitle":"presents","uid":8,"uids":"5,8,3","amount":891.2,"ecreated":1438037924,"eupdated":1438037924,"eupdateduid":1},{"eid":47,"etitle":"group 3 expense 7","cid":1,"ctitle":"drinks","uid":5,"uids":"5,8,3","amount":12.24,"ecreated":1438124324,"eupdated":1438124324,"eupdateduid":1},{"eid":48,"etitle":"group 3 expense 8","cid":2,"ctitle":"tickets","uid":3,"uids":"8,3","amount":55.58,"ecreated":1438210724,"eupdated":1438210724,"eupdateduid":1},{"eid":49,"etitle":"group 3 expense 9","cid":3,"ctitle":"presents","uid":5,"uids":"5,3","amount":123.85,"ecreated":1438297124,"eupdated":1438297124,"eupdateduid":1},{"eid":50,"etitle":"group 3 expense 10","cid":1,"ctitle":"drinks","uid":1,"uids":"1,5,3,8","amount":99.63,"ecreated":1438383524,"eupdated":1438383524,"eupdateduid":1},{"eid":51,"etitle":"group 3 expense 11","cid":2,"ctitle":"tickets","uid":3,"uids":"1,5,3,8","amount":63,"ecreated":1438469924,"eupdated":1438469924,"eupdateduid":1},{"eid":52,"etitle":"group 3 expense 12","cid":3,"ctitle":"presents","uid":8,"uids":"1,5,3,8","amount":891.2,"ecreated":1438556324,"eupdated":1438556324,"eupdateduid":1},{"eid":53,"etitle":"group 3 expense 13","cid":1,"ctitle":"drinks","uid":5,"uids":"1,5,3","amount":12.24,"ecreated":1438642724,"eupdated":1438642724,"eupdateduid":1},{"eid":54,"etitle":"group 3 expense 14","cid":2,"ctitle":"tickets","uid":3,"uids":"5,3,8","amount":55.58,"ecreated":1438729124,"eupdated":1438729124,"eupdateduid":1},{"eid":55,"etitle":"group 3 expense 15","cid":3,"ctitle":"presents","uid":8,"uids":"1,5,8","amount":123.85,"ecreated":1438815524,"eupdated":1438815524,"eupdateduid":1},{"eid":56,"etitle":"group 3 expense 16","cid":1,"ctitle":"drinks","uid":1,"uids":"1,5,8","amount":99.63,"ecreated":1438901924,"eupdated":1438901924,"eupdateduid":1},{"eid":57,"etitle":"group 3 expense 17","cid":2,"ctitle":"tickets","uid":3,"uids":"1,3,8","amount":63,"ecreated":1438988324,"eupdated":1438988324,"eupdateduid":1},{"eid":58,"etitle":"group 3 expense 18","cid":2,"ctitle":"tickets","uid":1,"uids":"1,3,8","amount":891.2,"ecreated":1439074724,"eupdated":1439074724,"eupdateduid":1},{"eid":59,"etitle":"group 3 expense 19","cid":3,"ctitle":"presents","uid":8,"uids":"1,5,3,8","amount":123,"ecreated":1439161124,"eupdated":1439161124,"eupdateduid":1},{"eid":60,"etitle":"group 3 expense 20","cid":1,"ctitle":"drinks","uid":8,"uids":"1,5,3,8","amount":222.22,"ecreated":1439247524,"eupdated":1439247524,"eupdateduid":1}]}');
 
@@ -22,6 +22,7 @@
         }
 
         var groupsArray = [];
+
         function getGroups() {
             return objectToArraySorted(groups, groupsArray);
         }
@@ -55,13 +56,13 @@
         }
 
         function moveItemForSort(arr, item, fromIndex, toIndex) {
-            groupsArray.splice(fromIndex, 1);
-            groupsArray.splice(toIndex, 0, item);
+            arr.splice(fromIndex, 1);
+            arr.splice(toIndex, 0, item);
             updateSortIds(arr);
             return arr;
         }
 
-        function updateSortIds(arr){
+        function updateSortIds(arr) {
             for (var j in arr) {
                 arr[j].sort = Number(j) + 1;
             }
@@ -114,14 +115,41 @@
         }
 
         var groupCategories = [];
-        function getGroupCategories(gid) {
-//            return groups[gid]['categories'];
-            return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
+        for (var i in groups) {
+            groupCategories[groups[i].gid] = [];
         }
-        
-        function setGroupCategory(gid, cid, newTitle) {
-            if (cid > 0) {
-                groups[gid]['categories'][cid] = newTitle;
+
+
+        function getGroupCategories(gid) {
+            return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
+            //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
+        }
+
+        function moveCategory(gid, category, fromIndex, toIndex) {
+            return moveItemForSort(groupCategories[gid], category, fromIndex, toIndex);
+        }
+
+        function setGroupCategory(gid, category, newTitle) {
+            if (category === 0) {
+                var maxKey = 0;
+                for (var i in groupCategories[gid]) {
+                    if (groupCategories[gid][i].cid > maxKey) {
+                        maxKey = groupCategories[gid][i].cid;
+                    }
+                }
+                maxKey += 1;
+                var sortId = groupCategories[gid].length + 1;
+                groupCategories[gid][groupCategories[gid].length] = {"cid":maxKey,"title":newTitle,"sort":sortId,"presents":0,"inactive":0,"can_delete":1}
+            }
+
+            else if (category.cid > 0) {
+                //groups[gid]['categories'][cid] = newTitle;
+                for (var i = 0, len = groupCategories[gid].length; i < len; i++) {
+                    if (groupCategories[gid][i].cid == category.cid) {
+                        groupCategories[gid][i].title = newTitle;
+                        break;
+                    }
+                }
             }
             else {
                 var maxKey = 0;
@@ -152,6 +180,30 @@
             }
         }
 
+
+        function pad(value) {
+            return value < 10 ? '0' + value : value;
+        }
+        function createOffset(date) {
+            var sign = (date.getTimezoneOffset() > 0) ? "-" : "+";
+            var offset = Math.abs(date.getTimezoneOffset());
+            var hours = pad(Math.floor(offset / 60));
+            var minutes = pad(offset % 60);
+            return sign + hours + ":" + minutes;
+        }
+
+        var test = new Date();
+        // offset in minutes but negative is really adding to utc
+        console.log(test.getTimezoneOffset());
+        console.log(createOffset(test));
+
+
+        var currentTS = Math.floor(Date.now() /  1000)
+        var dateObj = new Date(currentTS*1000);
+        var London = new Date(currentTS*1000-60*60*1000);
+        console.log(dateObj.toString());
+        console.log(London.toString());
+
         return {
             getGroups: getGroups,
             getGroupTitle: getGroupTitle,
@@ -168,7 +220,8 @@
             deleteExpense: deleteExpense,
             setGroupCategory: setGroupCategory,
             getGroupCategories: getGroupCategories,
-            moveGroup: moveGroup
+            moveGroup: moveGroup,
+            moveCategory: moveCategory
 
         };
 

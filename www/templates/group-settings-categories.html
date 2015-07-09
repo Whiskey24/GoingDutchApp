@@ -3,18 +3,32 @@
     <ion-nav-bar class="bar-positive">
         <ion-nav-back-button>
         </ion-nav-back-button>
+
     </ion-nav-bar>
 
+    <ion-nav-buttons side="secondary">
+    <div class="buttons">
+        <button ng-if="!data.showReorder" class="button ion-navicon" ng-click="data.showReorder = !data.showReorder"></button>
+        <button ng-if="data.showReorder" class="button ion-checkmark" ng-click="data.showReorder = !data.showReorder"></button>
+    </div>
+    </ion-nav-buttons>
+
     <ion-content>
-        <ion-list>
-            <ion-item ng-repeat="(key, val) in categories" ng-click="changeCategoryTitle(key)" class="item item-icon-right">
-                {{ val }}
+
+        <ion-list show-reorder="data.showReorder">
+
+            <ion-item ng-repeat="category in categories" ng-click="changeCategoryTitle(category)" class="item item-icon-right">
+                {{ category.title }}
                 <i class="icon ion-chevron-right icon-accessory"></i>
+                <ion-reorder-button class="ion-navicon" on-reorder="moveCategory(category, $fromIndex, $toIndex)"></ion-reorder-button>
             </ion-item>
-            <ion-item ng-click="addCategory()" class="text-center">
+
+            <ion-item ng-if="!data.showReorder" ng-click="addCategory()" class="text-center">
                 Add category
             </ion-item>
+
         </ion-list>
+
     </ion-content>
 
 </ion-view>
