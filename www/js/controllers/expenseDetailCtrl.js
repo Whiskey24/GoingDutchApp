@@ -23,8 +23,8 @@
             return gdApi.getUserName(uid);
         };
 
-        $scope.formatDateTime = function (timestamp) {
-            return $filter('date')(timestamp * 1000, gdApi.getDateFormat());
+        $scope.formatDateTime = function (timestamp, offset) {
+            return $filter('date')((timestamp - offset * 60) * 1000, gdApi.getDateFormat());
         };
 
         $scope.showConfirm = function (eid) {

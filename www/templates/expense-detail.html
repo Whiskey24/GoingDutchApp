@@ -12,7 +12,7 @@
             <ion-item class="item-text-wrap">
                 <h3>{{expense.etitle}}</h3>
                 <p>
-                    {{expense.ecreated*1000 | date:'EEEE, MMMM d yyyy HH:mm'}}
+                    {{formatDateTime(expense.ecreated, expense.timezoneoffset)}}
                     <span class="item-note">{{ expense.amount | isoCurrency:currency }}</span>
                 </p>
                 <p>{{memberName(expense.uid)}}</p>
@@ -33,7 +33,7 @@
             </ion-item>
 
         </ion-list>
-        <small>Last update: {{formatDateTime(expense.eupdated)}}<br />By: {{memberName(expense.eupdateduid)}}</small>
+        <small>Last update: {{formatDateTime(expense.eupdated, expense.timezoneoffset)}}<br />By: {{memberName(expense.uid)}}</small>
     </ion-content>
 
 </ion-view>
