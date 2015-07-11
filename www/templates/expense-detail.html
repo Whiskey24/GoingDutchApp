@@ -12,7 +12,7 @@
             <ion-item class="item-text-wrap">
                 <h3>{{expense.etitle}}</h3>
                 <p>
-                    {{formatDateTime(expense.ecreated, expense.timezoneoffset)}}
+                    {{formatDateTimeLocal(expense.ecreated, expense.timezoneoffset)}}
                     <span class="item-note">{{ expense.amount | isoCurrency:currency }}</span>
                 </p>
                 <p>{{memberName(expense.uid)}}</p>
@@ -23,17 +23,18 @@
                 <p ng-repeat="uid in participants">{{memberName(uid)}}</p>
             </ion-item>
 
-            <ion-item class="text-center item item-icon-right item-icon-left" ng-click="showConfirm(expense.eid)">
+            <ion-item class="text-center item item-icon-right item-icon-left"  ui-sref="group.expense-edit({eid: expense.eid})">
                 <i></i>
                 Edit
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
+
             <ion-item class="text-center" ng-click="showConfirm(expense.eid)">
                 Delete
             </ion-item>
 
         </ion-list>
-        <small>Last update: {{formatDateTime(expense.eupdated, expense.timezoneoffset)}}<br />By: {{memberName(expense.uid)}}</small>
-    </ion-content>
+        <small>Last update: {{formatDateTime(expense.eupdated)}} UTC<br />By: {{memberName(expense.uid)}}</small>
+    </ion-content >
 
 </ion-view>

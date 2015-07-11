@@ -18,13 +18,23 @@
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
         $scope.expense = gdApi.getExpense($scope.gid, $scope.eid);
-        $scope.participants = $scope.expense.uids.split(",");
+        if ($scope.eid > 0)
+            $scope.participants = $scope.expense.uids.split(",");
+        else
+            $scope.participants = [];
+
+
         $scope.memberName = function (uid) {
             return gdApi.getUserName(uid);
         };
 
-        $scope.formatDateTime = function (timestamp, offset) {
-            return $filter('date')((timestamp - offset * 60) * 1000, gdApi.getDateFormat());
+        $scope.formatDateTimeLocal = function (timestamp, offset) {
+            //return $filter('date')((timestamp - offset * 60) * 1000, gdApi.getDateFormat());
+            return $scope.formatDateTime(timestamp - offset );
+        };
+
+        $scope.formatDateTime = function (timestamp) {
+            return $filter('date')((timestamp * 60) * 1000, gdApi.getDateFormat());
         };
 
         $scope.showConfirm = function (eid) {

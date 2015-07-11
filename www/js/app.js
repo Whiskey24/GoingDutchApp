@@ -63,16 +63,6 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 }
             })
 
-            .state('group.newexpense', {
-                url: '/newexpense',
-                views: {
-                    'group-new-expense': {
-                        templateUrl: 'templates/group-newexpense.html',
-                        controller: 'NewExpenseCtrl'
-                    }
-                }
-            })
-
             .state('group.members', {
                 url: '/members',
                 views: {
@@ -108,6 +98,26 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 views: {
                     'group-expenses': {
                         templateUrl: 'templates/expense-detail.html',
+                        controller: 'ExpenseDetailCtrl'
+                    }
+                }
+            })
+
+            .state('group.expense-edit', {
+                url: '/expenses/:eid/edit',
+                views: {
+                    'group-expenses': {
+                        templateUrl: 'templates/expense-edit.html',
+                        controller: 'ExpenseDetailCtrl'
+                    }
+                }
+            })
+
+            .state('group.expense-new', {
+                url: '/expenses/new',
+                views: {
+                    'group-expense-new': {
+                        templateUrl: 'templates/expense-new.html',
                         controller: 'ExpenseDetailCtrl'
                     }
                 }
@@ -198,12 +208,12 @@ angular.module('GoingDutchApp').config(function ($ionicConfigProvider) {
     $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
 });
 
-angular.module('GoingDutchApp').config(['$provide', function($provide) {
-        $provide.decorator('$locale', ['$delegate', function($delegate) {
-            if($delegate.id == 'en-us') {
-                $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
-                $delegate.NUMBER_FORMATS.PATTERNS[1].negSuf = '';
-            }
-            return $delegate;
-        }]);
+angular.module('GoingDutchApp').config(['$provide', function ($provide) {
+    $provide.decorator('$locale', ['$delegate', function ($delegate) {
+        if ($delegate.id == 'en-us') {
+            $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
+            $delegate.NUMBER_FORMATS.PATTERNS[1].negSuf = '';
+        }
+        return $delegate;
     }]);
+}]);
