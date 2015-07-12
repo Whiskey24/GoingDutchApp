@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', '$cordovaDialogs', 'gdApi', ExpenseDetailCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', ExpenseDetailCtrl]);
 
-    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, $cordovaDialogs, gdApi) {
+    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, $cordovaDialogs, $cordovaDatePicker, gdApi) {
 
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details change
@@ -47,6 +47,33 @@
                 });
         };
 
+
+
+        var options = {
+            date: new Date(),
+            mode: 'date', // or 'time'
+            minDate: new Date() - 10000,
+            allowOldDates: true,
+            allowFutureDates: true,
+            doneButtonLabel: 'DONE',
+            doneButtonColor: '#F2F3F4',
+            cancelButtonLabel: 'CANCEL',
+            cancelButtonColor: '#000000'
+        };
+
+        //document.addEventListener("deviceready", function () {
+          $scope.pickDate = function (dateOrTime) {
+              if (dateOrTime == 'time'){
+                  options.mode = 'time';
+              } else {
+                  options.mode = 'date';
+              }
+              $cordovaDatePicker.show(options).then(function(date){
+                alert(date);
+            });
+
+        };
+    //}, false);
 
             //console.log($scope.expense);
         }
