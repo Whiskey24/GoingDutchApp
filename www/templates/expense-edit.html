@@ -7,18 +7,15 @@
 
     <ion-content class="padding">
 
-        <ion-list>
 
+                <ionic-datepicker idate="expenseDate" disablepreviousdates="true" callback="datePickerCallback">
+                    <button class="button button-block button-positive">{{formatDateLocal(expense.ecreated, expense.timezoneoffset)}}</button>
+                </ionic-datepicker>
 
-            <ion-item class="text-center" ng-click="pickDate('date')">
-                Pick Date
-            </ion-item>
-            <ion-item class="text-center" ng-click="pickDate('time')">
-                Pick Time
-            </ion-item>
+                <ionic-timepicker etime="slots.epochTime" format="slots.format" step="slots.step" callback="timePickerCallback">
+                    <button class="button button-block button-positive">{{formatTimeLocal(expense.ecreated, expense.timezoneoffset)}}</button>
+                </ionic-timepicker>
 
-
-        </ion-list>
     </ion-content >
 
 </ion-view>

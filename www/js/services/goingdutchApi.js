@@ -139,7 +139,14 @@
                 }
                 maxKey += 1;
                 var sortId = groupCategories[gid].length + 1;
-                groupCategories[gid][groupCategories[gid].length] = {"cid":maxKey,"title":newTitle,"sort":sortId,"presents":0,"inactive":0,"can_delete":1}
+                groupCategories[gid][groupCategories[gid].length] = {
+                    "cid": maxKey,
+                    "title": newTitle,
+                    "sort": sortId,
+                    "presents": 0,
+                    "inactive": 0,
+                    "can_delete": 1
+                }
             }
 
             else if (category.cid > 0) {
@@ -167,8 +174,17 @@
             return currencies;
         }
 
-        function getDateFormat() {
-            return 'EEEE, MMMM d yyyy HH:mm';
+        function getDateFormat(datetype) {
+            switch (datetype) {
+                case 'date':
+                    return 'EEEE, MMMM d yyyy';
+                    break;
+                case 'time':
+                    return 'HH:mm';
+                    break;
+                default:
+                    return 'EEEE, MMMM d yyyy HH:mm';
+            }
         }
 
         function deleteExpense(eid, gid) {
@@ -180,10 +196,10 @@
             }
         }
 
-
         function pad(value) {
             return value < 10 ? '0' + value : value;
         }
+
         function createOffset(date) {
             var sign = (date.getTimezoneOffset() > 0) ? "-" : "+";
             var offset = Math.abs(date.getTimezoneOffset());
@@ -198,9 +214,9 @@
         console.log(createOffset(test));
 
 
-        var currentTS = Math.floor(Date.now() /  1000)
-        var dateObj = new Date(currentTS*1000);
-        var London = new Date(currentTS*1000-60*60*1000);
+        var currentTS = Math.floor(Date.now() / 1000)
+        var dateObj = new Date(currentTS * 1000);
+        var London = new Date(currentTS * 1000 - 60 * 60 * 1000);
         console.log(dateObj.toString());
         console.log(London.toString());
 

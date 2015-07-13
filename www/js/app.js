@@ -1,4 +1,4 @@
-angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova'])
+angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker'])
 
     .run(function ($ionicPlatform) {
         $ionicPlatform.ready(function () {
