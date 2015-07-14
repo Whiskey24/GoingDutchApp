@@ -114,6 +114,15 @@
             }
         }
 
+        function updateExpense(gid, expense) {
+            for (var i = 0, len = expenses[gid].length; i < len; i++) {
+                if (expenses[gid][i].eid == Number(expense.eid)) {
+                    expenses[gid][i] = expense;
+                    break;
+                }
+            }
+        }
+
         var groupCategories = [];
         for (var i in groups) {
             groupCategories[groups[i].gid] = [];
@@ -237,7 +246,8 @@
             setGroupCategory: setGroupCategory,
             getGroupCategories: getGroupCategories,
             moveGroup: moveGroup,
-            moveCategory: moveCategory
+            moveCategory: moveCategory,
+            updateExpense: updateExpense
 
         };
 
