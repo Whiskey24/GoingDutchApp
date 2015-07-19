@@ -16,6 +16,15 @@
                     <button class="button button-block button-positive">{{formatTimeLocal(expense.ecreated, expense.timezoneoffset)}}</button>
                 </ionic-timepicker>
 
+                <label class="item item-input">
+                    <span class="input-label">Title</span>
+                    <input type="text" ng-model="expense.etitle">
+                </label>
+
+                <ion-checkbox ng-repeat="(key, val) in members" ng-model="isParticipant" ng-init="isParticipant=checkMember(key)" ng-change="flipMember(key)" >
+                    {{memberName(key)}}
+                </ion-checkbox>
+
     </ion-content >
 
 </ion-view>
