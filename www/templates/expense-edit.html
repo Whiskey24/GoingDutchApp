@@ -8,7 +8,7 @@
     <ion-content class="padding">
 
                 <div class="text-center">Edit Expense</div>
-                <ionic-datepicker idate="expenseDate" disablepreviousdates="true" callback="datePickerCallback">
+                <ionic-datepicker idate="expenseDate" disablepreviousdates="false" callback="datePickerCallback">
                     <button class="button button-block button-positive">{{formatDateLocal(expense.ecreated, expense.timezoneoffset)}}</button>
                 </ionic-datepicker>
 
@@ -25,6 +25,9 @@
                     {{memberName(key)}}
                 </ion-checkbox>
 
+                <ion-item class="text-center" ng-click="saveExpense()">
+                    Save
+                </ion-item>
     </ion-content >
 
 </ion-view>

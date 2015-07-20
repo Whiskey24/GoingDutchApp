@@ -5,10 +5,10 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', ExpenseDetailCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', '$ionicHistory', ExpenseDetailCtrl]);
 
 
-    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, $cordovaDialogs, $cordovaDatePicker, gdApi) {
+    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory) {
 
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details change
@@ -86,6 +86,10 @@
               else
                 $scope.participants.push(uid);
             $scope.expense.uids = $scope.participants.join();
+        };
+
+        $scope.saveExpense = function() {
+            $ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
         };
 
         //var options = {
