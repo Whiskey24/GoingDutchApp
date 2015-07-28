@@ -8,6 +8,10 @@
     "ionic-timepicker": "~0.2.0"
   },
   "dependencies": {
-    "ionic-datepicker": "~0.4.0"
+    "ionic-datepicker": "~0.6.0",
+    "ionic-timepicker": "~0.2.0"
+  },
+  "resolutions": {
+    "ionic-datepicker": "~0.6.0"
   }
 }
