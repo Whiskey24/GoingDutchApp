@@ -5,10 +5,10 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', '$ionicHistory', ExpenseDetailCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', 'iso4217', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', '$ionicHistory', ExpenseDetailCtrl]);
 
 
-    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory) {
+    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, iso4217, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory) {
 
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details change
@@ -89,9 +89,22 @@
         };
 
         $scope.saveExpense = function() {
-            $ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
+            //$ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
+
+            $ionicHistory.clearCache().then((function() {
+                return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
+            }));
         };
 
+        $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
+        $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+/*
+        $scope.clearCache().then((function() {
+            return knetAccountHelper.updateSettings('preferences');
+        })).then((function() {
+            return $state.go('app.home')
+        }));
+  */
         //var options = {
         //    date: new Date(),
         //    mode: 'date', // or 'time'
