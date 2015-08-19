@@ -217,17 +217,15 @@
             return sign + hours + ":" + minutes;
         }
 
-        var test = new Date();
+        //var test = new Date();
         // offset in minutes but negative is really adding to utc
-        console.log(test.getTimezoneOffset());
-        console.log(createOffset(test));
+        //console.log(test.getTimezoneOffset());
+        //console.log(createOffset(test));
 
 
-        var currentTS = Math.floor(Date.now() / 1000)
-        var dateObj = new Date(currentTS * 1000);
-        var London = new Date(currentTS * 1000 - 60 * 60 * 1000);
-        console.log(dateObj.toString());
-        console.log(London.toString());
+        //var currentTS = Math.floor(Date.now() / 1000)
+        //var dateObj = new Date(currentTS * 1000);
+        //var London = new Date(currentTS * 1000 - 60 * 60 * 1000);
 
         return {
             getGroups: getGroups,

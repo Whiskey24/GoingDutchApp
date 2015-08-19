@@ -71,10 +71,10 @@
 
         $scope.checkMember = function (uid) {
             if ($scope.participants.indexOf(uid) >= 0) {
-                console.log("UID " + uid + " checked");
+                // console.log("UID " + uid + " checked");
                 return true;
             } else {
-                console.log("UID " + uid + " NOT checked");
+                // console.log("UID " + uid + " NOT checked");
                 return false;
             }
         };
@@ -85,47 +85,11 @@
                 $scope.participants.splice(index,1);
               else
                 $scope.participants.push(uid);
-            $scope.expense.uids = $scope.participants.join();
         };
 
-        $scope.saveExpense = function() {
-            //$ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
-
-            $ionicHistory.clearCache().then((function() {
-                return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
-            }));
-        };
 
         $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
         $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
-/*
-        $scope.clearCache().then((function() {
-            return knetAccountHelper.updateSettings('preferences');
-        })).then((function() {
-            return $state.go('app.home')
-        }));
-  */
-        //var options = {
-        //    date: new Date(),
-        //    mode: 'date', // or 'time'
-        //    minDate: new Date() - 10000,
-        //    allowOldDates: true,
-        //    allowFutureDates: true,
-        //    doneButtonLabel: 'DONE',
-        //    doneButtonColor: '#F2F3F4',
-        //    cancelButtonLabel: 'CANCEL',
-        //    cancelButtonColor: '#000000'
-        //};
-        //$scope.pickDate = function (dateOrTime) {
-        //    if (dateOrTime == 'time') {
-        //        options.mode = 'time';
-        //    } else {
-        //        options.mode = 'date';
-        //    }
-        //    $cordovaDatePicker.show(options).then(function (date) {
-        //        alert(date);
-        //    });
-        //};
 
         var expenseTimestampUTC = $scope.expense.ecreated;
         var expenseTimestampLocal = expenseTimestampUTC - ($scope.expense.timezoneoffset * 60);
@@ -134,32 +98,48 @@
         var expenseTimeEpochLocalSecDay = expenseTimestampLocal - expenseTimeEpochLocalSec;
         var expenseTimeEpochLocalSecRounded = expenseTimeEpochLocalSec - (expenseTimeEpochLocalSec % 60);  // we only care about rounding to minutes
 
-        console.log('expenseTimeEpochLocal:' + expenseTimeEpochLocalSecRounded);
-
         $scope.expenseDateUTC = new Date(($scope.expense.ecreated - ($scope.expense.timezoneoffset * 60)) * 1000);
-        console.log("Time=" + $scope.expenseDateUTC.getHours() * 60 + "+" + $scope.expenseDateUTC.getMinutes() + "=" + ($scope.expenseDateUTC.getHours() * 60 + $scope.expenseDateUTC.getMinutes()));
-        //$scope.slots = {epochTime:  ($scope.expenseDateUTC.getHours()*60+ $scope.expenseDateUTC.getMinutes())*60, format: 24, step: 1};
+        // console.log("Time=" + $scope.expenseDateUTC.getHours() * 60 + "+" + $scope.expenseDateUTC.getMinutes() + "=" + ($scope.expenseDateUTC.getHours() * 60 + $scope.expenseDateUTC.getMinutes()));
+        // $scope.slots = {epochTime:  ($scope.expenseDateUTC.getHours()*60+ $scope.expenseDateUTC.getMinutes())*60, format: 24, step: 1};
 
         $scope.slots = {epochTime: expenseTimeEpochLocalSecRounded, format: 24, step: 15};
 
         $scope.timePickerCallback = function (val) {
             if (typeof (val) === 'undefined') {
-                console.log('Time not selected');
+                // console.log('Time not selected');
             } else {
-                console.log('Selected time is : ', val);    // `val` will contain the selected time in epoch
-                $scope.expense.ecreated = expenseTimeEpochLocalSecDay + val + ($scope.expense.timezoneoffset * 60);
-                $scope.expense.eupdated = Math.floor(Date.now() / 1000);
-                gdApi.updateExpense($scope.gid, $scope.expense);
+                //console.log('Selected time is : ', val);    // `val` will contain the selected time in epoch
+                //$scope.newValues.time = expenseTimeEpochLocalSecDay + val + ($scope.expense.timezoneoffset * 60);
+                $scope.newValues.time = val + ($scope.expense.timezoneoffset * 60);
             }
         };
 
         $scope.datePickerCallback = function (val) {
             if (typeof(val) === 'undefined') {
-                console.log('Date not selected');
+                // console.log('Date not selected');
             } else {
-                console.log('Selected date is : ', val);
+                // console.log('Selected date is : ', val);
+                //$scope.expense.ecreated = Math.floor(val.getTime()/ 1000);
+                $scope.newValues.date = Math.floor(val.getTime()/ 1000) - ($scope.expense.timezoneoffset * 60);
+                //console.log(Object.prototype.toString.call(val).match(/^\[object\s(.*)\]$/)[1]);
+
             }
         };
+
+        $scope.newValues = {date: expenseTimeEpochLocalSecDay, time: expenseTimeEpochLocalSecRounded + ($scope.expense.timezoneoffset * 60), title: $scope.expense.etitle}
+
+        $scope.saveExpense = function() {
+            //$ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
+
+            $scope.expense.ecreated = $scope.newValues.date + $scope.newValues.time   ;
+            $scope.expense.eupdated = Math.floor(Date.now() / 1000);
+            $scope.expense.uids = $scope.participants.join();
+            gdApi.updateExpense($scope.gid, $scope.expense);
+            $ionicHistory.clearCache().then((function() {
+                return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
+            }));
+        };
+
 
         //console.log($scope.expense);
     }

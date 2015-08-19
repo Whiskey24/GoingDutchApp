@@ -7,28 +7,35 @@
 
     <ion-content class="padding">
         <form name="expenseForm">
-            <div class="text-center">Edit Expense</div>
-            <ionic-datepicker idate="expenseDate" disablepreviousdates="false" callback="datePickerCallback">
-                <button class="button button-block button-positive">{{formatDateLocal(expense.ecreated,
-                    expense.timezoneoffset)}}
-                </button>
-            </ionic-datepicker>
+            <div class="text-center h4">Edit Expense</div>
 
-            <ionic-timepicker etime="slots.epochTime" format="slots.format" step="slots.step"
-                              callback="timePickerCallback">
-                <button class="button button-block button-positive">{{formatTimeLocal(expense.ecreated,
-                    expense.timezoneoffset)}}
-                </button>
-            </ionic-timepicker>
+            <label class="item item-input">
+                <span class="input-label">Date</span>
+                <ionic-datepicker idate="expenseDate" disablepreviousdates="false" callback="datePickerCallback">
+                    <button class="">{{formatDateLocal(newValues.date,expense.timezoneoffset)}}
+                    </button>
+                </ionic-datepicker>
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">Time</span>
+                <ionic-timepicker etime="slots.epochTime" format="slots.format" step="slots.step"
+                                  callback="timePickerCallback">
+                    <button class="">{{formatTimeLocal(newValues.time,
+                        expense.timezoneoffset)}}
+                    </button>
+                </ionic-timepicker>
+            </label>
 
             <label class="item item-input">
                 <span class="input-label">Title</span>
-                <input type="text" ng-model="expense.etitle">
+                <input type="text" ng-model="newValues.title">
             </label>
 
             <label class="item item-input">
                 <span class="input-label">Amount in {{selectedCurrency.symbol}}</span>
-                <input type="number" class="form-control" name="myDecimal" placeholder="Amount" ng-model="expense.amount"
+                <input type="number" class="form-control" name="myDecimal" placeholder="Amount"
+                       ng-model="expense.amount"
                        ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" required/>
             </label>
                     <span class="help-block" ng-show="!expenseForm.myDecimal.$valid">
