@@ -31,6 +31,14 @@
 
         $scope.members = gdApi.getGroupMembers($stateParams.gid);
 
+        // http://stackoverflow.com/questions/13047923/working-with-select-using-angulars-ng-options
+        $scope.memberNames = [];
+        Object.keys($scope.members).forEach(function (key) {
+            // do something with obj[key]
+            $scope.memberNames.push({uid: Number(key), name:gdApi.getUserName(key)})
+        });
+
+
         $scope.memberName = function (uid) {
             return gdApi.getUserName(uid);
         };
@@ -85,6 +93,7 @@
                 $scope.participants.splice(index,1);
               else
                 $scope.participants.push(uid);
+            console.log($scope.participants.length);
         };
 
 
@@ -126,7 +135,11 @@
             }
         };
 
-        $scope.newValues = {date: expenseTimeEpochLocalSecDay, time: expenseTimeEpochLocalSecRounded + ($scope.expense.timezoneoffset * 60), title: $scope.expense.etitle}
+        $scope.newValues = {
+            date: expenseTimeEpochLocalSecDay,
+            time: expenseTimeEpochLocalSecRounded + ($scope.expense.timezoneoffset * 60),
+            title: $scope.expense.etitle,
+            paidBy: $scope.expense.uid}
 
         $scope.saveExpense = function() {
             //$ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
@@ -134,14 +147,17 @@
             $scope.expense.ecreated = $scope.newValues.date + $scope.newValues.time   ;
             $scope.expense.eupdated = Math.floor(Date.now() / 1000);
             $scope.expense.uids = $scope.participants.join();
+            $scope.expense.uid = $scope.newValues.paidBy;
             gdApi.updateExpense($scope.gid, $scope.expense);
+            console.log($scope.newValues);
             $ionicHistory.clearCache().then((function() {
                 return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
             }));
         };
 
 
-        //console.log($scope.expense);
+        console.log($scope.expense);
+        console.log($scope.memberNames);
     }
 
 })

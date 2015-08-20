@@ -33,6 +33,14 @@
             </label>
 
             <label class="item item-input">
+                <span class="input-label">Paid by</span>
+                <select name="mySelect" id="mySelect"
+
+                        ng-options="member.uid as member.name for member in memberNames"
+                        ng-model="newValues.paidBy"></select>
+            </label>
+
+            <label class="item item-input">
                 <span class="input-label">Amount in {{selectedCurrency.symbol}}</span>
                 <input type="number" class="form-control" name="myDecimal" placeholder="Amount"
                        ng-model="expense.amount"
@@ -47,7 +55,7 @@
                 {{memberName(key)}}
             </ion-checkbox>
 
-            <ion-item class="text-center" ng-click="saveExpense()" ng-show="expenseForm.myDecimal.$valid">
+            <ion-item class="text-center" ng-click="saveExpense()" ng-show="expenseForm.myDecimal.$valid && participants.length > 0">
                 Save
             </ion-item>
         </form>
