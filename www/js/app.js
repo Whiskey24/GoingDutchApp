@@ -114,9 +114,9 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             })
 
             .state('group.expense-new', {
-                url: '/expenses/new',
+                url: '/new-expense',
                 views: {
-                    'group-expense-new': {
+                    'group-new-expense': {
                         templateUrl: 'templates/expense-new.html',
                         controller: 'ExpenseDetailCtrl'
                     }

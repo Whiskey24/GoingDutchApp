@@ -15,23 +15,22 @@
             $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
         });
 
-
-        //TODO: implement this (needs Ionic 1.0.1): http://stackoverflow.com/questions/28676631/is-it-possible-to-clear-the-view-cache-in-ionic/30224972#30224972
-
-
         $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
         $scope.expense = gdApi.getExpense($scope.gid, $scope.eid);
         if ($scope.eid > 0)
             $scope.participants = $scope.expense.uids.split(",");
-        else
+        else {
             $scope.participants = [];
+            $scope.expense = {};
+            $scope.expense.ecreated = Math.floor(Date.now() / 1000);
+            $scope.expense.timezoneoffset = new Date().getTimezoneOffset();
+        }
 
 
         $scope.members = gdApi.getGroupMembers($stateParams.gid);
 
-        // http://stackoverflow.com/questions/13047923/working-with-select-using-angulars-ng-options
         $scope.memberNames = [];
         Object.keys($scope.members).forEach(function (key) {
             // do something with obj[key]
@@ -96,7 +95,6 @@
             console.log($scope.participants.length);
         };
 
-
         $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
         $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
 
@@ -117,8 +115,6 @@
             if (typeof (val) === 'undefined') {
                 // console.log('Time not selected');
             } else {
-                //console.log('Selected time is : ', val);    // `val` will contain the selected time in epoch
-                //$scope.newValues.time = expenseTimeEpochLocalSecDay + val + ($scope.expense.timezoneoffset * 60);
                 $scope.newValues.time = val + ($scope.expense.timezoneoffset * 60);
             }
         };
@@ -127,11 +123,7 @@
             if (typeof(val) === 'undefined') {
                 // console.log('Date not selected');
             } else {
-                // console.log('Selected date is : ', val);
-                //$scope.expense.ecreated = Math.floor(val.getTime()/ 1000);
                 $scope.newValues.date = Math.floor(val.getTime()/ 1000) - ($scope.expense.timezoneoffset * 60);
-                //console.log(Object.prototype.toString.call(val).match(/^\[object\s(.*)\]$/)[1]);
-
             }
         };
 
@@ -142,22 +134,17 @@
             paidBy: $scope.expense.uid}
 
         $scope.saveExpense = function() {
-            //$ionicHistory.clearCache().then(function(){ $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})});
-
+            $scope.expense.etitle = $scope.newValues.title;
             $scope.expense.ecreated = $scope.newValues.date + $scope.newValues.time   ;
             $scope.expense.eupdated = Math.floor(Date.now() / 1000);
             $scope.expense.uids = $scope.participants.join();
             $scope.expense.uid = $scope.newValues.paidBy;
             gdApi.updateExpense($scope.gid, $scope.expense);
-            console.log($scope.newValues);
             $ionicHistory.clearCache().then((function() {
                 return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
             }));
         };
-
-
-        console.log($scope.expense);
-        console.log($scope.memberNames);
+        
     }
 
 })

@@ -5,7 +5,7 @@
         </ion-nav-back-button>
     </ion-nav-bar>
 
-    <ion-content class="padding">
+    <ion-content class="">
         <form name="expenseForm">
             <div class="text-center h4">Edit Expense</div>
 
@@ -35,7 +35,6 @@
             <label class="item item-input">
                 <span class="input-label">Paid by</span>
                 <select name="mySelect" id="mySelect"
-
                         ng-options="member.uid as member.name for member in memberNames"
                         ng-model="newValues.paidBy"></select>
             </label>

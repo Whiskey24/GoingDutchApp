@@ -245,8 +245,8 @@
             getGroupCategories: getGroupCategories,
             moveGroup: moveGroup,
             moveCategory: moveCategory,
-            updateExpense: updateExpense
-
+            updateExpense: updateExpense,
+            createOffset: createOffset
         };
 
 
