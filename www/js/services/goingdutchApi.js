@@ -123,6 +123,13 @@
             }
         }
 
+        var newExpensesMargin = 100000000;
+        function addExpense(gid, expense) {
+            newExpensesMargin +=1;
+            expense.eid = newExpensesMargin;
+            expenses[gid].unshift(expense);
+        }
+
         var groupCategories = [];
         for (var i in groups) {
             groupCategories[groups[i].gid] = [];
@@ -133,6 +140,14 @@
             return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
             //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
         }
+
+        function getGroupCategory(gid, cid) {
+            for (var j in groupCategories[gid]) {
+                if (groupCategories[gid][j].cid == cid)
+                return groupCategories[gid][j];
+            }
+        }
+
 
         function moveCategory(gid, category, fromIndex, toIndex) {
             return moveItemForSort(groupCategories[gid], category, fromIndex, toIndex);
@@ -243,10 +258,12 @@
             deleteExpense: deleteExpense,
             setGroupCategory: setGroupCategory,
             getGroupCategories: getGroupCategories,
+            getGroupCategory: getGroupCategory,
             moveGroup: moveGroup,
             moveCategory: moveCategory,
             updateExpense: updateExpense,
-            createOffset: createOffset
+            createOffset: createOffset,
+            addExpense: addExpense
         };
 
 

@@ -15,6 +15,7 @@
                     {{formatDateTimeLocal(expense.ecreated, expense.timezoneoffset)}}
                     <span class="item-note">{{ expense.amount | isoCurrency:currency }}</span>
                 </p>
+                <p>{{category.title}}</p>
                 <p>{{memberName(expense.uid)}}</p>
             </ion-item>
 

@@ -15,6 +15,8 @@
             $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
         });
 
+        $scope.newExpense = false;
+
         $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
@@ -22,6 +24,7 @@
         if ($scope.eid > 0)
             $scope.participants = $scope.expense.uids.split(",");
         else {
+            $scope.newExpense = true;
             $scope.participants = [];
             $scope.expense = {};
             $scope.expense.ecreated = Math.floor(Date.now() / 1000);
@@ -92,7 +95,6 @@
                 $scope.participants.splice(index,1);
               else
                 $scope.participants.push(uid);
-            console.log($scope.participants.length);
         };
 
         $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
@@ -127,11 +129,22 @@
             }
         };
 
+        $scope.categories = gdApi.getGroupCategories($scope.gid);
+        $scope.category = gdApi.getGroupCategory($scope.gid, $scope.expense.cid);
+
+
         $scope.newValues = {
             date: expenseTimeEpochLocalSecDay,
             time: expenseTimeEpochLocalSecRounded + ($scope.expense.timezoneoffset * 60),
             title: $scope.expense.etitle,
-            paidBy: $scope.expense.uid}
+            paidBy: $scope.expense.uid,
+            cid: $scope.expense.cid
+        }
+
+        if ($scope.newExpense) {
+            $scope.newValues.paidBy = $scope.memberNames[0].uid;
+            $scope.newValues.cid = $scope.categories[0].cid;
+        }
 
         $scope.saveExpense = function() {
             $scope.expense.etitle = $scope.newValues.title;
@@ -139,12 +152,23 @@
             $scope.expense.eupdated = Math.floor(Date.now() / 1000);
             $scope.expense.uids = $scope.participants.join();
             $scope.expense.uid = $scope.newValues.paidBy;
-            gdApi.updateExpense($scope.gid, $scope.expense);
-            $ionicHistory.clearCache().then((function() {
-                return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
-            }));
+            $scope.expense.cid = $scope.newValues.cid;
+
+            if (!$scope.newExpense) {
+                gdApi.updateExpense($scope.gid, $scope.expense);
+                $ionicHistory.clearCache().then((function () {
+                    return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
+                }));
+            } else {
+                console.log($scope.expense);
+                gdApi.addExpense($scope.gid, $scope.expense);
+                $ionicHistory.clearCache().then((function () {
+                    return $state.go('group.expenses')
+                }));
+            }
+
         };
-        
+
     }
 
 })
