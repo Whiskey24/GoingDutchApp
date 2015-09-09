@@ -3,16 +3,16 @@
 
         <ion-list>
 
-            <ion-item ng-repeat="(key, val) in members" class="item item-icon-left item-icon-right"
-                      ui-sref="group.member-detail({uid: key})">
-                <i ng-if="val >= 0" class="icon ion-android-happy" ng-style="{'color':'green'}"></i>
-                <i ng-if="val < 0" class="icon ion-android-sad" ng-style="{'color':'red'}"></i>
-                {{memberName(key)}}
-                <span class="item-note" ng-if="val >= 0" ng-style="{'color':'green'}">
-                  {{ val | isoCurrency:currency }}
+            <ion-item ng-repeat="member in members" class="item item-icon-left item-icon-right"
+                      ui-sref="group.member-detail({uid: member.uid})">
+                <i ng-if="member.balance >= 0" class="icon ion-android-happy" ng-style="{'color':'green'}"></i>
+                <i ng-if="member.balance < 0" class="icon ion-android-sad" ng-style="{'color':'red'}"></i>
+                {{memberName(member.uid)}}
+                <span class="item-note" ng-if="member.balance >= 0" ng-style="{'color':'green'}">
+                  {{ member.balance | isoCurrency:currency }}
                 </span>
-                <span class="item-note" ng-if="val < 0" ng-style="{'color':'red'}">
-                  {{ val | isoCurrency:currency }}
+                <span class="item-note" ng-if="member.balance < 0" ng-style="{'color':'red'}">
+                  {{ member.balance  | isoCurrency:currency }}
                 </span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
@@ -21,4 +21,3 @@
 
     </ion-content>
 </ion-view>
-
