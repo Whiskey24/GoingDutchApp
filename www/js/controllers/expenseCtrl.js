@@ -17,7 +17,6 @@
 
         $scope.gid = $stateParams.gid;
         $scope.expenses = gdApi.getExpenses($stateParams.gid);
-
     }
 
 

@@ -21,8 +21,13 @@
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
         $scope.expense = gdApi.getExpense($scope.gid, $scope.eid);
-        if ($scope.eid > 0)
-            $scope.participants = $scope.expense.uids.split(",");
+        if ($scope.eid > 0) {
+            if (typeof ($scope.expense.uids) === "string")
+                $scope.participants = $scope.expense.uids.split(",");
+            else
+                $scope.participants = [ $scope.expense.uids ];
+        }
+
         else {
             $scope.newExpense = true;
             $scope.participants = [];
