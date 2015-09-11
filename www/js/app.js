@@ -25,12 +25,28 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 templateUrl: 'templates/home.html'
             })
 
+            .state('public', {
+                url: '/public',
+                abstract: true,
+                templateUrl: 'templates/public.html'
+            })
+
             // setup an abstract state for groups tabs
             .state('group', {
                 url: '/group/:gid',
                 abstract: true,
                 cache: false,
                 templateUrl: 'templates/group.html'
+            })
+
+            .state('public.login', {
+                url: '/login',
+                views: {
+                    'public-login': {
+                        templateUrl: 'templates/login.html',
+                        controller: 'LoginCtrl'
+                    }
+                }
             })
 
             .state('home.newgroup', {
