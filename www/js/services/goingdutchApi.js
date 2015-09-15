@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').factory('gdApi', [gdApi]);
+    angular.module('GoingDutchApp').factory('gdApi', ['$http', gdApi]);
 
-    function gdApi() {
+    function gdApi($http) {
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 /*
@@ -25,6 +25,22 @@
 */
         var users = JSON.parse('{"1":{"uid":1,"nickName":"whiskey","active":1,"created":1291896432,"email":"atsantema@yahoo.com","realname":"Bert Santema","firstName":"Bert","lastName":"Santema","updated":0},"2":{"uid":2,"nickName":"Monc","active":1,"created":1291901297,"email":"d.groen@inthere.nl","realname":"Daan Groen","firstName":"Daan","lastName":"Groen","updated":0},"3":{"uid":3,"nickName":"JeePee","active":1,"created":1291899037,"email":"Mail@heetebrij.jp","realname":"JeePee","firstName":"JeePee","lastName":"","updated":0},"4":{"uid":4,"nickName":"martijnsanderse","active":1,"created":1291905917,"email":"martijnsanderse@gmail.com","realname":"Martijn Sanderse","firstName":"Martijn","lastName":"Sanderse","updated":0},"5":{"uid":5,"nickName":"Mitchemius","active":1,"created":1291926587,"email":"meerendonk@gmail.com","realname":"Michiel van Meerendonk","firstName":"Michiel","lastName":" van Meerendonk","updated":0},"6":{"uid":6,"nickName":"Blondje","active":1,"created":1292268294,"email":"manschot@gmail.com","realname":"Sjoerd M.","firstName":"Sjoerd","lastName":"M.","updated":0},"7":{"uid":7,"nickName":"Wiebren","active":1,"created":1292268627,"email":"wdamsma@gmail.com","realname":"Wiebren","firstName":"Wiebren","lastName":"","updated":0},"10":{"uid":10,"nickName":"Sjoerd","active":1,"created":1295470130,"email":"Ooievaar@gmail.com","realname":"Sjoerd","firstName":"Sjoerd","lastName":"","updated":0},"31":{"uid":31,"nickName":"BJW","active":1,"created":1309381583,"email":"berendjanwever@gmail.com","realname":"BJ Wever","firstName":"BJ","lastName":"Wever","updated":0},"39":{"uid":39,"nickName":"Bas","active":1,"created":1374763246,"email":"bas@inthere.nl","realname":"Bas","firstName":"Bas","lastName":"","updated":0},"40":{"uid":40,"nickName":"Muppetshow","active":1,"created":1380989526,"email":"ssantema@hotmail.com","realname":"Sjoerd Santema","firstName":"Sjoerd","lastName":"Santema","updated":0},"41":{"uid":41,"nickName":"purplehaze","active":1,"created":1381006161,"email":"maarten@santema.eu","realname":"Maarten","firstName":"Maarten","lastName":"","updated":0},"43":{"uid":43,"nickName":"BertTest","active":1,"created":1416578276,"email":"bert@inthere.nl","realname":"Bert Test","firstName":"Bert","lastName":"Test","updated":0},"46":{"uid":46,"nickName":"Erik","active":1,"created":1435404102,"email":"Erp.rutten@gmail.com","realname":"Erik","firstName":"Erik","lastName":"","updated":0}}');
 
+
+        var host = 'http://api.gdutch.dev/version';
+        function getRequest(callback) {
+            $http.defaults.headers.common.Authorization = 'Basic d2hpc2tleTp0ZXN0cGFzc3dvcmQ='
+            $http.get(host).success(function(data, status){
+                console.log("RECEIVED: ", data, status);
+                callback(data);
+            })
+                .error(function(){
+                    console.log("Error making http call");
+                });
+        };
+
+        getRequest(function(data){
+            console.log("CHECK");
+        });
 
         function getGroupTitle($stateParams) {
             return getGroupTitleByGid($stateParams.gid);

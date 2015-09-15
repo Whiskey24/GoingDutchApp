@@ -233,3 +233,9 @@ angular.module('GoingDutchApp').config(['$provide', function ($provide) {
         return $delegate;
     }]);
 }]);
+
+//http://stackoverflow.com/questions/16661032/http-get-is-not-allowed-by-access-control-allow-origin-but-ajax-is
+angular.module('GoingDutchApp').config(function ($httpProvider) {
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    $httpProvider.defaults.useXDomain = true;
+});
