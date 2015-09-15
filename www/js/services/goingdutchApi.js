@@ -28,7 +28,7 @@
 
         var host = 'http://api.gdutch.dev/version';
         function getRequest(callback) {
-            $http.defaults.headers.common.Authorization = 'Basic d2hpc2tleTp0ZXN0cGFzc3dvcmQ='
+            // $http.defaults.headers.common.Authorization = 'Basic d2hpc2tleTp0ZXN0cGFzc3dvcmQ='
             $http.get(host).success(function(data, status){
                 console.log("RECEIVED: ", data, status);
                 callback(data);
@@ -38,6 +38,7 @@
                 });
         };
 
+        // authenticationDataService.setAuthData('d2hpc2tleTp0ZXN0cGFzc3dvcmQ=');
         getRequest(function(data){
             console.log("CHECK");
         });
@@ -295,4 +296,61 @@
 
     }
 
+/*
+    angular.module('GoingDutchApp').factory('authenticationDataService', [ 'authenticationDataService',
+
+    function () {
+
+        return {
+            getAuthData: function() {
+                'd2hpc2tleTp0ZXN0cGFzc3dvcmQ=';
+            }
+        };
+
+
+    }]);
+
+*/
 })();
+
+
+
+// http://stackoverflow.com/questions/31608486/adding-header-to-angular-resource-requests
+angular.module("GoingDutchApp").factory("authHttpRequestInterceptor", ["authenticationDataService",
+    function (authenticationDataService) {
+
+        return {
+
+            request: function (config) {
+                // This is the authentication service that I use.
+                // I store the bearer token in the local storage and retrieve it when needed.
+                // You can use your own implementation for this
+
+                var token = authenticationDataService.getAuthData();
+
+                if (token) {
+                    config.headers["Authorization"] = "Basic " + token;
+                }
+                return config;
+            }
+        };
+    }]);
+
+
+
+
+angular.module("GoingDutchApp").factory("authenticationDataService", [function($localStorage) {
+
+    function getAuthData() {
+        return 'd2hpc2tleTp0ZXN0cGFzc3dvcmQ=';
+        //return $localStorage.authorization_token;
+    }
+
+    function setAuthData(token) {
+        //$localStorage.authorization_token = token;
+    }
+    return {
+        getAuthData: getAuthData
+    }
+    }]);
+
