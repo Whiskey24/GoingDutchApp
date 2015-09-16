@@ -1,18 +1,4 @@
-angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker'])
-
-    .run(function ($ionicPlatform) {
-        $ionicPlatform.ready(function () {
-            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-            // for form inputs)
-            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-            }
-            if (window.StatusBar) {
-                // org.apache.cordova.statusbar required
-                StatusBar.styleLightContent();
-            }
-        });
-    })
+angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage'])
 
     .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -215,33 +201,73 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
         // if none of the above states are matched, use this as the fallback
         $urlRouterProvider.otherwise('/home/groups');
+    })
 
-    });
+    .config(function ($ionicConfigProvider) {
+        $ionicConfigProvider.views.transition('none');
+        $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
+    })
+
+    .config(['$provide', function ($provide) {
+        $provide.decorator('$locale', ['$delegate', function ($delegate) {
+            if ($delegate.id == 'en-us') {
+                $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
+                $delegate.NUMBER_FORMATS.PATTERNS[1].negSuf = '';
+            }
+            return $delegate;
+        }]);
+    }])
+
+    .config([
+        "$httpProvider", function ($httpProvider) {
+            $httpProvider.interceptors.push('authHttpRequestInterceptor');
+        }])
 
 
-angular.module('GoingDutchApp').config(function ($ionicConfigProvider) {
-    $ionicConfigProvider.views.transition('none');
-    $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
-});
+    // .config should come before .run
+    .run(function ($ionicPlatform) {
+        $ionicPlatform.ready(function () {
+            // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+            // for form inputs)
+            if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
+                cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+            }
+            if (window.StatusBar) {
+                // org.apache.cordova.statusbar required
+                StatusBar.styleLightContent();
+            }
+        });
+    })
+;
 
-angular.module('GoingDutchApp').config(['$provide', function ($provide) {
-    $provide.decorator('$locale', ['$delegate', function ($delegate) {
-        if ($delegate.id == 'en-us') {
-            $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
-            $delegate.NUMBER_FORMATS.PATTERNS[1].negSuf = '';
-        }
-        return $delegate;
-    }]);
-}]);
 
-//http://stackoverflow.com/questions/16661032/http-get-is-not-allowed-by-access-control-allow-origin-but-ajax-is
-//angular.module('GoingDutchApp').config(function ($httpProvider) {
-//    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-//    $httpProvider.defaults.useXDomain = true;
-//});
+/*
 
-// http://stackoverflow.com/questions/31608486/adding-header-to-angular-resource-requests
-angular.module("GoingDutchApp").config([
-    "$httpProvider", function ($httpProvider) {
-        $httpProvider.interceptors.push('authHttpRequestInterceptor');
-    }]);
+
+ angular.module('GoingDutchApp').config(function ($ionicConfigProvider) {
+ $ionicConfigProvider.views.transition('none');
+ $ionicConfigProvider.backButton.text('').icon('ion-ios-arrow-back').previousTitleText(false);
+ });
+
+ angular.module('GoingDutchApp').config(['$provide', function ($provide) {
+ $provide.decorator('$locale', ['$delegate', function ($delegate) {
+ if ($delegate.id == 'en-us') {
+ $delegate.NUMBER_FORMATS.PATTERNS[1].negPre = '-\u00A4';
+ $delegate.NUMBER_FORMATS.PATTERNS[1].negSuf = '';
+ }
+ return $delegate;
+ }]);
+ }]);
+
+ //http://stackoverflow.com/questions/16661032/http-get-is-not-allowed-by-access-control-allow-origin-but-ajax-is
+ //angular.module('GoingDutchApp').config(function ($httpProvider) {
+ //    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+ //    $httpProvider.defaults.useXDomain = true;
+ //});
+
+ // http://stackoverflow.com/questions/31608486/adding-header-to-angular-resource-requests
+ angular.module("GoingDutchApp").config([
+ "$httpProvider", function ($httpProvider) {
+ $httpProvider.interceptors.push('authHttpRequestInterceptor');
+ }]);
+ */

@@ -5,9 +5,10 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').factory('gdApi', ['$http', gdApi]);
+    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService',  gdApi]);
 
-    function gdApi($http) {
+    function gdApi($http, $localStorage, authenticationDataService) {
+
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 /*
@@ -38,7 +39,8 @@
                 });
         };
 
-        // authenticationDataService.setAuthData('d2hpc2tleTp0ZXN0cGFzc3dvcmQ=');
+        authenticationDataService.setAuthData('d2hpc2tleTp0ZXN0cGFzc3dvcmQ=');
+        authenticationDataService.getAuthData();
         getRequest(function(data){
             console.log("CHECK");
         });
@@ -313,10 +315,8 @@
 */
 })();
 
-
-
 // http://stackoverflow.com/questions/31608486/adding-header-to-angular-resource-requests
-angular.module("GoingDutchApp").factory("authHttpRequestInterceptor", ["authenticationDataService",
+angular.module("GoingDutchApp").factory('authHttpRequestInterceptor', ['authenticationDataService',
     function (authenticationDataService) {
 
         return {
@@ -339,18 +339,28 @@ angular.module("GoingDutchApp").factory("authHttpRequestInterceptor", ["authenti
 
 
 
-angular.module("GoingDutchApp").factory("authenticationDataService", [function($localStorage) {
+angular.module("GoingDutchApp").factory("authenticationDataService", ['$localStorage', function($localStorage) {
 
     function getAuthData() {
+        console.log("CHECKING: " + $localStorage.test);
         return 'd2hpc2tleTp0ZXN0cGFzc3dvcmQ=';
         //return $localStorage.authorization_token;
     }
 
     function setAuthData(token) {
+        $localStorage.test = token;
         //$localStorage.authorization_token = token;
     }
     return {
-        getAuthData: getAuthData
+        getAuthData: getAuthData,
+        setAuthData: setAuthData
     }
     }]);
-
+/*
+angular.module('GoingDutchApp', [
+    'ngStorage'
+]).controller('Ctrl', function(
+    $scope,
+    $localStorage,
+    $sessionStorage
+){});*/
