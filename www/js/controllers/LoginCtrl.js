@@ -9,9 +9,11 @@
 
     function LoginCtrl($stateParams, $scope, gdApi) {
 
-        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
-        $scope.gid = $stateParams.gid;
-        $scope.debug = "Event view for group " + $scope.gid + ": " + $scope.groupTitle;
+        $scope.login = function  (data){
+            console.log("user: " + data.username + ", pass" + data.password);
+            gdApi.login(data.username, data.password);
+        }
+
 
     }
 

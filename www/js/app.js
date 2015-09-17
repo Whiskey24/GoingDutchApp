@@ -8,13 +8,19 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             .state('home', {
                 url: '/home',
                 abstract: true,
-                templateUrl: 'templates/home.html'
+                templateUrl: 'templates/home.html',
+                data: {
+                    requireLogin: true
+                }
             })
 
             .state('public', {
                 url: '/public',
                 abstract: true,
-                templateUrl: 'templates/public.html'
+                templateUrl: 'templates/public.html',
+                data: {
+                    requireLogin: false
+                }
             })
 
             // setup an abstract state for groups tabs
@@ -22,7 +28,10 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 url: '/group/:gid',
                 abstract: true,
                 cache: false,
-                templateUrl: 'templates/group.html'
+                templateUrl: 'templates/group.html',
+                data: {
+                    requireLogin: false
+                }
             })
 
             .state('public.login', {
@@ -238,6 +247,21 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             }
         });
     })
+
+    // http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
+    .run(function ($rootScope, $state, $ionicHistory) {
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+            var requireLogin = toState.data.requireLogin;
+
+        if (requireLogin && typeof $rootScope.authenticated === 'undefined') {
+            event.preventDefault();
+            $ionicHistory.clearCache().then((function () {
+                return $state.go('public.login')
+            }));
+        }
+    });
+
+});
 ;
 
 
