@@ -44,6 +44,11 @@
                 });
         }
 
+        function logout()
+        {
+            authenticationDataService.resetAuthData();
+        }
+
         function callback(data){
             return $state.go('home.groups');
         }
@@ -65,12 +70,6 @@
         function setCredentials($user, $pass) {
             authenticationDataService.setAuthData('whiskey', 'testpassword');
         }
-
-        authenticationDataService.setAuthData('whiskey', 'testpassword');
-        authenticationDataService.getAuthData();
-        getRequest(function (data) {
-            console.log("CHECK");
-        });
 
         function getGroupTitle($stateParams) {
             return getGroupTitleByGid($stateParams.gid);
@@ -322,7 +321,8 @@
             createOffset: createOffset,
             addExpense: addExpense,
             setCredentials: setCredentials,
-            login: login
+            login: login,
+            logout: logout
         };
 
 
@@ -354,6 +354,10 @@ angular.module("GoingDutchApp").factory("authenticationDataService", ['$localSto
 
     function setAuthData($user, $pass) {
         $localStorage.token = Base64.encode($user + ':' + $pass);
+    }
+
+    function resetAuthData() {
+        $localStorage.token = false;
     }
 
     /**
@@ -499,6 +503,7 @@ angular.module("GoingDutchApp").factory("authenticationDataService", ['$localSto
 
     return {
         getAuthData: getAuthData,
-        setAuthData: setAuthData
+        setAuthData: setAuthData,
+        resetAuthData: resetAuthData
     }
 }]);

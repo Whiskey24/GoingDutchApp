@@ -74,6 +74,15 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 }
             })
 
+            .state('home.logout', {
+                url: '/logout',
+                views: {
+                    'home-account': {
+                        templateUrl: 'templates/home-logout.html',
+                        controller: 'LogoutCtrl'
+                    }
+                }
+            })
             .state('group.members', {
                 url: '/members',
                 views: {
