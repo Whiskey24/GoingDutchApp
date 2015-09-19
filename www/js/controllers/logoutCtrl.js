@@ -9,8 +9,17 @@
 
     function LogoutCtrl($scope, gdApi, $ionicHistory, $state) {
 
-        gdApi.logout();
-        $state.go('public.login')
+
+        $scope.$on('$ionicView.enter', function () {
+            gdApi.logout();
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache().then(function() {
+                $state.go('public.login')
+            });
+        });
+
+
+
 
 
 

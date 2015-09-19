@@ -2,10 +2,12 @@
 
     <ion-header-bar class="bar-positive">
         <h1 class="title">Going Dutch</h1>
-
         <div class="buttons">
             <button ng-if="!data.showReorder" class="button ion-navicon" ng-click="data.showReorder = !data.showReorder"></button>
             <button ng-if="data.showReorder" class="button ion-checkmark" ng-click="data.showReorder = !data.showReorder"></button>
+        </div>
+        <div class="buttons">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
         </div>
     </ion-header-bar>
 

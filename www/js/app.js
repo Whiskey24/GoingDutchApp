@@ -258,15 +258,18 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
     })
 
     // http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
-    .run(function ($rootScope, $state, $ionicHistory) {
+    .run(function ($rootScope, $state, $ionicHistory, $localStorage) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
 
-        if (requireLogin && typeof $rootScope.authenticated === 'undefined') {
+        if (requireLogin && (typeof $rootScope.authenticated === 'undefined' || $rootScope.authenticated == false)) {
             event.preventDefault();
-            $ionicHistory.clearCache().then((function () {
-                return $state.go('public.login')
-            }));
+            $localStorage.authenticated = false;
+            $rootScope.authenticated = false;
+            $ionicHistory.clearHistory();
+            $ionicHistory.clearCache().then(function() {
+                $state.go('public.login')
+            });
         }
     });
 

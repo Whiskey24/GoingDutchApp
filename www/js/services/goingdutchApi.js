@@ -47,6 +47,8 @@
         function logout()
         {
             authenticationDataService.resetAuthData();
+            $localStorage.authenticated = false;
+            $rootScope.authenticated = false;
         }
 
         function callback(data){
