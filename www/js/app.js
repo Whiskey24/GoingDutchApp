@@ -1,5 +1,17 @@
 angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage'])
 
+    .constant('gdConfig', (function () {
+        var host = 'http://api.gdutch.dev';
+        return {
+            host: host,
+            port: 80,
+            url_groups: host + '/groups',
+            url_users: host + '/users',
+            url_expenses: host + '/{gid}/expenses',
+            url_login: host + '/version'
+        }
+    })())
+
     .config(function ($stateProvider, $urlRouterProvider) {
 
         $stateProvider
@@ -262,18 +274,18 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
 
-        if (requireLogin && (typeof $rootScope.authenticated === 'undefined' || $rootScope.authenticated == false)) {
-            event.preventDefault();
-            $localStorage.authenticated = false;
-            $rootScope.authenticated = false;
-            $ionicHistory.clearHistory();
-            $ionicHistory.clearCache().then(function() {
-                $state.go('public.login')
-            });
-        }
-    });
+            if (requireLogin && (typeof $localStorage.authenticated === 'undefined' || $localStorage.authenticated == false)) {
+                event.preventDefault();
+                $localStorage.authenticated = false;
+                // $rootScope.authenticated = false;
+                $ionicHistory.clearHistory();
+                $ionicHistory.clearCache().then(function () {
+                    $state.go('public.login')
+                });
+            }
+        });
 
-});
+    });
 ;
 
 
