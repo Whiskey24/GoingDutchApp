@@ -7,7 +7,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             port: 80,
             url_groups: host + '/groups',
             url_users: host + '/users',
-            url_expenses: host + '/{gid}/expenses',
+            url_expenses: host + '/group/{gid}/expenses',
             url_login: host + '/version'
         }
     })())
