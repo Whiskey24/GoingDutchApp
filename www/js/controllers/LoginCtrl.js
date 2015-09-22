@@ -5,17 +5,19 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('LoginCtrl', ['$stateParams', '$scope', 'gdApi', '$state', LoginCtrl]);
+    angular.module('GoingDutchApp').controller('LoginCtrl', ['$stateParams', '$scope', 'gdApi', '$state', '$ionicLoading',LoginCtrl]);
 
-    function LoginCtrl($stateParams, $scope, gdApi, $state) {
+    function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading) {
 
         $scope.login = function (data) {
+            $ionicLoading.show();
             gdApi.login(data.username, data.password)
                 .then(gdApi.fetchGroupsData)
                 .then(gotoHome, logErrorMessage);
         };
 
         function gotoHome(groups) {
+            $ionicLoading.hide();
             preLoadExpenses(groups);
             $state.go('home.groups');
         }
