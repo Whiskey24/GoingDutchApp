@@ -17,7 +17,6 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <allow-navigation href="https://api.santema.eu/GoingDutchApi/*" />
-  <allow-navigation href="http://api.gdutch.dev/*" />
+  <allow-navigation href="https://api.santema.eu/GoingDutchApi/*"/>
+  <allow-navigation href="http://api.gdutch.dev/*"/>
 </widget>
-

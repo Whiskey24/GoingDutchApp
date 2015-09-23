@@ -22,10 +22,11 @@
                     $localStorage.authenticated = true;
                     deferred.resolve(data);
                 })
-                .error(function () {
+                .error(function (msg, code) {
                     console.log("Login failed: invalid credentials supplied for " + $username);
+                    console.log(msg, code);
                     $localStorage.authenticated = false;
-                    deferred.reject();
+                    deferred.reject(msg);
                 });
             return deferred.promise;
         }
@@ -47,10 +48,10 @@
                     $localStorage.groups = data;
                     deferred.resolve($localStorage.groups);
                 })
-                .error(function () {
+                .error(function (msg, code) {
                     console.log("Error fetching groups data");
                     $localStorage.authenticated = false;
-                    deferred.reject();
+                    deferred.reject(msg);
                 });
             return deferred.promise;
         }
@@ -67,10 +68,10 @@
                     $localStorage.users = data;
                     deferred.resolve($localStorage.users);
                 })
-                .error(function () {
+                .error(function (msg, code) {
                     console.log("Error fetching users data");
                     $localStorage.authenticated = false;
-                    deferred.reject();
+                    deferred.reject(msg);
                 });
             return deferred.promise;
         }

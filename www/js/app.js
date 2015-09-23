@@ -1,8 +1,9 @@
 angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage'])
 
     .constant('gdConfig', (function () {
-        var host = 'http://api.gdutch.dev';
-        //var host = 'https://api.santema.eu/GoingDutchApi';
+        //var host = 'http://api.gdutch.dev';
+        var host = 'https://api.santema.eu/GoingDutchApi';
+        console.log("API host: " + host);
         return {
             host: host,
             port: 80,
@@ -272,7 +273,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
     })
 
     // http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
-    .run(function ($rootScope, $state, $ionicHistory, $localStorage) {
+    /*.run(function ($rootScope, $state, $ionicHistory, $localStorage) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
 
@@ -288,8 +289,8 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
         });
 
     });
-;
 
+*/
 
 /*
 

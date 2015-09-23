@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('LoginCtrl', ['$stateParams', '$scope', 'gdApi', '$state', '$ionicLoading',LoginCtrl]);
+    angular.module('GoingDutchApp').controller('LoginCtrl', ['$stateParams', '$scope', 'gdApi', '$state', '$ionicLoading', '$ionicPopup', LoginCtrl]);
 
-    function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading) {
+    function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading, $ionicPopup) {
 
         $scope.login = function (data) {
             $ionicLoading.show();
@@ -28,8 +28,8 @@
                 .then(function (data) {
                     //users = data;
                     //console.log(users);
-                }, function (error) {
-                    logErrorMessage(error);
+                }, function (msg) {
+                    logErrorMessage(msg);
                 }
             );
 
@@ -47,8 +47,20 @@
         }
 
         function logErrorMessage(error) {
-            console.log("Error: " + error.message)
+            $ionicLoading.hide();
+            console.log("Error: " + error);
+            $scope.showAlert();
         }
+
+        $scope.showAlert = function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Sorry',
+                template: 'Can\'t let you in'
+            });
+            alertPopup.then(function(res) {
+                //console.log('Thank you for not eating my delicious ice cream cone');
+            });
+        };
 
     }
 })();
