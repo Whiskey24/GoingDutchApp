@@ -85,6 +85,9 @@
         };
 
         $scope.checkMember = function (uid) {
+            if ($scope.participants.length == 1 && $scope.participants[0] == uid) {
+                return true;
+            }
             if ($scope.participants.indexOf(uid) >= 0) {
                 // console.log("UID " + uid + " checked");
                 return true;

@@ -107,7 +107,17 @@
         var groupsArray = [];
 
         function getGroups() {
-            return objectToArraySorted($localStorage.groups, groupsArray);
+            //return objectToArraySorted($localStorage.groups, groupsArray);
+            i = 0;
+            for (var key in $localStorage.groups) {
+                if ($localStorage.groups.hasOwnProperty(key)) {
+                    groupsArray[i] = $localStorage.groups[key];
+                    i++;
+                }
+            }
+            //console.log(groupsArray);
+            return groupsArray;
+
         }
 
         function moveGroup(group, fromIndex, toIndex) {
@@ -175,6 +185,33 @@
 
         function getGroupMembers(gid) {
             return $localStorage.groups[gid]['members'];
+        }
+
+        function sortByKey(array, key, descending) {
+            if (array.constructor !== Array) {
+                var newArray = [];
+                var i = 0;
+                for (var keyy in array) {
+                    if (array.hasOwnProperty(keyy)) {
+                        newArray[i] = array[keyy];
+                        i++;
+                    }
+                }
+                array = newArray;
+            }
+            var order = descending ? -1 : 1;
+            return array.sort(function(a, b) {
+                var x = a[key];
+                var y = b[key];
+
+                if (typeof x == "string")
+                {
+                    x = x.toLowerCase();
+                    y = y.toLowerCase();
+                }
+
+                return ((x < y) ? -1 * order : ((x > y) ? 1 * order  : 0));
+            });
         }
 
         function getExpenses(gid) {
@@ -351,7 +388,8 @@
             createOffset: createOffset,
             addExpense: addExpense,
             login: login,
-            logout: logout
+            logout: logout,
+            sortByKey: sortByKey
         };
 
 

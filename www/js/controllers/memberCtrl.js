@@ -15,7 +15,7 @@
             $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         });
 
-        $scope.members = gdApi.getGroupMembers($stateParams.gid);
+        $scope.members = gdApi.sortByKey(gdApi.getGroupMembers($stateParams.gid), 'balance', 1);
 
         $scope.memberName = function(uid) {
             return gdApi.getUserName(uid);

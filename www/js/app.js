@@ -233,7 +233,14 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
         ;
 
         // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise('/home/groups');
+        /*
+         We are using the below urlRouterProvider.otherwise() because of:
+         https://github.com/angular-ui/ui-router/issues/600
+         */
+        $urlRouterProvider.otherwise(function($injector, $location) {
+            var $state = $injector.get('$state');
+            $state.go('public.login');
+        });
     })
 
     .config(function ($ionicConfigProvider) {
@@ -273,7 +280,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
     })
 
     // http://brewhouse.io/blog/2014/12/09/authentication-made-simple-in-single-page-angularjs-applications.html
-    /*.run(function ($rootScope, $state, $ionicHistory, $localStorage) {
+    .run(function ($rootScope, $state, $ionicHistory, $localStorage) {
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
             var requireLogin = toState.data.requireLogin;
 
@@ -290,7 +297,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
     });
 
-*/
+
 
 /*
 
