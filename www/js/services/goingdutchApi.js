@@ -5,17 +5,26 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService', '$rootScope', '$state', 'gdConfig', '$q', gdApi]);
+    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService', '$rootScope', '$state', 'gdConfig', '$q', 'CacheFactory', gdApi]);
 
-    function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q) {
+    function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q, CacheFactory) {
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
+
+
+        if (!CacheFactory.get('groupsCache')) { self.groupsCache = CacheFactory('groupsCache'); }
+        if (!CacheFactory.get('usersCache')) { self.usersCache = CacheFactory('usersCache'); }
+        if (!CacheFactory.get('expensesCache')) { self.expensesCache = CacheFactory('expensesCache'); }
+
+        function clearAllCache()  {
+            CacheFactory.clearAll()
+        }
 
         function login($username, $password) {
             $localStorage.$reset();
             var deferred = $q.defer();
-            authenticationDataService.setAuthData($username, $password);
 
+            authenticationDataService.setAuthData($username, $password);
             $http.get(gdConfig.url_login)
                 .success(function (data, status) {
                     console.log("Login success: credentials for " + $username + " are valid");
@@ -39,14 +48,22 @@
 
         function fetchGroupsData() {
             var deferred = $q.defer();
-            if ($localStorage.groups) {
-                return deferred.resolve($localStorage.groups);
+            //if ($localStorage.groups) {
+            //    return deferred.resolve($localStorage.groups);
+            //}
+
+            var cacheKey = "groups";
+            var groupsData = self.groupsCache.get(cacheKey);
+            if (groupsData) {
+                return deferred.resolve(groupsData);
             }
+
             $http.get(gdConfig.url_groups)
                 .success(function (data, status) {
                     console.log("Groups data fetched successfully");
-                    $localStorage.groups = data;
-                    deferred.resolve($localStorage.groups);
+                    //$localStorage.groups = data;
+                    self.groupsCache.put(cacheKey, data);
+                    deferred.resolve(data);
                 })
                 .error(function (msg, code) {
                     console.log("Error fetching groups data");
@@ -58,15 +75,24 @@
 
         function fetchUsersData() {
             var deferred = $q.defer();
-            if ($localStorage.users) {
-                console.log("Users data stored locally");
-                return deferred.resolve($localStorage.users);
+            //if ($localStorage.users) {
+            //    console.log("Users data stored locally");
+            //    return deferred.resolve($localStorage.users);
+            //}
+
+            var cacheKey = "users";
+            var usersData = self.usersCache.get(cacheKey);
+            if (usersData) {
+                return deferred.resolve(usersData);
             }
+
             $http.get(gdConfig.url_users)
                 .success(function (data, status) {
                     console.log("Users data fetched successfully");
-                    $localStorage.users = data;
-                    deferred.resolve($localStorage.users);
+                    console.log(data);
+                    //$localStorage.users = data;
+                    self.usersCache.put(cacheKey, data);
+                    deferred.resolve(data);
                 })
                 .error(function (msg, code) {
                     console.log("Error fetching users data");
@@ -78,19 +104,27 @@
 
         function fetchExpensesData(gid) {
             var deferred = $q.defer();
-            if ($localStorage.expenses && $localStorage.expenses[gid]) {
-                return deferred.resolve($localStorage.expenses[gid]);
+            //if ($localStorage.expenses && $localStorage.expenses[gid]) {
+            //    return deferred.resolve($localStorage.expenses[gid]);
+            //}
+            //if (!$localStorage.expenses) {
+            //    $localStorage.expenses = {};
+            //}
+
+            var cacheKey = "gid-" + gid;
+            var expensesData = self.expensesCache.get(cacheKey);
+            if (expensesData) {
+                return deferred.resolve(expensesData);
             }
-            if (!$localStorage.expenses) {
-                $localStorage.expenses = {};
-            }
+
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.get(url_expenses)
                 .success(function (data, status) {
                     console.log("Expenses data for group " + gid + " fetched successfully");
-                    $localStorage.expenses[gid] = data[gid];
+                    //$localStorage.expenses[gid] = data[gid];
                     //console.log($localStorage.expenses);
-                    deferred.resolve($localStorage.expenses[gid]);
+                    self.expensesCache.put(cacheKey, data);
+                    deferred.resolve(data);
                 })
                 .error(function () {
                     console.log("Error fetching groups data");
@@ -108,10 +142,11 @@
 
         function getGroups() {
             //return objectToArraySorted($localStorage.groups, groupsArray);
+            var groups = fetchGroupsData();
             i = 0;
-            for (var key in $localStorage.groups) {
-                if ($localStorage.groups.hasOwnProperty(key)) {
-                    groupsArray[i] = $localStorage.groups[key];
+            for (var key in groups) {
+                if (groups.hasOwnProperty(key)) {
+                    groupsArray[i] = groups[key];
                     i++;
                 }
             }
@@ -168,23 +203,27 @@
         //}
 
         function getUser(uid) {
-            return $localStorage.users[uid];
+            var users = fetchUsersData();
+            return users[uid];
         }
 
         function getUserName(uid) {
-            if (typeof($localStorage.users[uid]) == 'undefined') {
+            var users = fetchUsersData();
+            if (typeof(users[uid]) == 'undefined') {
                 return "Error: user " + uid + " not found";
             }
-            return $localStorage.users[uid]['nickName'];
+            return users[uid]['nickName'];
         }
 
         function getGroupTitleByGid(gid) {
             //return _.pluck(_.filter(groups, {'gid': Number(gid)}), 'title')[0];
-            return _.pluck(_.filter($localStorage.groups, {'gid': Number(gid)}), 'name')[0];
+            var groups = fetchGroupsData();
+            return _.pluck(_.filter(groups, {'gid': Number(gid)}), 'name')[0];
         }
 
         function getGroupMembers(gid) {
-            return $localStorage.groups[gid]['members'];
+            var groups = fetchGroupsData();
+            return groups[gid]['members'];
         }
 
         function sortByKey(array, key, descending) {

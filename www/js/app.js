@@ -1,8 +1,8 @@
-angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage'])
+angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache' ])
 
     .constant('gdConfig', (function () {
-        //var host = 'http://api.gdutch.dev';
-        var host = 'https://api.santema.eu/GoingDutchApi';
+        var host = 'http://api.gdutch.dev';
+        //var host = 'https://api.santema.eu/GoingDutchApi';
         console.log("API host: " + host);
         return {
             host: host,
