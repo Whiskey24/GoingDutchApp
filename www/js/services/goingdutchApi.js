@@ -11,7 +11,6 @@
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
-
         if (!CacheFactory.get('groupsCache')) { self.groupsCache = CacheFactory('groupsCache'); }
         if (!CacheFactory.get('usersCache')) { self.usersCache = CacheFactory('usersCache'); }
         if (!CacheFactory.get('expensesCache')) { self.expensesCache = CacheFactory('expensesCache'); }
@@ -22,6 +21,7 @@
 
         function login($username, $password) {
             $localStorage.$reset();
+            clearAllCache();
             var deferred = $q.defer();
 
             authenticationDataService.setAuthData($username, $password);
@@ -44,34 +44,44 @@
             $localStorage.$reset();
             authenticationDataService.resetAuthData();
             $localStorage.authenticated = false;
+            clearAllCache();
         }
 
         function fetchGroupsData() {
             var deferred = $q.defer();
-            //if ($localStorage.groups) {
-            //    return deferred.resolve($localStorage.groups);
-            //}
 
             var cacheKey = "groups";
             var groupsData = self.groupsCache.get(cacheKey);
             if (groupsData) {
-                return deferred.resolve(groupsData);
+                console.log("Groups data loaded from cache");
+                //console.log(groupsData);
+                deferred.resolve(groupsData);
             }
 
             $http.get(gdConfig.url_groups)
                 .success(function (data, status) {
                     console.log("Groups data fetched successfully");
                     //$localStorage.groups = data;
-                    self.groupsCache.put(cacheKey, data);
-                    deferred.resolve(data);
+                    var groupsArray = [];
+                    var i = 0;
+                    for (var key in data) {
+                        if (data.hasOwnProperty(key)) {
+                            groupsArray[i] = data[key];
+                            i++;
+                        }
+                    }
+                    self.groupsCache.put(cacheKey, groupsArray);
+                    deferred.resolve(groupsArray);
                 })
                 .error(function (msg, code) {
                     console.log("Error fetching groups data");
                     $localStorage.authenticated = false;
                     deferred.reject(msg);
                 });
+
             return deferred.promise;
         }
+
 
         function fetchUsersData() {
             var deferred = $q.defer();
@@ -83,13 +93,13 @@
             var cacheKey = "users";
             var usersData = self.usersCache.get(cacheKey);
             if (usersData) {
+                console.log("Users data loaded from cache");
                 return deferred.resolve(usersData);
             }
 
             $http.get(gdConfig.url_users)
                 .success(function (data, status) {
                     console.log("Users data fetched successfully");
-                    console.log(data);
                     //$localStorage.users = data;
                     self.usersCache.put(cacheKey, data);
                     deferred.resolve(data);
@@ -138,25 +148,8 @@
             return getGroupTitleByGid($stateParams.gid);
         }
 
-        var groupsArray = [];
-
-        function getGroups() {
-            //return objectToArraySorted($localStorage.groups, groupsArray);
-            var groups = fetchGroupsData();
-            i = 0;
-            for (var key in groups) {
-                if (groups.hasOwnProperty(key)) {
-                    groupsArray[i] = groups[key];
-                    i++;
-                }
-            }
-            //console.log(groupsArray);
-            return groupsArray;
-
-        }
-
         function moveGroup(group, fromIndex, toIndex) {
-            return moveItemForSort(groupsArray, group, fromIndex, toIndex);
+            return fetchGroupsData().then(moveItemForSort(groups, group, fromIndex, toIndex));
         }
 
         function objectToArraySorted(obj, arr) {
@@ -262,7 +255,9 @@
         }
 
         function getGroupCurrency(gid) {
-            return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'currency')[0];
+            fetchGroupsData().then(function (groupsArray) {
+                return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'currency')[0];
+            });
         }
 
         function setGroupCurrency(gid, currencyCode) {
@@ -297,7 +292,12 @@
         }
 
         function getGroupCategories(gid) {
-            return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
+
+            fetchGroupsData().then(function (groupsArray) {
+                return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
+            });
+
+
             //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
         }
 
@@ -402,7 +402,7 @@
         //var London = new Date(currentTS * 1000 - 60 * 60 * 1000);
 
         return {
-            getGroups: getGroups,
+            //getGroups: getGroups,
             getGroupTitle: getGroupTitle,
             getGroupTitleByGid: getGroupTitleByGid,
             getExpenses: getExpenses,

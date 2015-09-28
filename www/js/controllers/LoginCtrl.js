@@ -9,38 +9,33 @@
 
     function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading, $ionicPopup) {
 
-        $scope.login = function (data) {
+        $scope.login = function (credentials) {
             $ionicLoading.show();
-            gdApi.login(data.username, data.password)
+            gdApi.login(credentials.username, credentials.password)
                 .then(gdApi.fetchGroupsData)
                 .then(gotoHome, logErrorMessage);
         };
 
-        function gotoHome(groups) {
+        function gotoHome(groupsData) {
+            $scope.groups = groupsData;
             $ionicLoading.hide();
-            preLoadExpenses(groups);
+            preLoadExpenses();
             $state.go('home.groups');
         }
 
-        function preLoadExpenses(data) {
+        function preLoadExpenses() {
 
             gdApi.fetchUsersData()
-                .then(function (data) {
+                .then(function () {
                     //users = data;
-                    //console.log(users);
                 }, function (msg) {
                     logErrorMessage(msg);
                 }
             );
 
-            function getLength(arr) {
-                return Object.keys(arr).length;
-            }
-
-            var groups = gdApi.getGroups();
-            console.log("Group count: " + groups.length);
-            for (var index = 0; index < groups.length; index++) {
-                gdApi.fetchExpensesData(groups[index].gid)
+            console.log("Group count: " + $scope.groups.length);
+            for (var index = 0; index < $scope.groups.length; index++) {
+                gdApi.fetchExpensesData($scope.groups[index].gid)
                     .then(function (data) {
                         //console.log(data);
                     }, function (error) {
@@ -55,17 +50,6 @@
             console.log("Error: " + error);
             $scope.showAlert();
         }
-
-        $scope.showAlert = function() {
-            var alertPopup = $ionicPopup.alert({
-                title: 'Sorry',
-                template: 'Can\'t let you in'
-            });
-            alertPopup.then(function(res) {
-                //console.log('Thank you for not eating my delicious ice cream cone');
-            });
-        };
-
 
         /* repeatString() returns a string which has been repeated a set number of times */
         function repeatString(str, num) {

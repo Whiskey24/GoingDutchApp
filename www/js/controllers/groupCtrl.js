@@ -9,14 +9,34 @@
 
     function GroupCtrl($scope, gdApi) {
 
-        $scope.getGroupCurrency = function(gid) {
-            return gdApi.getGroupCurrency(gid);
+        var currencies = {};
+        gdApi.fetchGroupsData().then(function (groupsArray) {
+            for (var i = 0, len = groupsArray.length; i < len; i++) {
+                currencies[groupsArray[i].gid] = _.pluck(_.filter(groupsArray, {'gid': Number(groupsArray[i].gid)}), 'currency')[0];
+            }
+            //$scope.currencies = currencies;
+        });
+
+        $scope.getGroupCurrency = function (gid) {
+            return currencies[gid];
         };
 
-        $scope.groups = gdApi.getGroups();
+        gdApi.fetchGroupsData().then(
+            function (groupsData) {
+                $scope.groups = groupsData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        );
+
         $scope.data = {};
 
-        $scope.moveGroup = function(group, fromIndex, toIndex) {
+        function logErrorMessage(error) {
+            console.log("Error: " + error);
+        }
+
+        $scope.moveGroup = function (group, fromIndex, toIndex) {
             $scope.groups = gdApi.moveGroup(group, fromIndex, toIndex);
         }
 
