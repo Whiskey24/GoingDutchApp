@@ -6,9 +6,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afd1b35c-fec2-493f-8aa5-932bc27d8e6d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/LoginCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/LoginCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" afterPath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GoingDutchApp.iws" />
@@ -547,12 +544,6 @@
       <option name="number" value="Default" />
       <updated>1434476986277</updated>
     </task>
-    <task id="LOCAL-00008" summary="Group routing fixed properly.">
-      <created>1435169669065</created>
-      <option name="number" value="00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1435169669065</updated>
-    </task>
     <task id="LOCAL-00009" summary="Expense routing fixed.">
       <created>1435183846904</created>
       <option name="number" value="00009" />
@@ -841,7 +832,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443307391511</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Login &amp; groups view works with cache, rest not">
+      <created>1443478681748</created>
+      <option name="number" value="00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1443478681748</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TodoView">
@@ -860,6 +857,7 @@
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13980263" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.49565217" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874617" sideWeight="0.49383223" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.5756579" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -868,7 +866,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32874617" sideWeight="0.49383223" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -893,7 +890,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Minor update.&#10;This pull request is not in yet: https://github.com/driftyco/ionic/pull/3724" />
     <MESSAGE value="Updated to Ionic 1.1.0, added amount to expense edit with basic validation." />
     <MESSAGE value="Updated expense edit form." />
     <MESSAGE value="Added paid by and check for participants &gt; 0" />
@@ -918,7 +914,8 @@
     <MESSAGE value="Added content-policy&#10;Commented out $stateChangeStart function, needs rewrite (log gets spammed with iteration errors)." />
     <MESSAGE value="Bugs fixed, groups overview works with API.&#10;Cache still needs to be implemented." />
     <MESSAGE value="Started implementing cache, does not work yet." />
-    <option name="LAST_COMMIT_MESSAGE" value="Started implementing cache, does not work yet." />
+    <MESSAGE value="Login &amp; groups view works with cache, rest not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login &amp; groups view works with cache, rest not" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
