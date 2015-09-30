@@ -16,7 +16,18 @@
         });
 
         $scope.gid = $stateParams.gid;
-        $scope.expenses = gdApi.getExpenses($stateParams.gid);
+
+        gdApi.fetchExpensesData().then(
+            function (expensesData) {
+                $scope.expenses = expensesData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        );
+
+
+        //$scope.expenses = gdApi.getExpenses($stateParams.gid);
     }
 
 

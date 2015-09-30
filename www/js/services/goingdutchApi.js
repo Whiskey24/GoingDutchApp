@@ -11,11 +11,21 @@
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
-        if (!CacheFactory.get('groupsCache')) { self.groupsCache = CacheFactory('groupsCache'); }
-        if (!CacheFactory.get('usersCache')) { self.usersCache = CacheFactory('usersCache'); }
-        if (!CacheFactory.get('expensesCache')) { self.expensesCache = CacheFactory('expensesCache'); }
+        if (!CacheFactory.get('groupsCache')) {
+            self.groupsCache = CacheFactory('groupsCache');
+        }
+        if (!CacheFactory.get('usersCache')) {
+            self.usersCache = CacheFactory('usersCache');
+        }
+        if (!CacheFactory.get('expensesCache')) {
+            self.expensesCache = CacheFactory('expensesCache');
+        }
 
-        function clearAllCache()  {
+        // keep track of often used properties
+        // will be refreshed upon cache refresh
+        var groupProperties = {};
+
+        function clearAllCache() {
             CacheFactory.clearAll()
         }
 
@@ -56,29 +66,35 @@
                 console.log("Groups data loaded from cache");
                 //console.log(groupsData);
                 deferred.resolve(groupsData);
-            }
-
-            $http.get(gdConfig.url_groups)
-                .success(function (data, status) {
-                    console.log("Groups data fetched successfully");
-                    //$localStorage.groups = data;
-                    var groupsArray = [];
-                    var i = 0;
-                    for (var key in data) {
-                        if (data.hasOwnProperty(key)) {
-                            groupsArray[i] = data[key];
-                            i++;
+            } else {
+                $http.get(gdConfig.url_groups)
+                    .success(function (data, status) {
+                        console.log("Groups data fetched successfully");
+                        //$localStorage.groups = data;
+                        groupProperties = {};
+                        var groupsArray = [];
+                        var i = 0;
+                        for (var key in data) {
+                            if (data.hasOwnProperty(key)) {
+                                groupsArray[i] = data[key];
+                                if (typeof(groupProperties[data[key].gid]) == 'undefined') {
+                                    groupProperties[data[key].gid] = {
+                                        'title': data[key].name,
+                                        'currency': data[key].currency
+                                    };
+                                }
+                                i++;
+                            }
                         }
-                    }
-                    self.groupsCache.put(cacheKey, groupsArray);
-                    deferred.resolve(groupsArray);
-                })
-                .error(function (msg, code) {
-                    console.log("Error fetching groups data");
-                    $localStorage.authenticated = false;
-                    deferred.reject(msg);
-                });
-
+                        self.groupsCache.put(cacheKey, groupsArray);
+                        deferred.resolve(groupsArray);
+                    })
+                    .error(function (msg, code) {
+                        console.log("Error fetching groups data");
+                        $localStorage.authenticated = false;
+                        deferred.reject(msg);
+                    });
+            }
             return deferred.promise;
         }
 
@@ -92,23 +108,24 @@
 
             var cacheKey = "users";
             var usersData = self.usersCache.get(cacheKey);
+
             if (usersData) {
                 console.log("Users data loaded from cache");
-                return deferred.resolve(usersData);
+                deferred.resolve(usersData);
+            } else {
+                $http.get(gdConfig.url_users)
+                    .success(function (data, status) {
+                        console.log("Users data fetched successfully ");
+                        //$localStorage.users = data;
+                        self.usersCache.put(cacheKey, data);
+                        deferred.resolve(data);
+                    })
+                    .error(function (msg, code) {
+                        console.log("Error fetching users data");
+                        $localStorage.authenticated = false;
+                        deferred.reject(msg);
+                    });
             }
-
-            $http.get(gdConfig.url_users)
-                .success(function (data, status) {
-                    console.log("Users data fetched successfully");
-                    //$localStorage.users = data;
-                    self.usersCache.put(cacheKey, data);
-                    deferred.resolve(data);
-                })
-                .error(function (msg, code) {
-                    console.log("Error fetching users data");
-                    $localStorage.authenticated = false;
-                    deferred.reject(msg);
-                });
             return deferred.promise;
         }
 
@@ -124,28 +141,29 @@
             var cacheKey = "gid-" + gid;
             var expensesData = self.expensesCache.get(cacheKey);
             if (expensesData) {
-                return deferred.resolve(expensesData);
+                deferred.resolve(expensesData);
+            } else {
+                var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
+                $http.get(url_expenses)
+                    .success(function (data, status) {
+                        console.log("Expenses data for group " + gid + " fetched successfully");
+                        //$localStorage.expenses[gid] = data[gid];
+                        //console.log($localStorage.expenses);
+                        self.expensesCache.put(cacheKey, data);
+                        deferred.resolve(data);
+                    })
+                    .error(function () {
+                        console.log("Error fetching groups data");
+                        $localStorage.authenticated = false;
+                        deferred.reject();
+                    });
             }
-
-            var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
-            $http.get(url_expenses)
-                .success(function (data, status) {
-                    console.log("Expenses data for group " + gid + " fetched successfully");
-                    //$localStorage.expenses[gid] = data[gid];
-                    //console.log($localStorage.expenses);
-                    self.expensesCache.put(cacheKey, data);
-                    deferred.resolve(data);
-                })
-                .error(function () {
-                    console.log("Error fetching groups data");
-                    $localStorage.authenticated = false;
-                    deferred.reject();
-                });
             return deferred.promise;
         }
 
         function getGroupTitle($stateParams) {
-            return getGroupTitleByGid($stateParams.gid);
+            //return getGroupTitleByGid($stateParams.gid);
+            return groupProperties[$stateParams.gid].title;
         }
 
         function moveGroup(group, fromIndex, toIndex) {
@@ -231,18 +249,17 @@
                 }
                 array = newArray;
             }
-            var order = descending ? -1 : 1;
-            return array.sort(function(a, b) {
+            var order = descending && descending.toUpperCase() !== 'ASC' ? -1 : 1;
+            return array.sort(function (a, b) {
                 var x = a[key];
                 var y = b[key];
 
-                if (typeof x == "string")
-                {
+                if (typeof x == "string") {
                     x = x.toLowerCase();
                     y = y.toLowerCase();
                 }
 
-                return ((x < y) ? -1 * order : ((x > y) ? 1 * order  : 0));
+                return ((x < y) ? -1 * order : ((x > y) ? 1 * order : 0));
             });
         }
 
@@ -255,9 +272,8 @@
         }
 
         function getGroupCurrency(gid) {
-            fetchGroupsData().then(function (groupsArray) {
-                return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'currency')[0];
-            });
+            //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'currency')[0];
+            return groupProperties[gid].currency;
         }
 
         function setGroupCurrency(gid, currencyCode) {

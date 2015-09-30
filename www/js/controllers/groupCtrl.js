@@ -10,16 +10,6 @@
     function GroupCtrl($scope, gdApi) {
 
         var currencies = {};
-        gdApi.fetchGroupsData().then(function (groupsArray) {
-            for (var i = 0, len = groupsArray.length; i < len; i++) {
-                currencies[groupsArray[i].gid] = _.pluck(_.filter(groupsArray, {'gid': Number(groupsArray[i].gid)}), 'currency')[0];
-            }
-            //$scope.currencies = currencies;
-        });
-
-        $scope.getGroupCurrency = function (gid) {
-            return currencies[gid];
-        };
 
         gdApi.fetchGroupsData().then(
             function (groupsData) {
@@ -29,8 +19,16 @@
                 logErrorMessage(msg);
             }
         );
+        /*.then(function () {
+                for (var i = 0, len = $scope.groups.length; i < len; i++) {
+                    currencies[$scope.groups[i].gid] = gdApi.getGroupCurrency($scope.groups[i].gid);
+                }
+            }
+        );*/
 
-        $scope.data = {};
+        $scope.getGroupCurrency = function (gid) {
+            return gdApi.getGroupCurrency(gid);
+        };
 
         function logErrorMessage(error) {
             console.log("Error: " + error);

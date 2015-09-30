@@ -15,11 +15,34 @@
             $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         });
 
-        $scope.members = gdApi.sortByKey(gdApi.getGroupMembers($stateParams.gid), 'balance', 1);
+        gdApi.fetchGroupsData().then(
+            function (groupsData) {
+                $scope.groups = groupsData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        ).then(function () {
+                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+            }
+        );
 
-        $scope.memberName = function(uid) {
-            return gdApi.getUserName(uid);
-        }
+        gdApi.fetchUsersData().then(
+            function (usersData) {
+                $scope.users = usersData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        );
+
+        $scope.memberName = function (uid) {
+            if (typeof($scope.users[uid]) == 'undefined') {
+                return "Error: user " + uid + " not found";
+            }
+            return $scope.users[uid]['nickName'];
+        };
 
     }
 
