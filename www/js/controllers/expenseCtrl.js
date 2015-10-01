@@ -17,9 +17,10 @@
 
         $scope.gid = $stateParams.gid;
 
-        gdApi.fetchExpensesData().then(
+        gdApi.fetchExpensesData($stateParams.gid).then(
             function (expensesData) {
                 $scope.expenses = expensesData;
+                console.log(expensesData[0]);
             },
             function (msg) {
                 logErrorMessage(msg);

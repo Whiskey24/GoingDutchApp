@@ -115,7 +115,7 @@
             } else {
                 $http.get(gdConfig.url_users)
                     .success(function (data, status) {
-                        console.log("Users data fetched successfully ");
+                        console.log("Users data fetched successfully");
                         //$localStorage.users = data;
                         self.usersCache.put(cacheKey, data);
                         deferred.resolve(data);
@@ -141,6 +141,7 @@
             var cacheKey = "gid-" + gid;
             var expensesData = self.expensesCache.get(cacheKey);
             if (expensesData) {
+                console.log("Expenses data for group " + gid + " loaded from cache");
                 deferred.resolve(expensesData);
             } else {
                 var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
@@ -149,8 +150,8 @@
                         console.log("Expenses data for group " + gid + " fetched successfully");
                         //$localStorage.expenses[gid] = data[gid];
                         //console.log($localStorage.expenses);
-                        self.expensesCache.put(cacheKey, data);
-                        deferred.resolve(data);
+                        self.expensesCache.put(cacheKey, data[gid]);
+                        deferred.resolve(data[gid]);
                     })
                     .error(function () {
                         console.log("Error fetching groups data");

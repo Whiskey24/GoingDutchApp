@@ -20,35 +20,82 @@
         $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
-        $scope.expense = gdApi.getExpense($scope.gid, $scope.eid);
-        if ($scope.eid > 0) {
-            if (typeof ($scope.expense.uids) === "string")
-                $scope.participants = $scope.expense.uids.split(",");
-            else
-                $scope.participants = [ $scope.expense.uids ];
-        }
+//        $scope.expense = gdApi.getExpense($scope.gid, $scope.eid);
 
-        else {
+//        _.filter($localStorage.expenses[gid], {'eid': Number(eid)})[0];
+
+
+        console.log("EID: " + $scope.eid);
+        if ($scope.eid > 0) {
+            gdApi.fetchExpensesData($stateParams.gid).then(
+                function (expensesData) {
+                    $scope.expenses = expensesData;
+                    $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
+                    console.log($scope.expense);
+                    if (typeof ($scope.expense.uids) === "string")
+                        $scope.participants = $scope.expense.uids.split(",");
+                    else
+                        $scope.participants = [$scope.expense.uids];
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            );
+        } else {
             $scope.newExpense = true;
             $scope.participants = [];
             $scope.expense = {};
             $scope.expense.ecreated = Math.floor(Date.now() / 1000);
             $scope.expense.timezoneoffset = new Date().getTimezoneOffset();
         }
+//
+
+        gdApi.fetchGroupsData().then(
+            function (groupsData) {
+                $scope.groups = groupsData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        ).then(function () {
+                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                $scope.members =  gdApi.sortByKey(members, 'uid', 'ASC');
+                //console.log($scope.members);
+            }
+        );
+
+        gdApi.fetchUsersData().then(
+            function (usersData) {
+                $scope.users = usersData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        );
+
+        $scope.memberName = function (uid) {
+            if (typeof($scope.users[uid]) == 'undefined') {
+                return "Error: user " + uid + " not found";
+            }
+            return $scope.users[uid]['nickName'];
+        };
 
 
-        $scope.members = gdApi.getGroupMembers($stateParams.gid);
+        //
+        // $scope.members = gdApi.getGroupMembers($stateParams.gid);
 
-        $scope.memberNames = [];
+        /*$scope.memberNames = [];
         Object.keys($scope.members).forEach(function (key) {
             // do something with obj[key]
             $scope.memberNames.push({uid: Number(key), name:gdApi.getUserName(key)})
-        });
+        });*/
 
 
+/*
         $scope.memberName = function (uid) {
             return gdApi.getUserName(uid);
         };
+*/
 
         $scope.formatDateTimeLocal = function (timestamp, offset) {
             return $scope.formatDateTime(timestamp - offset * 60);
