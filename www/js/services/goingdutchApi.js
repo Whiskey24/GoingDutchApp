@@ -172,6 +172,9 @@
         }
 
         function objectToArraySorted(obj, arr) {
+            if (!arr)
+                arr = [];
+
             if (arr.length > 0)
                 return arr;
 
@@ -313,8 +316,6 @@
             fetchGroupsData().then(function (groupsArray) {
                 return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
             });
-
-
             //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
         }
 
@@ -445,7 +446,8 @@
             addExpense: addExpense,
             login: login,
             logout: logout,
-            sortByKey: sortByKey
+            sortByKey: sortByKey,
+            objectToArraySorted: objectToArraySorted
         };
 
 

@@ -20,12 +20,15 @@
         $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
-//        $scope.expense = gdApi.getExpense($scope.gid, $scope.eid);
-
-//        _.filter($localStorage.expenses[gid], {'eid': Number(eid)})[0];
 
 
-        console.log("EID: " + $scope.eid);
+        var dayInSeconds = 60 * 60 * 24;
+        var expenseTimestampUTC;
+        var expenseTimestampLocal;
+        var expenseTimeEpochLocalSec; // remainder of dividing timestamp seconds with seconds in a day
+        var expenseTimeEpochLocalSecDay;
+        var expenseTimeEpochLocalSecRounded;  // we only care about rounding to minutes
+
         if ($scope.eid > 0) {
             gdApi.fetchExpensesData($stateParams.gid).then(
                 function (expensesData) {
@@ -36,19 +39,46 @@
                         $scope.participants = $scope.expense.uids.split(",");
                     else
                         $scope.participants = [$scope.expense.uids];
+                    setExpenseProperties($scope.expense);
                 },
                 function (msg) {
                     logErrorMessage(msg);
                 }
             );
+
+
         } else {
             $scope.newExpense = true;
             $scope.participants = [];
             $scope.expense = {};
             $scope.expense.ecreated = Math.floor(Date.now() / 1000);
             $scope.expense.timezoneoffset = new Date().getTimezoneOffset();
+            setExpenseProperties($scope.expense);
         }
-//
+
+        function setExpenseProperties() {
+            expenseTimestampUTC = $scope.expense.ecreated;
+            expenseTimestampLocal = expenseTimestampUTC - ($scope.expense.timezoneoffset * 60);
+            expenseTimeEpochLocalSec = expenseTimestampLocal % dayInSeconds; // remainder of dividing timestamp seconds with seconds in a day
+            expenseTimeEpochLocalSecDay = expenseTimestampLocal - expenseTimeEpochLocalSec;
+            expenseTimeEpochLocalSecRounded = expenseTimeEpochLocalSec - (expenseTimeEpochLocalSec % 60);  // we only care about rounding to minutes
+            $scope.expenseDateUTC = new Date(($scope.expense.ecreated - ($scope.expense.timezoneoffset * 60)) * 1000);
+            $scope.slots = {epochTime: expenseTimeEpochLocalSecRounded, format: 24, step: 15};
+
+            $scope.newValues = {
+                date: expenseTimeEpochLocalSecDay,
+                time: expenseTimeEpochLocalSecRounded + ($scope.expense.timezoneoffset * 60),
+                title: $scope.expense.etitle,
+                paidBy: $scope.expense.uid,
+                cid: $scope.expense.cid
+            }
+
+            if ($scope.newExpense) {
+                $scope.newValues.paidBy = $scope.memberNames[0].uid;
+                $scope.newValues.cid = $scope.categories[0].cid;
+            }
+        }
+
 
         gdApi.fetchGroupsData().then(
             function (groupsData) {
@@ -61,6 +91,21 @@
                 var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
                 $scope.members =  gdApi.sortByKey(members, 'uid', 'ASC');
                 //console.log($scope.members);
+
+                // $scope.categories = gdApi.getGroupCategories($scope.gid);
+
+                $scope.categories = gdApi.objectToArraySorted(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'categories')[0],  $scope.categories);
+
+                    for (var j in  $scope.categories[$stateParams.gid]) {
+                        if ( $scope.categories[$stateParams.gid][j].cid == $scope.expense.cid){
+                            $scope.category =   $scope.categories[$stateParams.gid][j];
+                            break;
+                        }
+                    }
+
+
+                //$scope.category = gdApi.getGroupCategory($scope.gid, $scope.expense.cid);
+                //return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
             }
         );
 
@@ -155,19 +200,6 @@
         $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
         $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
 
-        var expenseTimestampUTC = $scope.expense.ecreated;
-        var expenseTimestampLocal = expenseTimestampUTC - ($scope.expense.timezoneoffset * 60);
-        var dayInSeconds = 60 * 60 * 24;
-        var expenseTimeEpochLocalSec = expenseTimestampLocal % dayInSeconds; // remainder of dividing timestamp seconds with seconds in a day
-        var expenseTimeEpochLocalSecDay = expenseTimestampLocal - expenseTimeEpochLocalSec;
-        var expenseTimeEpochLocalSecRounded = expenseTimeEpochLocalSec - (expenseTimeEpochLocalSec % 60);  // we only care about rounding to minutes
-
-        $scope.expenseDateUTC = new Date(($scope.expense.ecreated - ($scope.expense.timezoneoffset * 60)) * 1000);
-        // console.log("Time=" + $scope.expenseDateUTC.getHours() * 60 + "+" + $scope.expenseDateUTC.getMinutes() + "=" + ($scope.expenseDateUTC.getHours() * 60 + $scope.expenseDateUTC.getMinutes()));
-        // $scope.slots = {epochTime:  ($scope.expenseDateUTC.getHours()*60+ $scope.expenseDateUTC.getMinutes())*60, format: 24, step: 1};
-
-        $scope.slots = {epochTime: expenseTimeEpochLocalSecRounded, format: 24, step: 15};
-
         $scope.timePickerCallback = function (val) {
             if (typeof (val) === 'undefined') {
                 // console.log('Time not selected');
@@ -183,23 +215,6 @@
                 $scope.newValues.date = Math.floor(val.getTime()/ 1000) - ($scope.expense.timezoneoffset * 60);
             }
         };
-
-        $scope.categories = gdApi.getGroupCategories($scope.gid);
-        $scope.category = gdApi.getGroupCategory($scope.gid, $scope.expense.cid);
-
-
-        $scope.newValues = {
-            date: expenseTimeEpochLocalSecDay,
-            time: expenseTimeEpochLocalSecRounded + ($scope.expense.timezoneoffset * 60),
-            title: $scope.expense.etitle,
-            paidBy: $scope.expense.uid,
-            cid: $scope.expense.cid
-        }
-
-        if ($scope.newExpense) {
-            $scope.newValues.paidBy = $scope.memberNames[0].uid;
-            $scope.newValues.cid = $scope.categories[0].cid;
-        }
 
         $scope.saveExpense = function() {
             $scope.expense.etitle = $scope.newValues.title;
