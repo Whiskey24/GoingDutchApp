@@ -71,12 +71,7 @@
                 title: $scope.expense.etitle,
                 paidBy: $scope.expense.uid,
                 cid: $scope.expense.cid
-            }
-
-            if ($scope.newExpense) {
-                $scope.newValues.paidBy = $scope.memberNames[0].uid;
-                $scope.newValues.cid = $scope.categories[0].cid;
-            }
+            };
         }
 
 
@@ -89,8 +84,16 @@
             }
         ).then(function () {
                 var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
-                $scope.members =  gdApi.sortByKey(members, 'uid', 'ASC');
-                //console.log($scope.members);
+                var members =  gdApi.sortByKey(members, 'uid', 'ASC');
+                $scope.members = {};
+                /*for (var key in membersSort ) {
+                    if (membersSort .hasOwnProperty(key)) {
+                        console.log(key + " -> " + membersSort [key]);
+                    }
+                }*/
+                for (var index in members){
+                    $scope.members[members[index].uid] = members[index].balance;
+                }
 
                 // $scope.categories = gdApi.getGroupCategories($scope.gid);
 
@@ -106,12 +109,28 @@
 
                 //$scope.category = gdApi.getGroupCategory($scope.gid, $scope.expense.cid);
                 //return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
+
+                if ($scope.newExpense) {
+                    //console.log(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0]);
+                    //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    for (var prop in members){
+                        //console.log(members[prop]);
+                        $scope.newValues.paidBy = members[prop].uid;
+                        break;
+                    }
+///                    $scope.newValues.paidBy = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0].slice(0, 1).uid;
+                    $scope.newValues.cid = $scope.categories[0].cid;
+                }
             }
         );
 
         gdApi.fetchUsersData().then(
             function (usersData) {
                 $scope.users = usersData;
+                $scope.memberNames = {};
+                for (var index in usersData){
+                    $scope.memberNames[usersData[index].uid] = {uid: usersData[index].uid , name: usersData[index].nickName};
+                }
             },
             function (msg) {
                 logErrorMessage(msg);

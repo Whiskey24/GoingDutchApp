@@ -15,6 +15,8 @@
             $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         });
 
+        $scope.users = {};
+
         gdApi.fetchGroupsData().then(
             function (groupsData) {
                 $scope.groups = groupsData;

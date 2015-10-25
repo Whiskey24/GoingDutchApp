@@ -237,8 +237,15 @@
         }
 
         function getGroupMembers(gid) {
-            var groups = fetchGroupsData();
-            return groups[gid]['members'];
+            //var groups = fetchGroupsData();
+
+            fetchGroupsData(gid).then(
+                function (groups) {
+                    //console.log(_.pluck(_.filter(groups, {'gid': Number(gid)}), 'members')[0]);
+                    //return groups[gid]['members'];
+                    return _.pluck(_.filter(groups, {'gid': Number(gid)}), 'members')[0];
+                });
+
         }
 
         function sortByKey(array, key, descending) {
@@ -301,9 +308,10 @@
         var newExpensesMargin = 100000000;
 
         function addExpense(gid, expense) {
+            console.log(expense);
             newExpensesMargin += 1;
             expense.eid = newExpensesMargin;
-            $localStorage.expenses[gid].unshift(expense);
+            //$localStorage.expenses[gid].unshift(expense);
         }
 
         var groupCategories = [];
