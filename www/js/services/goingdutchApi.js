@@ -20,10 +20,21 @@
         if (!CacheFactory.get('expensesCache')) {
             self.expensesCache = CacheFactory('expensesCache');
         }
+        if (!CacheFactory.get('userPrefs')) {
+            self.userPrefsCache = CacheFactory('userPrefs');
+        }
 
         // keep track of often used properties
         // will be refreshed upon cache refresh
         var groupProperties = {};
+
+        // keep track of uid of current user
+        function getUid() {
+            return self.userPrefsCache.get('uid');
+        }
+        function setUid(userUid) {
+            self.userPrefsCache.put('uid', userUid);
+        }
 
         function clearAllCache() {
             CacheFactory.clearAll()
@@ -39,6 +50,7 @@
                 .success(function (data, status) {
                     console.log("Login success: credentials for " + $username + " are valid");
                     $localStorage.authenticated = true;
+                    setUid(data['uid']);
                     deferred.resolve(data);
                 })
                 .error(function (msg, code) {
@@ -59,7 +71,6 @@
 
         function fetchGroupsData() {
             var deferred = $q.defer();
-
             var cacheKey = "groups";
             var groupsData = self.groupsCache.get(cacheKey);
             if (groupsData) {
@@ -101,10 +112,8 @@
 
         function fetchUsersData() {
             var deferred = $q.defer();
-            //if ($localStorage.users) {
-            //    console.log("Users data stored locally");
-            //    return deferred.resolve($localStorage.users);
-            //}
+
+            // ToDo: optionally limit to group id
 
             var cacheKey = "users";
             var usersData = self.usersCache.get(cacheKey);
@@ -151,6 +160,7 @@
                         //$localStorage.expenses[gid] = data[gid];
                         //console.log($localStorage.expenses);
                         self.expensesCache.put(cacheKey, data[gid]);
+                        //console.log(self.expensesCache.info(cacheKey));
                         deferred.resolve(data[gid]);
                     })
                     .error(function () {
@@ -160,6 +170,22 @@
                     });
             }
             return deferred.promise;
+        }
+
+        function expenseCacheCreated(gid) {
+            var cacheKey = "gid-" + gid;
+            if (self.expensesCache && self.expensesCache.info(cacheKey))
+                return self.expensesCache.info(cacheKey).created;
+            else
+                return 0;
+        }
+
+        function groupsCacheCreated(gid) {
+            var cacheKey = "groups";
+            if (self.groupsCache && self.groupsCache.info(cacheKey))
+                return self.groupsCache.info(cacheKey).created;
+            else
+                return 0;
         }
 
         function getGroupTitle($stateParams) {
@@ -308,15 +334,46 @@
         var newExpensesMargin = 100000000;
 
         function addExpense(gid, expense) {
-            console.log(expense);
+            //console.log(expense);
             newExpensesMargin += 1;
             expense.eid = newExpensesMargin;
             //$localStorage.expenses[gid].unshift(expense);
-        }
 
-        var groupCategories = [];
-        for (var i in $localStorage.groups) {
-            groupCategories[$localStorage.groups[i].gid] = [];
+            var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
+            $http.post(url_expenses, expense)
+                .then(function (response) {
+                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                        console.log("Error submitting expense");
+                    }
+                    else {
+                        console.log("Expense submitted successfully");
+                    }
+                    console.log(response.data);
+                    self.expensesCache.remove("gid-" + gid);
+                    fetchExpensesData(gid)
+                        .then(function (data) {
+                            console.log("Expenses updated for group " + gid);
+                            console.log(self.expensesCache.info("gid-" + gid).created);
+                            self.groupsCache.remove("groups");
+                        }, function (error) {
+                            console.log("Error: " + error);
+                        }).then(gdApi.fetchGroupsData);
+                }, function (response) {
+                    console.log("Error submitting expense");
+                });
+                //
+                //.success(function (data, status) {
+                //    if (data.substring(0,5) == "Error"){
+                //        console.log("Error submitting expense");
+                //    }
+                //    else {
+                //        console.log("Expense submitted successfully");
+                //    }
+                //    console.log(data);
+                //})
+                //.error(function () {
+                //    console.log("Error submitting expense");
+                //});
         }
 
         function getGroupCategories(gid) {
@@ -455,7 +512,10 @@
             login: login,
             logout: logout,
             sortByKey: sortByKey,
-            objectToArraySorted: objectToArraySorted
+            objectToArraySorted: objectToArraySorted,
+            UID: getUid,
+            expenseCacheCreated: expenseCacheCreated,
+            groupsCacheCreated: groupsCacheCreated
         };
 
 

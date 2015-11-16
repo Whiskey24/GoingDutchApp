@@ -15,6 +15,7 @@
             $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
         });
 
+        var UID = gdApi.UID();
         $scope.newExpense = false;
 
         $scope.groupTitle = gdApi.getGroupTitle($stateParams);
@@ -34,7 +35,7 @@
                 function (expensesData) {
                     $scope.expenses = expensesData;
                     $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
-                    console.log($scope.expense);
+                    //console.log($scope.expense);
                     if (typeof ($scope.expense.uids) === "string")
                         $scope.participants = $scope.expense.uids.split(",");
                     else
@@ -63,7 +64,7 @@
             expenseTimeEpochLocalSecDay = expenseTimestampLocal - expenseTimeEpochLocalSec;
             expenseTimeEpochLocalSecRounded = expenseTimeEpochLocalSec - (expenseTimeEpochLocalSec % 60);  // we only care about rounding to minutes
             $scope.expenseDateUTC = new Date(($scope.expense.ecreated - ($scope.expense.timezoneoffset * 60)) * 1000);
-            $scope.slots = {epochTime: expenseTimeEpochLocalSecRounded, format: 24, step: 15};
+            $scope.slots = {epochTime: expenseTimeEpochLocalSecRounded, format: 24, step: 1};
 
             $scope.newValues = {
                 date: expenseTimeEpochLocalSecDay,
@@ -113,12 +114,13 @@
                 if ($scope.newExpense) {
                     //console.log(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0]);
                     //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
-                    for (var prop in members){
-                        //console.log(members[prop]);
-                        $scope.newValues.paidBy = members[prop].uid;
-                        break;
-                    }
+                    //for (var prop in members){
+                    //    //console.log(members[prop]);
+                    //    $scope.newValues.paidBy = members[prop].uid;
+                    //    break;
+                    //}
 ///                    $scope.newValues.paidBy = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0].slice(0, 1).uid;
+                    $scope.newValues.paidBy = UID;
                     $scope.newValues.cid = $scope.categories[0].cid;
                 }
             }
@@ -242,6 +244,8 @@
             $scope.expense.uids = $scope.participants.join();
             $scope.expense.uid = $scope.newValues.paidBy;
             $scope.expense.cid = $scope.newValues.cid;
+            $scope.expense.gid = $scope.gid;
+            $scope.expense.event_id = 0;
 
             if (!$scope.newExpense) {
                 gdApi.updateExpense($scope.gid, $scope.expense);
@@ -249,7 +253,7 @@
                     return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
                 }));
             } else {
-                console.log($scope.expense);
+                //console.log($scope.expense);
                 gdApi.addExpense($scope.gid, $scope.expense);
                 $ionicHistory.clearCache().then((function () {
                     return $state.go('group.expenses')

@@ -17,15 +17,33 @@
 
         $scope.gid = $stateParams.gid;
 
-        gdApi.fetchExpensesData($stateParams.gid).then(
-            function (expensesData) {
-                $scope.expenses = expensesData;
-                console.log(expensesData[0]);
+
+        $scope.$watch(
+            function () {
+                return gdApi.expenseCacheCreated($scope.gid);
             },
-            function (msg) {
-                logErrorMessage(msg);
-            }
+
+            function(newVal, oldVal) {
+                console.log("Groups were updated, reloading");
+                //console.log(newVal);
+                //console.log(oldVal);
+                updateExpenseList();
+            }, true
         );
+
+
+        function updateExpenseList() {
+            gdApi.fetchExpensesData($stateParams.gid).then(
+                function (expensesData) {
+                    $scope.expenses = expensesData;
+                    //console.log(expensesData[0]);
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            );
+        }
+
 
 
         //$scope.expenses = gdApi.getExpenses($stateParams.gid);

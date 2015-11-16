@@ -3,14 +3,14 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/www/templates/group.html" line="5" />
     <bookmark url="file://$PROJECT_DIR$/www/js/app.js" />
-    <bookmark url="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js" line="276" />
+    <bookmark url="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js" line="302" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afd1b35c-fec2-493f-8aa5-932bc27d8e6d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/expense-new.html" afterPath="$PROJECT_DIR$/www/templates/expense-new.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" afterPath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/memberCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/memberCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GoingDutchApp.iws" />
@@ -39,15 +39,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="goingdutchApi.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="goingdutchApi.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6674082">
-              <caret line="313" column="14" selection-start-line="313" selection-start-column="14" selection-end-line="313" selection-end-column="14" />
-              <folding>
-                <element signature="e#17794#17887#0" expanded="false" />
-                <element signature="e#17905#21981#0" expanded="false" />
-              </folding>
+            <state vertical-scroll-proportion="0.0">
+              <caret line="366" column="57" selection-start-line="366" selection-start-column="57" selection-end-line="366" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginCtrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/controllers/LoginCtrl.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="43" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -56,7 +63,7 @@
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
+              <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -76,7 +83,7 @@
         <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -85,8 +92,8 @@
       <file leaf-file-name="expenseDetailCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.3529413">
-              <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -95,18 +102,8 @@
       <file leaf-file-name="expense-new.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/expense-new.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.2413793">
-              <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="expense-detail.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/expense-detail.html">
-          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
+              <caret line="39" column="87" selection-start-line="39" selection-start-column="76" selection-end-line="39" selection-end-column="87" />
               <folding />
             </state>
           </provider>
@@ -122,21 +119,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginCtrl.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/controllers/LoginCtrl.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="groupCtrl.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="groupCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/groupCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
+            <state vertical-scroll-proportion="0.73414904">
+              <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -205,15 +192,15 @@
         <option value="$PROJECT_DIR$/testdata/json.txt" />
         <option value="$PROJECT_DIR$/config.xml" />
         <option value="$PROJECT_DIR$/www/index.html" />
-        <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/LoginCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/home-groups.html" />
-        <option value="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" />
-        <option value="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/expense-new.html" />
-        <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/memberCtrl.js" />
+        <option value="$PROJECT_DIR$/www/js/app.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
       </list>
     </option>
   </component>
@@ -262,6 +249,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -348,7 +336,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="angular-cache" />
+              <option name="myItemId" value="ionic-timepicker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -370,7 +358,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="angular-cache" />
+              <option name="myItemId" value="ionic-timepicker" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -478,11 +466,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="plugins" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cordova-plugin-whitelist" />
+              <option name="myItemId" value="platforms" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -496,14 +480,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="platforms" />
+              <option name="myItemId" value="hooks" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -578,12 +561,6 @@
       <created>1434476986277</created>
       <option name="number" value="Default" />
       <updated>1434476986277</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Refactor done.">
-      <created>1435266807482</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1435266807482</updated>
     </task>
     <task id="LOCAL-00012" summary="Currency select and view updates for that added.">
       <created>1435612910206</created>
@@ -873,7 +850,13 @@
       <option name="project" value="LOCAL" />
       <updated>1443726454066</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="Fixed some stuff in add expense">
+      <created>1445810142983</created>
+      <option name="number" value="00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1445810142984</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TodoView">
@@ -890,9 +873,9 @@
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14514802" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16611843" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.49565217" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.578125" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.5818257" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976973" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.15672784" sideWeight="0.45929277" order="9" side_tool="false" content_ui="tabs" />
@@ -906,7 +889,7 @@
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.421875" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.41817436" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
@@ -925,7 +908,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Added paid by and check for participants &gt; 0" />
     <MESSAGE value="Started on new expense view" />
     <MESSAGE value="Added category to expense edit and fixed new expense view." />
     <MESSAGE value="Implemented groups json from api project" />
@@ -950,7 +932,8 @@
     <MESSAGE value="Login &amp; groups view works with cache, rest not" />
     <MESSAGE value="cache implemented in groups, members &amp; expenses view." />
     <MESSAGE value="Expenses view (not edit) works with cache." />
-    <option name="LAST_COMMIT_MESSAGE" value="Expenses view (not edit) works with cache." />
+    <MESSAGE value="Fixed some stuff in add expense" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed some stuff in add expense" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -959,20 +942,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/lib/iso-currency/src/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.84815615">
-          <caret line="46" column="14" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/event-detail.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1240,35 +1209,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/group-expenses.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/expense-detail.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="41" selection-start-line="17" selection-start-column="41" selection-end-line="17" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/groupCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="3" selection-start-line="0" selection-start-column="3" selection-end-line="0" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,26 +1223,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/eventDetailCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3337041">
           <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/LoginCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="41" selection-start-line="31" selection-start-column="41" selection-end-line="31" selection-end-column="41" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1310,30 +1238,81 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js">
+    <entry file="file://$PROJECT_DIR$/www/lib/ionic-timepicker/dist/ionic-timepicker.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.3529413">
-          <caret line="4" column="14" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/plugins/cordova-plugin-datepicker/plugin.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/group-expenses.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/expense-new.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.2413793">
-          <caret line="41" column="0" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="39" column="87" selection-start-line="39" selection-start-column="76" selection-end-line="39" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="29" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/LoginCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="49" column="12" selection-start-line="49" selection-start-column="12" selection-end-line="49" selection-end-column="43" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6674082">
-          <caret line="313" column="14" selection-start-line="313" selection-start-column="14" selection-end-line="313" selection-end-column="14" />
-          <folding>
-            <element signature="e#17794#17887#0" expanded="false" />
-            <element signature="e#17905#21981#0" expanded="false" />
-          </folding>
+        <state vertical-scroll-proportion="0.0">
+          <caret line="366" column="57" selection-start-line="366" selection-start-column="57" selection-end-line="366" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="22" column="46" selection-start-line="22" selection-start-column="46" selection-end-line="22" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/groupCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.73414904">
+          <caret line="33" column="41" selection-start-line="33" selection-start-column="41" selection-end-line="33" selection-end-column="41" />
+          <folding />
         </state>
       </provider>
     </entry>
