@@ -30,17 +30,23 @@
         var expenseTimeEpochLocalSecDay;
         var expenseTimeEpochLocalSecRounded;  // we only care about rounding to minutes
 
+        $scope.canDelete = false;
+
         if ($scope.eid > 0) {
             gdApi.fetchExpensesData($stateParams.gid).then(
                 function (expensesData) {
                     $scope.expenses = expensesData;
                     $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
                     //console.log($scope.expense);
+
                     if (typeof ($scope.expense.uids) === "string")
                         $scope.participants = $scope.expense.uids.split(",");
                     else
                         $scope.participants = [$scope.expense.uids];
                     setExpenseProperties($scope.expense);
+
+                    if (gdApi.isOwner($scope.gid) || $scope.expense.uid == gdApi.UID())
+                        $scope.canDelete = true;
                 },
                 function (msg) {
                     logErrorMessage(msg);
@@ -146,8 +152,6 @@
             return $scope.users[uid]['nickName'];
         };
 
-
-        //
         // $scope.members = gdApi.getGroupMembers($stateParams.gid);
 
         /*$scope.memberNames = [];

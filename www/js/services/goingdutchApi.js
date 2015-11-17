@@ -12,16 +12,16 @@
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
         if (!CacheFactory.get('groupsCache')) {
-            self.groupsCache = CacheFactory('groupsCache');
+            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('usersCache')) {
-            self.usersCache = CacheFactory('usersCache');
+            self.usersCache = CacheFactory('usersCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('expensesCache')) {
-            self.expensesCache = CacheFactory('expensesCache');
+            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('userPrefs')) {
-            self.userPrefsCache = CacheFactory('userPrefs');
+            self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage'});
         }
 
         // keep track of often used properties
@@ -69,6 +69,8 @@
             clearAllCache();
         }
 
+        // keep track of which groups user is owner
+        var ownerGroups = [];
         function fetchGroupsData() {
             var deferred = $q.defer();
             var cacheKey = "groups";
@@ -81,6 +83,7 @@
                 $http.get(gdConfig.url_groups)
                     .success(function (data, status) {
                         console.log("Groups data fetched successfully");
+                        ownerGroups = [];
                         //$localStorage.groups = data;
                         groupProperties = {};
                         var groupsArray = [];
@@ -88,6 +91,9 @@
                         for (var key in data) {
                             if (data.hasOwnProperty(key)) {
                                 groupsArray[i] = data[key];
+                                if (data[key].role === "founder"){
+                                    ownerGroups.push(data[key].gid);
+                                }
                                 if (typeof(groupProperties[data[key].gid]) == 'undefined') {
                                     groupProperties[data[key].gid] = {
                                         'title': data[key].name,
@@ -97,6 +103,7 @@
                                 i++;
                             }
                         }
+                        console.log(ownerGroups);
                         self.groupsCache.put(cacheKey, groupsArray);
                         deferred.resolve(groupsArray);
                     })
@@ -484,6 +491,10 @@
         //var dateObj = new Date(currentTS * 1000);
         //var London = new Date(currentTS * 1000 - 60 * 60 * 1000);
 
+        function isOwner(gid){
+            return ownerGroups.indexOf(gid) > -1;
+        }
+
         return {
             //getGroups: getGroups,
             getGroupTitle: getGroupTitle,
@@ -515,7 +526,8 @@
             objectToArraySorted: objectToArraySorted,
             UID: getUid,
             expenseCacheCreated: expenseCacheCreated,
-            groupsCacheCreated: groupsCacheCreated
+            groupsCacheCreated: groupsCacheCreated,
+            isOwner: isOwner
         };
 
 

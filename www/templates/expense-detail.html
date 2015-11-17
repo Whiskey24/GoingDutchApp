@@ -30,7 +30,7 @@
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
 
-            <ion-item class="text-center" ng-click="showConfirm(expense.eid)">
+            <ion-item ng-if="canDelete" class="text-center" ng-click="showConfirm(expense.eid)">
                 Delete
             </ion-item>
 
