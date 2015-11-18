@@ -461,12 +461,37 @@
         }
 
         function deleteExpense(eid, gid) {
-            for (var i = 0, len = $localStorage.expenses[gid].length; i < len; i++) {
-                if ($localStorage.expenses[gid][i].eid == eid) {
-                    $localStorage.expenses[gid].splice(i, 1);
-                    break;
-                }
-            }
+            //for (var i = 0, len = $localStorage.expenses[gid].length; i < len; i++) {
+            //    if ($localStorage.expenses[gid][i].eid == eid) {
+            //        $localStorage.expenses[gid].splice(i, 1);
+            //        break;
+            //    }
+            //}
+
+
+            var url_expenses = gdConfig.url_expenses.replace('{gid}', gid) + '/' + eid;
+            $http.delete(url_expenses)
+                .then(function (response) {
+                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                        console.log("Error submitting expense");
+                    }
+                    else {
+                        console.log("Expense deleted successfully");
+                    }
+                    // console.log(response.data);
+                    self.expensesCache.remove("gid-" + gid);
+                    fetchExpensesData(gid)
+                        .then(function (data) {
+                            console.log("Expenses updated for group " + gid);
+                            // console.log(self.expensesCache.info("gid-" + gid).created);
+                            self.groupsCache.remove("groups");
+                        }, function (error) {
+                            console.log("Error: " + error);
+                        }).then(gdApi.fetchGroupsData);
+                }, function (response) {
+                    console.log("Error deleting expense");
+                });
+
         }
 
         function pad(value) {
