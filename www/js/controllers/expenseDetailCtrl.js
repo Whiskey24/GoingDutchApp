@@ -32,35 +32,52 @@
 
         $scope.canDelete = false;
 
-        if ($scope.eid > 0) {
-            gdApi.fetchExpensesData($stateParams.gid).then(
-                function (expensesData) {
-                    $scope.expenses = expensesData;
-                    $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
-                    //console.log($scope.expense);
+        updateExpenseDetails();
 
-                    if (typeof ($scope.expense.uids) === "string")
-                        $scope.participants = $scope.expense.uids.split(",");
-                    else
-                        $scope.participants = [$scope.expense.uids];
-                    setExpenseProperties($scope.expense);
+        $scope.$watch(
+            function () {
+                return gdApi.expenseCacheCreated($scope.gid);
+            },
 
-                    if (gdApi.isOwner($scope.gid) || $scope.expense.uid == gdApi.UID())
-                        $scope.canDelete = true;
-                },
-                function (msg) {
-                    logErrorMessage(msg);
-                }
-            );
+            function(newVal, oldVal) {
+                console.log("Expenses were updated, reloading");
+                //console.log(newVal);
+                //console.log(oldVal);
+                updateExpenseDetails();
+            }, true
+        );
+
+        function updateExpenseDetails() {
+            if ($scope.eid > 0) {
+                gdApi.fetchExpensesData($stateParams.gid).then(
+                    function (expensesData) {
+                        $scope.expenses = expensesData;
+                        $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
+                        //console.log($scope.expense);
+
+                        if (typeof ($scope.expense.uids) === "string")
+                            $scope.participants = $scope.expense.uids.split(",");
+                        else
+                            $scope.participants = [$scope.expense.uids];
+                        setExpenseProperties($scope.expense);
+
+                        if (gdApi.isOwner($scope.gid) || $scope.expense.uid == gdApi.UID())
+                            $scope.canDelete = true;
+                    },
+                    function (msg) {
+                        logErrorMessage(msg);
+                    }
+                );
 
 
-        } else {
-            $scope.newExpense = true;
-            $scope.participants = [];
-            $scope.expense = {};
-            $scope.expense.ecreated = Math.floor(Date.now() / 1000);
-            $scope.expense.timezoneoffset = new Date().getTimezoneOffset();
-            setExpenseProperties($scope.expense);
+            } else {
+                $scope.newExpense = true;
+                $scope.participants = [];
+                $scope.expense = {};
+                $scope.expense.ecreated = Math.floor(Date.now() / 1000);
+                $scope.expense.timezoneoffset = new Date().getTimezoneOffset();
+                setExpenseProperties($scope.expense);
+            }
         }
 
         function setExpenseProperties() {

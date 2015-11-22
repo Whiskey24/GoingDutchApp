@@ -7,9 +7,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afd1b35c-fec2-493f-8aa5-932bc27d8e6d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" afterPath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-expenses.html" afterPath="$PROJECT_DIR$/www/templates/group-expenses.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="GoingDutchApp.iws" />
@@ -38,11 +37,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="goingdutchApi.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="goingdutchApi.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7775306">
-              <caret line="485" column="31" selection-start-line="485" selection-start-column="31" selection-end-line="485" selection-end-column="31" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="360" column="19" selection-start-line="360" selection-start-column="19" selection-end-line="360" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -52,7 +51,7 @@
         <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="53" column="73" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="31" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -68,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="expenseDetailCtrl.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="expenseDetailCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="7" column="104" selection-start-line="7" selection-start-column="95" selection-end-line="7" selection-end-column="104" />
+            <state vertical-scroll-proportion="0.20022246">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -81,7 +80,7 @@
       <file leaf-file-name="expense-detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/expense-detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.655172">
+            <state vertical-scroll-proportion="0.0">
               <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="85" />
               <folding />
             </state>
@@ -91,7 +90,7 @@
       <file leaf-file-name="group-expenses.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/group-expenses.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.655172">
+            <state vertical-scroll-proportion="0.0">
               <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
               <folding />
             </state>
@@ -205,11 +204,11 @@
         <option value="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/LoginCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/expense-detail.html" />
-        <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/group-expenses.html" />
         <option value="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
       </list>
     </option>
   </component>
@@ -258,8 +257,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -496,6 +493,8 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -570,12 +569,6 @@
       <created>1434476986277</created>
       <option name="number" value="Default" />
       <updated>1434476986277</updated>
-    </task>
-    <task id="LOCAL-00014" summary="Added users test data and implemented in group members view.">
-      <created>1435788291117</created>
-      <option name="number" value="00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1435788291117</updated>
     </task>
     <task id="LOCAL-00015" summary="Implemented users in expense detail view. Added Edit and Delete expense buttons (edit does not yet work).">
       <created>1435873899106</created>
@@ -865,7 +858,13 @@
       <option name="project" value="LOCAL" />
       <updated>1447801634477</updated>
     </task>
-    <option name="localTasksCounter" value="63" />
+    <task id="LOCAL-00063" summary="Delete expense implemented.&#10;Date added to expense list overview (removed event for now).">
+      <created>1447885369154</created>
+      <option name="number" value="00063" />
+      <option name="project" value="LOCAL" />
+      <updated>1447885369155</updated>
+    </task>
+    <option name="localTasksCounter" value="64" />
     <servers />
   </component>
   <component name="TodoView">
@@ -882,7 +881,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17434211" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17598684" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32967034" sideWeight="0.49565217" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2874618" sideWeight="0.5830592" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -917,7 +916,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Implemented groups json from api project" />
     <MESSAGE value="Implemented first part members json from api project" />
     <MESSAGE value="Updated groups &amp; members json implementation from api project" />
     <MESSAGE value="Updated expenses json implementation from api project" />
@@ -942,7 +940,8 @@
     <MESSAGE value="Fixed some stuff in add expense" />
     <MESSAGE value="Add expense saves and views are updated." />
     <MESSAGE value="Delete expense only shown for expense owner or group founder." />
-    <option name="LAST_COMMIT_MESSAGE" value="Delete expense only shown for expense owner or group founder." />
+    <MESSAGE value="Delete expense implemented.&#10;Date added to expense list overview (removed event for now)." />
+    <option name="LAST_COMMIT_MESSAGE" value="Delete expense implemented.&#10;Date added to expense list overview (removed event for now)." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1099,13 +1098,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testdata/groups.txt">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="117" column="129" selection-start-line="0" selection-start-column="0" selection-end-line="120" selection-end-column="2" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/testdata/json.txt">
@@ -1123,13 +1122,13 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/plugins/cordova-plugin-whitelist/README.md">
+      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="52" />
         </state>
-      </provider>
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/config.xml">
@@ -1243,7 +1242,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1289,31 +1287,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/expense-detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.655172">
+        <state vertical-scroll-proportion="0.0">
           <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="104" selection-start-line="7" selection-start-column="95" selection-end-line="7" selection-end-column="104" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="53" column="73" selection-start-line="53" selection-start-column="73" selection-end-line="53" selection-end-column="73" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/templates/group-expenses.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.655172">
+        <state vertical-scroll-proportion="0.0">
           <caret line="14" column="18" selection-start-line="14" selection-start-column="18" selection-end-line="14" selection-end-column="18" />
           <folding />
         </state>
@@ -1321,8 +1303,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7775306">
-          <caret line="485" column="31" selection-start-line="485" selection-start-column="31" selection-end-line="485" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="360" column="19" selection-start-line="360" selection-start-column="19" selection-end-line="360" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="31" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20022246">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
         </state>
       </provider>
