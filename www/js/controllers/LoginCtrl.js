@@ -9,12 +9,20 @@
 
     function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading, $ionicPopup) {
 
+        var credentials = gdApi.getCredentials();
+        //console.log(credentials);
+
+
         $scope.login = function (credentials) {
             $ionicLoading.show();
-            gdApi.login(credentials.username, credentials.password)
+            gdApi.login(credentials)
                 .then(gdApi.fetchGroupsData)
                 .then(gotoHome, logErrorMessage);
         };
+
+        if (credentials !== undefined){
+            $scope.login(credentials);
+        }
 
         function gotoHome(groupsData) {
             $scope.groups = groupsData;

@@ -98,27 +98,31 @@
             };
         }
 
-
+        var members;
         gdApi.fetchGroupsData().then(
             function (groupsData) {
+                // console.log("FETCHING GROUPS DATA");
                 $scope.groups = groupsData;
             },
             function (msg) {
                 logErrorMessage(msg);
             }
-        ).then(function () {
-                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
-                var members =  gdApi.sortByKey(members, 'uid', 'ASC');
-                $scope.members = {};
+        ).then(
+            function () {
+                members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                members =  gdApi.sortByKey(members, 'uid', 'ASC');
+                // console.log("PARSING GROUPS DATA");
+
                 /*for (var key in membersSort ) {
                     if (membersSort .hasOwnProperty(key)) {
                         console.log(key + " -> " + membersSort [key]);
                     }
                 }*/
+                $scope.members = {};
                 for (var index in members){
                     $scope.members[members[index].uid] = members[index].balance;
                 }
-
+                //console.log($scope.members);
                 // $scope.categories = gdApi.getGroupCategories($scope.gid);
 
                 $scope.categories = gdApi.objectToArraySorted(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'categories')[0],  $scope.categories);
@@ -147,18 +151,27 @@
                     $scope.newValues.cid = $scope.categories[0].cid;
                 }
             }
-        );
-
-        gdApi.fetchUsersData().then(
-            function (usersData) {
-                $scope.users = usersData;
-                $scope.memberNames = {};
-                for (var index in usersData){
-                    $scope.memberNames[usersData[index].uid] = {uid: usersData[index].uid , name: usersData[index].nickName};
-                }
-            },
-            function (msg) {
-                logErrorMessage(msg);
+        ).then(
+            function () {
+                gdApi.fetchUsersData().then(
+                    function (usersData) {
+                        // console.log("FETCHING USERS DATA");
+                        // console.log(members);
+                        $scope.users = usersData;
+                        $scope.memberNames = {};
+                        for (var index in usersData) {
+                            if (usersData[index].uid in $scope.members) {
+                                $scope.memberNames[usersData[index].uid] = {
+                                    uid: usersData[index].uid,
+                                    name: usersData[index].nickName
+                                };
+                            }
+                        }
+                    },
+                    function (msg) {
+                        logErrorMessage(msg);
+                    }
+                )
             }
         );
 

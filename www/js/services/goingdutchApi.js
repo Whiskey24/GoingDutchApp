@@ -12,16 +12,16 @@
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
         if (!CacheFactory.get('groupsCache')) {
-            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage'});
+            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000 });
         }
         if (!CacheFactory.get('usersCache')) {
             self.usersCache = CacheFactory('usersCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('expensesCache')) {
-            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage'});
+            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000});
         }
         if (!CacheFactory.get('userPrefs')) {
-            self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage'});
+            self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000});
         }
 
         // keep track of often used properties
@@ -36,19 +36,31 @@
             self.userPrefsCache.put('uid', userUid);
         }
 
+        function getCredentials() {
+            return self.userPrefsCache.get('credentials');
+        }
+
+        // ToDo: encrypt this
+        function setCredentials(credentials) {
+            self.userPrefsCache.put('credentials', credentials);
+        }
+
         function clearAllCache() {
             CacheFactory.clearAll()
         }
 
-        function login($username, $password) {
-            $localStorage.$reset();
-            clearAllCache();
-            var deferred = $q.defer();
+        function login(credentials) {
+            //$localStorage.$reset();
+            //clearAllCache();
 
+            var deferred = $q.defer();
+            var $username = credentials.username;
+            var $password = credentials.password;
             authenticationDataService.setAuthData($username, $password);
             $http.get(gdConfig.url_login)
                 .success(function (data, status) {
                     console.log("Login success: credentials for " + $username + " are valid");
+                    setCredentials(credentials);
                     $localStorage.authenticated = true;
                     setUid(data['uid']);
                     deferred.resolve(data);
@@ -103,7 +115,7 @@
                                 i++;
                             }
                         }
-                        console.log(ownerGroups);
+                        //console.log(ownerGroups);
                         self.groupsCache.put(cacheKey, groupsArray);
                         deferred.resolve(groupsArray);
                     })
@@ -577,6 +589,7 @@
             sortByKey: sortByKey,
             objectToArraySorted: objectToArraySorted,
             UID: getUid,
+            getCredentials: getCredentials,
             expenseCacheCreated: expenseCacheCreated,
             groupsCacheCreated: groupsCacheCreated,
             isOwner: isOwner
