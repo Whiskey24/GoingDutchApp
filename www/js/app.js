@@ -3,7 +3,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
     .constant('gdConfig', (function () {
         var host = 'http://api.gdutch.dev';
         //var host = 'https://api.santema.eu/GoingDutchApi';
-        console.log("API host: " + host);
+        //console.log("API host: " + host);
         return {
             host: host,
             port: 80,

@@ -42,8 +42,10 @@
         }
 
 
-        $scope.getGroupCurrency = function (gid) {
-            return gdApi.getGroupCurrency(gid);
+        $scope.getGroupCurrency = function (currency) {
+            // console.log(currency);
+            //return gdApi.getGroupCurrency(gid);
+            return currency;
         };
 
         function logErrorMessage(error) {
