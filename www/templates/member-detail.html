@@ -7,8 +7,31 @@
 
     <ion-content class="padding">
 
-        Details for member {{uid}}
+        <h4>Details for member {{nickName}}</h4>
 
+        <ion-item>
+            Total expenses paid:
+                <span class="item-note" ng-style="{'color':'black', 'font-weight':'bold'}">
+                  {{ paid | isoCurrency:currency }}
+                </span>
+        </ion-item>
+
+        <ion-item>
+            Total expenses participated:
+                <span class="item-note" ng-style="{'color':'black', 'font-weight':'bold'}">
+                  {{ participated | isoCurrency:currency }}
+                </span>
+        </ion-item>
+
+        <ion-item>
+            Total balance:
+                <span class="item-note" ng-if="balance >= 0" ng-style="{'color':'green', 'font-weight':'bold'}">
+                  {{ balance | isoCurrency:currency }}
+                </span>
+                <span class="item-note" ng-if="balance < 0" ng-style="{'color':'red', 'font-weight':'bold'}">
+                  {{ balance  | isoCurrency:currency }}
+                </span>
+        </ion-item>
     </ion-content>
 
 </ion-view>

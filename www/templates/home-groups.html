@@ -19,8 +19,14 @@
                       ui-sref="group.members({gid: group.gid})">
                 <!-- {{group.title}} -->
                 {{group.name}}
-                <!-- <span class="item-note">{{ group.balance | isoCurrency:getGroupCurrency(group.gid) }}</span> -->
-                <span class="item-note">{{ group.balance | isoCurrency:getGroupCurrency(group.currency) }}</span>
+
+                <span class="item-note" ng-if="group.balance >= 0" ng-style="{'color':'green'}">
+                  {{ group.balance | isoCurrency:currency }}
+                </span>
+                <span class="item-note" ng-if="group.balance  < 0" ng-style="{'color':'red'}">
+                  {{ group.balance   | isoCurrency:currency }}
+                </span>
+
                 <i class="icon ion-chevron-right icon-accessory"></i>
                 <ion-reorder-button class="ion-navicon" on-reorder="moveGroup(group, $fromIndex, $toIndex)"></ion-reorder-button>
             </ion-item>

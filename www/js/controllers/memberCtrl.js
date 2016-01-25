@@ -9,11 +9,13 @@
 
     function MemberCtrl($scope, $stateParams, gdApi) {
 
-        $scope.$on('$ionicView.enter', function () {
+        // $scope.$on('$ionicView.enter', function () {
             // put this here in case group details change
-            $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
-            $scope.groupTitle = gdApi.getGroupTitle($stateParams);
-        });
+            //$scope.currency = gdApi.getGroupCurrency($stateParams.gid);
+            //$scope.groupTitle = gdApi.getGroupTitle($stateParams);
+
+        // });
+        //$scope.currency = "EUR";
 
         $scope.users = {};
 
@@ -27,6 +29,8 @@
         ).then(function () {
                 var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
                 $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
             }
         );
 

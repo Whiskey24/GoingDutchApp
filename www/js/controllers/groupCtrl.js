@@ -46,6 +46,7 @@
             // console.log(currency);
             //return gdApi.getGroupCurrency(gid);
             return currency;
+
         };
 
         function logErrorMessage(error) {

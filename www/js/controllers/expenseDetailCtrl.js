@@ -10,15 +10,15 @@
 
     function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, iso4217, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory) {
 
-        $scope.$on('$ionicView.enter', function () {
-            // put this here in case group details change
-            $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
-        });
+        //$scope.$on('$ionicView.enter', function () {
+        //    // put this here in case group details change
+        //    $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
+        //});
 
         var UID = gdApi.UID();
         $scope.newExpense = false;
 
-        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        //$scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
 
@@ -111,6 +111,12 @@
             function () {
                 members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
                 members =  gdApi.sortByKey(members, 'uid', 'ASC');
+
+                $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+
+                $scope.selectedCurrencyCode = $scope.currency;
+                $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
                 // console.log("PARSING GROUPS DATA");
 
                 /*for (var key in membersSort ) {
@@ -251,9 +257,6 @@
               else
                 $scope.participants.push(uid);
         };
-
-        $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
-        $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
 
         $scope.timePickerCallback = function (val) {
             if (typeof (val) === 'undefined') {

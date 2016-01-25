@@ -209,6 +209,7 @@
 
         function getGroupTitle($stateParams) {
             //return getGroupTitleByGid($stateParams.gid);
+            console.log("OBSOLETE - REMOVE USE OF THIS FUNCTION, it returns group title: " + groupProperties[$stateParams.gid].title);
             return groupProperties[$stateParams.gid].title;
         }
 
@@ -329,7 +330,14 @@
 
         function getGroupCurrency(gid) {
             //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'currency')[0];
-            return groupProperties[gid].currency;
+            // return groupProperties[gid].currency;
+
+            fetchGroupsData(gid).then(
+                function (groups) {
+                    var currency = _.pluck(_.filter(groups, {'gid': Number(gid)}), 'currency')[0];
+                    console.log("OBSOLETE - REMOVE USE OF THIS FUNCTION, it returns currency: " + currency);
+                    return currency;
+                });
         }
 
         function setGroupCurrency(gid, currencyCode) {

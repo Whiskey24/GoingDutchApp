@@ -9,14 +9,29 @@
 
     function ExpenseCtrl($stateParams, $scope, $filter, gdApi) {
 
-        $scope.$on('$ionicView.enter', function () {
-            // put this here in case group details change
-            $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
-            $scope.groupTitle = gdApi.getGroupTitle($stateParams);
-        });
+        //$scope.$on('$ionicView.enter', function () {
+        //    // put this here in case group details change
+        //    $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
+        //    $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        //});
 
         $scope.gid = $stateParams.gid;
 
+        gdApi.fetchGroupsData().then(
+            function (groupsData) {
+                $scope.groups = groupsData;
+                //console.log($scope.groups);
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        ).then(function () {
+                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+            }
+        );
 
         $scope.$watch(
             function () {
@@ -30,7 +45,6 @@
                 updateExpenseList();
             }, true
         );
-
 
         function updateExpenseList() {
             gdApi.fetchExpensesData($stateParams.gid).then(
@@ -80,6 +94,9 @@
                 });
         };
 
+        function logErrorMessage(error) {
+            console.log("Error: " + error);
+        }
 
         //$scope.expenses = gdApi.getExpenses($stateParams.gid);
     }
