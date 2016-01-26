@@ -430,12 +430,16 @@
                 //});
         }
 
-        function getGroupCategories(gid) {
+        function getGroupCategories(groupsArray, gid) {
 
-            fetchGroupsData().then(function (groupsArray) {
-                return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
-            });
+            //fetchGroupsData().then(function (groupsArray) {
+            //    return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
+            //});
+
             //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
+
+            return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0]);
+
         }
 
         function getGroupCategory(gid, cid) {

@@ -9,7 +9,26 @@
 
     function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs) {
 
-        $scope.groupTitle = gdApi.getGroupTitle($stateParams);
+        gdApi.fetchGroupsData().then(
+            function (groupsData) {
+                $scope.groups = groupsData;
+            },
+            function (msg) {
+                logErrorMessage(msg);
+            }
+        ).then(function () {
+                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+                $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
+                $scope.categoryCount = $scope.categories.length;
+
+                $scope.groupCurrency = $scope.currency;
+                $scope.selectedCurrencyCode = $scope.currency;
+                $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+            }
+        );
         $scope.gid = $stateParams.gid;
 
         var currenciesKeys = gdApi.getCurrencies();
@@ -18,12 +37,8 @@
             currencies[i] = iso4217.getCurrencyByCode(currenciesKeys[i]);
             currencies[i].code = currenciesKeys[i];
         }
-
-        $scope.groupCurrency = gdApi.getGroupCurrency($stateParams.gid);
         $scope.currencyList = currencies;
 
-        $scope.selectedCurrencyCode = gdApi.getGroupCurrency($stateParams.gid);
-        $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
 
         $scope.newCurrencySelected = function (newCurrencyCode) {
             gdApi.setGroupCurrency($scope.gid, newCurrencyCode);
@@ -32,12 +47,9 @@
 
         $scope.data = {};
 
-        $scope.categories = gdApi.getGroupCategories($scope.gid);
-        $scope.categoryCount = $scope.categories.length;
-
         $scope.moveCategory = function (category, fromIndex, toIndex) {
             $scope.categories = gdApi.moveCategory($scope.gid, category, fromIndex, toIndex);
-        }
+        };
 
         var changeTitleMsg = 'Enter new category title';
         $scope.changeCategoryTitle = function (category) {

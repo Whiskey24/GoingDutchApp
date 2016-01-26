@@ -3,32 +3,13 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/www/templates/group.html" line="5" />
     <bookmark url="file://$PROJECT_DIR$/www/js/app.js" />
-    <bookmark url="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js" line="787" />
+    <bookmark url="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js" line="791" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afd1b35c-fec2-493f-8aa5-932bc27d8e6d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/eventCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/eventCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/groupCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/memberCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/memberCtrl.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/memberDetailCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/memberDetailCtrl.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" afterPath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/event-detail.html" afterPath="$PROJECT_DIR$/www/templates/event-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/expense-detail.html" afterPath="$PROJECT_DIR$/www/templates/expense-detail.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/expense-edit.html" afterPath="$PROJECT_DIR$/www/templates/expense-edit.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/expense-new.html" afterPath="$PROJECT_DIR$/www/templates/expense-new.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-achievements.html" afterPath="$PROJECT_DIR$/www/templates/group-achievements.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-events.html" afterPath="$PROJECT_DIR$/www/templates/group-events.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-expenses.html" afterPath="$PROJECT_DIR$/www/templates/group-expenses.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-members.html" afterPath="$PROJECT_DIR$/www/templates/group-members.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-settings-categories.html" afterPath="$PROJECT_DIR$/www/templates/group-settings-categories.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-settings-currency.html" afterPath="$PROJECT_DIR$/www/templates/group-settings-currency.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-settings.html" afterPath="$PROJECT_DIR$/www/templates/group-settings.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-settle.html" afterPath="$PROJECT_DIR$/www/templates/group-settle.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/home-groups.html" afterPath="$PROJECT_DIR$/www/templates/home-groups.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/member-detail.html" afterPath="$PROJECT_DIR$/www/templates/member-detail.html" />
     </list>
     <ignored path="GoingDutchApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,7 +50,7 @@
       <file leaf-file-name="home-groups.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/home-groups.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.258064">
+            <state vertical-scroll-proportion="0.0">
               <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
               <folding />
             </state>
@@ -79,8 +60,18 @@
       <file leaf-file-name="settingsCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/settingsCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-11.194445">
+              <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="memberCtrl.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/js/controllers/memberCtrl.js">
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="59" />
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="34" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -89,8 +80,8 @@
       <file leaf-file-name="goingdutchApi.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39187706">
-              <caret line="424" column="23" selection-start-line="424" selection-start-column="23" selection-end-line="425" selection-end-column="40" />
+            <state vertical-scroll-proportion="0.18865867">
+              <caret line="306" column="33" selection-start-line="306" selection-start-column="33" selection-end-line="306" selection-end-column="33" />
               <folding />
             </state>
           </provider>
@@ -138,7 +129,6 @@
         <option value="$PROJECT_DIR$/tests/my.conf.js" />
         <option value="$PROJECT_DIR$/tests/controllers/groupCtrl.test.js" />
         <option value="$PROJECT_DIR$/testdata/groups.txt" />
-        <option value="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" />
         <option value="$PROJECT_DIR$/testdata/expenses.txt" />
         <option value="$PROJECT_DIR$/www/lib/ionic/js/ionic-angular.js" />
         <option value="$PROJECT_DIR$/www/lib/ionic/bower.json" />
@@ -161,7 +151,6 @@
         <option value="$PROJECT_DIR$/www/js/controllers/expenseCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/memberDetailCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/member-detail.html" />
-        <option value="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/controllers/eventCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/group-events.html" />
@@ -178,6 +167,8 @@
         <option value="$PROJECT_DIR$/www/templates/group-settle.html" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/templates/home-groups.html" />
+        <option value="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" />
       </list>
     </option>
   </component>
@@ -196,9 +187,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="x" value="-41" />
-    <option name="width" value="1650" />
-    <option name="height" value="1452" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="2500" />
+    <option name="height" value="1458" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -225,6 +217,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -382,7 +375,6 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -460,12 +452,6 @@
       <created>1434476986277</created>
       <option name="number" value="Default" />
       <updated>1434476986277</updated>
-    </task>
-    <task id="LOCAL-00018" summary="Included missing folders (plugins and lib) in repository.">
-      <created>1436095199520</created>
-      <option name="number" value="00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1436095199520</updated>
     </task>
     <task id="LOCAL-00019" summary="Added test data">
       <created>1436117874961</created>
@@ -755,7 +741,13 @@
       <option name="project" value="LOCAL" />
       <updated>1450037926635</updated>
     </task>
-    <option name="localTasksCounter" value="67" />
+    <task id="LOCAL-00067" summary="Fixed  several bugs.&#10;ToDo: fix bug with categories (o.a. getGroupCategories in Api and group settings view)">
+      <created>1453763016759</created>
+      <option name="number" value="00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1453763016760</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TodoView">
@@ -768,13 +760,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-41" y="0" width="1650" height="1452" extended-state="0" />
+    <frame x="-9" y="-9" width="2500" height="1458" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26715687" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17566478" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32967034" sideWeight="0.49565217" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2843063" sideWeight="0.5858179" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28301886" sideWeight="0.5858179" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976973" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15672784" sideWeight="0.45929277" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -808,7 +800,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Login screen template added" />
     <MESSAGE value="Little progress" />
     <MESSAGE value="ngStorage added" />
     <MESSAGE value="some progress..." />
@@ -833,7 +824,8 @@
     <MESSAGE value="Update expense works with API." />
     <MESSAGE value="Fix for paid dropdown to limit to group members.&#10;Try automatic login if credentials are there." />
     <MESSAGE value="Fixed currency issue on groups overview." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed currency issue on groups overview." />
+    <MESSAGE value="Fixed  several bugs.&#10;ToDo: fix bug with categories (o.a. getGroupCategories in Api and group settings view)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed  several bugs.&#10;ToDo: fix bug with categories (o.a. getGroupCategories in Api and group settings view)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1004,13 +996,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/memberCtrl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="0" selection-start-line="21" selection-start-column="8" selection-end-line="35" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/eventCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1174,6 +1159,14 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/home-groups.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1182,26 +1175,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/home-groups.html">
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/memberCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.258064">
-          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="34" selection-end-column="10" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/settingsCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="12" selection-start-line="29" selection-start-column="12" selection-end-line="29" selection-end-column="59" />
+        <state vertical-scroll-proportion="-11.194445">
+          <caret line="37" column="9" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39187706">
-          <caret line="424" column="23" selection-start-line="424" selection-start-column="23" selection-end-line="425" selection-end-column="40" />
+        <state vertical-scroll-proportion="0.18865867">
+          <caret line="306" column="33" selection-start-line="306" selection-start-column="33" selection-end-line="306" selection-end-column="33" />
           <folding />
         </state>
       </provider>
