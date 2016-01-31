@@ -46,7 +46,22 @@
         }
 
         function clearAllCache() {
-            CacheFactory.clearAll()
+            self.groupsCache.removeAll();
+            self.usersCache.removeAll();
+            self.expensesCache.removeAll();
+            self.userPrefsCache.removeAll();
+            //var expenses = self.expensesCache.get("expenses");
+            //var users = self.expensesCache.get("users");
+            //var groups = self.expensesCache.get("groups");
+            //var userPrefs = self.expensesCache.get("userPrefs");
+            //console.log("Expenses:");
+            //console.log(expenses);
+            //console.log("Users:");
+            //console.log(users);
+            //console.log("Groups:");
+            //console.log(groups);
+            //console.log("UserPrefs:");
+            //console.log(userPrefs);
         }
 
         function login(credentials) {
@@ -115,7 +130,8 @@
                                 i++;
                             }
                         }
-                        //console.log(ownerGroups);
+                        // console.log(groupsArray);
+                        // groupsArray = sortByKey(groupsArray, 'sort', 'ASC');
                         self.groupsCache.put(cacheKey, groupsArray);
                         deferred.resolve(groupsArray);
                     })
@@ -430,6 +446,31 @@
                 //});
         }
 
+        function updateGroupSort(groupList) {
+            var url_updateGroups = gdConfig.url_updateGroupSort.replace('{uid}', getUid());
+            $http.put(url_updateGroups, groupList)
+                .then(function (response) {
+                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                        console.log("Error submitting updated group list");
+                    }
+                    else {
+                        console.log("Updated group list submitted successfully");
+                    }
+                    console.log(response.data);
+                    //self.expensesCache.remove("gid-" + gid);
+                    //fetchExpensesData(gid)
+                    //    .then(function (data) {
+                    //        console.log("Expenses updated for group " + gid);
+                    //        console.log(self.expensesCache.info("gid-" + gid).created);
+                    //        self.groupsCache.remove("groups");
+                    //    }, function (error) {
+                    //        console.log("Error: " + error);
+                    //    }).then(gdApi.fetchGroupsData);
+                }, function (response) {
+                    console.log("Error updating group list");
+                });
+        }
+
         function getGroupCategories(groupsArray, gid) {
 
             //fetchGroupsData().then(function (groupsArray) {
@@ -604,7 +645,8 @@
             getCredentials: getCredentials,
             expenseCacheCreated: expenseCacheCreated,
             groupsCacheCreated: groupsCacheCreated,
-            isOwner: isOwner
+            isOwner: isOwner,
+            updateGroupSort: updateGroupSort
         };
 
 
