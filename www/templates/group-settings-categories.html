@@ -9,8 +9,8 @@
 
     <ion-nav-buttons side="secondary">
     <div class="buttons">
-        <button ng-if="!data.showReorder" class="button ion-navicon" ng-click="data.showReorder = !data.showReorder"></button>
-        <button ng-if="data.showReorder" class="button ion-checkmark" ng-click="data.showReorder = !data.showReorder"></button>
+        <button ng-if="!data.showReorder" class="button ion-navicon" ng-click="reOrder()"></button>
+        <button ng-if="data.showReorder" class="button ion-checkmark" ng-click="reOrder()"></button>
     </div>
     </ion-nav-buttons>
 

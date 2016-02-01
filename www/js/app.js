@@ -12,6 +12,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_users: host + '/users',
             url_expenses: host + '/group/{gid}/expenses',
             url_updateGroupSort: host + '/user/{uid}/groups',
+            url_updateGroupCategories: host + '/group/{gid}/categories',
             url_login: host + '/version'
         }
     })())

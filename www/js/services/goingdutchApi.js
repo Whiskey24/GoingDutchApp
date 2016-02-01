@@ -98,11 +98,14 @@
 
         // keep track of which groups user is owner
         var ownerGroups = [];
-        function fetchGroupsData() {
+        function fetchGroupsData(forceRefresh) {
+            if (typeof forceRefresh === "undefined" || forceRefresh === null) {
+                forceRefresh = false;
+            }
             var deferred = $q.defer();
             var cacheKey = "groups";
             var groupsData = self.groupsCache.get(cacheKey);
-            if (groupsData) {
+            if (groupsData && !forceRefresh) {
                 console.log("Groups data loaded from cache");
                 //console.log(groupsData);
                 deferred.resolve(groupsData);
@@ -131,7 +134,7 @@
                             }
                         }
                         // console.log(groupsArray);
-                        // groupsArray = sortByKey(groupsArray, 'sort', 'ASC');
+                        groupsArray = sortByKey(groupsArray, 'sort', 'ASC');
                         self.groupsCache.put(cacheKey, groupsArray);
                         deferred.resolve(groupsArray);
                     })
@@ -244,20 +247,37 @@
                 if (obj.hasOwnProperty(i)) {
                     if (arr.length == 0) {
                         arr[0] = obj[i];
+                        //dumpArr(arr);
                         continue;
                     }
                     else if (Number(obj[i].sort) > Number(arr[arr.length - 1].sort)) {
                         arr.push(obj[i]);
+                        //dumpArr(arr);
+                        continue;
+                    }
+                    else if (Number(obj[i].sort) < Number(arr[0].sort)) {
+                        arr.unshift(obj[i]);
+                        //dumpArr(arr);
                         continue;
                     }
                     for (var j in arr) {
-                        if (Number(obj[i].sort) < Number(arr[j].sortId)) {
+                        if (Number(obj[i].sort) < Number(arr[j].sort)) {
                             arr.splice(j, 0, obj[i]);
+                            //dumpArr(arr);
+                            break;
                         }
                     }
                 }
             }
             return arr;
+        }
+
+        function dumpArr(arr){
+            var str = "";
+            for (var key in arr) {
+                str += "[ sort=" + arr[key].sort + " " + arr[key].title + " cid=" + arr[key].cid  + "\n";
+            }
+            console.log(str);
         }
 
         function moveItemForSort(arr, item, fromIndex, toIndex) {
@@ -365,6 +385,8 @@
             }
         }
 
+
+
         function updateExpense(gid, expense) {
             //for (var i = 0, len = $localStorage.expenses[gid].length; i < len; i++) {
             //    if ($localStorage.expenses[gid][i].eid == Number(expense.eid)) {
@@ -372,7 +394,7 @@
             //        break;
             //    }
             //}
-
+            cacheExpenseChange(expense);
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.put(url_expenses, expense)
                 .then(function (response) {
@@ -387,7 +409,8 @@
                     fetchExpensesData(gid)
                         .then(function (data) {
                             console.log("Expenses updated for group " + gid);
-                            console.log(self.expensesCache.info("gid-" + gid).created);
+                            //console.log(self.expensesCache.info("gid-" + gid).created);
+                            tempExpenseCache = {};
                             self.groupsCache.remove("groups");
                         }, function (error) {
                             console.log("Error: " + error);
@@ -395,10 +418,17 @@
                 }, function (response) {
                     console.log("Error submitting expense");
                 });
+        }
 
+        // holds expenses that have just been updated and for which server update hasn't arrived yet
+        var tempExpenseCache = {};
 
+        function cacheExpenseChange(expense) {
+            tempExpenseCache[expense.eid] = expense;
+        }
 
-
+        function checkTempCache(eid){
+            return (eid in tempExpenseCache) ? tempExpenseCache[eid] : false;
         }
 
         var newExpensesMargin = 100000000;
@@ -456,31 +486,40 @@
                     else {
                         console.log("Updated group list submitted successfully");
                     }
-                    console.log(response.data);
-                    //self.expensesCache.remove("gid-" + gid);
-                    //fetchExpensesData(gid)
-                    //    .then(function (data) {
-                    //        console.log("Expenses updated for group " + gid);
-                    //        console.log(self.expensesCache.info("gid-" + gid).created);
-                    //        self.groupsCache.remove("groups");
-                    //    }, function (error) {
-                    //        console.log("Error: " + error);
-                    //    }).then(gdApi.fetchGroupsData);
+                    fetchGroupsData(true);
                 }, function (response) {
-                    console.log("Error updating group list");
+                    console.log("Error updating group sort");
+                });
+        }
+
+        function updateGroupCategories(gid, categoryList) {
+            var url_updateCategories = gdConfig.url_updateGroupCategories.replace('{gid}', gid);
+            $http.put(url_updateCategories, categoryList)
+                .then(function (response) {
+                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                        console.log("Error submitting updated category list for group " + gid);
+                    }
+                    else {
+                        console.log("Updated group list submitted successfully for group " + gid);
+                    }
+                    //self.expensesCache.remove("gid-" + gid);
+                    fetchExpensesData(gid)
+                        .then(function (data) {
+                            console.log("Expenses updated for group " + gid);
+                            //console.log(self.expensesCache.info("gid-" + gid).created);
+                            tempExpenseCache = {};
+                            //self.groupsCache.remove("groups");
+                        }, function (error) {
+                            console.log("Error: " + error);
+                        }).then(fetchGroupsData(true));
+                }, function (response) {
+                    console.log("Error submitting updated category list for group " + gid);
                 });
         }
 
         function getGroupCategories(groupsArray, gid) {
-
-            //fetchGroupsData().then(function (groupsArray) {
-            //    return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
-            //});
-
-            //return _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
-
-            return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0]);
-
+            var categories =_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
+            return objectToArraySorted(categories);
         }
 
         function getGroupCategory(gid, cid) {
@@ -490,10 +529,12 @@
             }
         }
 
+        // ToDo: remove function
         function moveCategory(gid, category, fromIndex, toIndex) {
             return moveItemForSort(groupCategories[gid], category, fromIndex, toIndex);
         }
 
+        // ToDo: remove this function
         function setGroupCategory(gid, category, newTitle) {
             if (category === 0) {
                 var maxKey = 0;
@@ -646,7 +687,9 @@
             expenseCacheCreated: expenseCacheCreated,
             groupsCacheCreated: groupsCacheCreated,
             isOwner: isOwner,
-            updateGroupSort: updateGroupSort
+            updateGroupSort: updateGroupSort,
+            updateGroupCategories: updateGroupCategories,
+            checkTempCache: checkTempCache
         };
 
 

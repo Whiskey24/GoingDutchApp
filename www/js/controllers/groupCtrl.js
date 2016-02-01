@@ -75,6 +75,7 @@
             arr.splice(fromIndex, 1);
             arr.splice(toIndex, 0, item);
             updateSortIds(arr);
+            $scope.groups = arr;
             return arr;
         }
 

@@ -10,10 +10,21 @@
 
     function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, iso4217, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory) {
 
-        //$scope.$on('$ionicView.enter', function () {
-        //    // put this here in case group details change
-        //    $scope.currency = gdApi.getGroupCurrency($stateParams.gid);
-        //});
+        $scope.$on('$ionicView.enter', function () {
+            // put this here in case expense details have been updated
+            var cacheExpense = gdApi.checkTempCache(Number($stateParams.eid));
+            if (cacheExpense){
+                $scope.expense = cacheExpense;
+                if (typeof ($scope.expense.uids) === "string")
+                    $scope.participants = $scope.expense.uids.split(",");
+                else
+                    $scope.participants = [$scope.expense.uids];
+                setExpenseProperties($scope.expense);
+
+                if (gdApi.isOwner($scope.gid) || $scope.expense.uid == gdApi.UID())
+                    $scope.canDelete = true;
+            }
+        });
 
         var UID = gdApi.UID();
         $scope.newExpense = false;
@@ -21,7 +32,6 @@
         //$scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
-
 
         var dayInSeconds = 60 * 60 * 24;
         var expenseTimestampUTC;
@@ -131,8 +141,8 @@
                 //console.log($scope.members);
                 // $scope.categories = gdApi.getGroupCategories($scope.gid);
 
-                $scope.categories = gdApi.objectToArraySorted(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'categories')[0],  $scope.categories);
-
+                //$scope.categories = gdApi.objectToArraySorted(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'categories')[0],  $scope.categories);
+                $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
                     for (var j in  $scope.categories[$stateParams.gid]) {
                         if ( $scope.categories[$stateParams.gid][j].cid == $scope.expense.cid){
                             $scope.category =   $scope.categories[$stateParams.gid][j];
