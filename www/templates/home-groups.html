@@ -12,7 +12,7 @@
     </ion-header-bar>
 
     <ion-content>
-
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list show-reorder="data.showReorder">
 
             <ion-item class="item-text-wrap item item-icon-right" ng-repeat="group in groups"

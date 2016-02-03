@@ -58,7 +58,30 @@
             );
         }
 
+        $scope.doRefresh = function() {
+            gdApi.fetchExpensesData($stateParams.gid, true).then(
+                function (expensesData) {
+                    $scope.expenses = expensesData;
+                    //console.log(expensesData[0]);
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            ).finally(function() {
+                // Stop the ion-refresher from spinning
+                $scope.$broadcast('scroll.refreshComplete');
+            });
 
+            gdApi.fetchGroupsData(true).then(
+                function (groupsData) {
+                    $scope.groups = groupsData;
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            );
+
+        };
 
         $scope.formatDateTimeLocal = function (timestamp, offset) {
             return $scope.formatDateTime(timestamp - offset * 60);

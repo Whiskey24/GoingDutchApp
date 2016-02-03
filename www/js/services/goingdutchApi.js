@@ -148,7 +148,10 @@
         }
 
 
-        function fetchUsersData() {
+        function fetchUsersData(forceRefresh) {
+            if (typeof forceRefresh === "undefined" || forceRefresh === null) {
+                forceRefresh = false;
+            }
             var deferred = $q.defer();
 
             // ToDo: optionally limit to group id
@@ -156,7 +159,7 @@
             var cacheKey = "users";
             var usersData = self.usersCache.get(cacheKey);
 
-            if (usersData) {
+            if (usersData && !forceRefresh) {
                 console.log("Users data loaded from cache");
                 deferred.resolve(usersData);
             } else {
@@ -176,7 +179,10 @@
             return deferred.promise;
         }
 
-        function fetchExpensesData(gid) {
+        function fetchExpensesData(gid, forceRefresh) {
+            if (typeof forceRefresh === "undefined" || forceRefresh === null) {
+                forceRefresh = false;
+            }
             var deferred = $q.defer();
             //if ($localStorage.expenses && $localStorage.expenses[gid]) {
             //    return deferred.resolve($localStorage.expenses[gid]);
@@ -187,7 +193,7 @@
 
             var cacheKey = "gid-" + gid;
             var expensesData = self.expensesCache.get(cacheKey);
-            if (expensesData) {
+            if (expensesData && !forceRefresh) {
                 console.log("Expenses data for group " + gid + " loaded from cache");
                 deferred.resolve(expensesData);
             } else {

@@ -3,7 +3,7 @@
     <ion-content>
 
         <ion-list>
-
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
             <ion-item ng-repeat="member in members" class="item item-icon-left item-icon-right"
                       ui-sref="group.member-detail({uid: member.uid})">
                 <i ng-if="member.balance >= 0" class="icon ion-android-happy" ng-style="{'color':'green'}"></i>

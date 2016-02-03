@@ -3,7 +3,7 @@
 
     <ion-content>
         <ion-list>
-
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
             <ion-item ng-repeat="expense in expenses" class="item item-icon-right"
                       ui-sref="group.expense-detail({eid: expense.eid})">
                 <h3>{{expense.etitle}}</h3>

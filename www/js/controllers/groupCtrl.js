@@ -33,6 +33,21 @@
             }, true
         );
 
+        $scope.doRefresh = function() {
+            gdApi.fetchGroupsData(true).then(
+                function (groupsData) {
+                    $scope.groups = groupsData;
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            ).finally(function() {
+                // Stop the ion-refresher from spinning
+                $scope.$broadcast('scroll.refreshComplete');
+            });
+
+        };
+
         function updateGroupsList(){
             gdApi.fetchGroupsData().then(
                 function (groupsData) {

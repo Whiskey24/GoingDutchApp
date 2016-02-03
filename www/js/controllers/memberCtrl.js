@@ -34,6 +34,49 @@
             }
         );
 
+        var refreshCheck = 0;
+        $scope.doRefresh = function() {
+            gdApi.fetchGroupsData(true).then(
+                function (groupsData) {
+                    $scope.groups = groupsData;
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            ).then(function () {
+                    var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                    $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                    $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+                }
+            ).finally(function() {
+                refreshCheck++;
+                // Stop the ion-refresher from spinning
+                if (refreshCheck == 2){
+                    $scope.$broadcast('scroll.refreshComplete');
+                    refreshCheck = 0;
+                }
+
+            });
+
+            gdApi.fetchUsersData(true).then(
+                function (usersData) {
+                    $scope.users = usersData;
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            ).finally(function() {
+                refreshCheck++;
+                // Stop the ion-refresher from spinning
+                if (refreshCheck == 2){
+                    $scope.$broadcast('scroll.refreshComplete');
+                    refreshCheck = 0;
+                }
+            });
+
+        };
+
         gdApi.fetchUsersData().then(
             function (usersData) {
                 $scope.users = usersData;
