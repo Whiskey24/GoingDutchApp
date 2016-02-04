@@ -12,17 +12,44 @@
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
         if (!CacheFactory.get('groupsCache')) {
-            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000 });
+            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000, deleteOnExpire: 'aggressive',
+                onExpire: function (key, value) {
+                    console.log("gdApi: groupsCache expired, refreshing");
+                    fetchGroupsData(true).then(
+                        function (groupsData) {
+                            for (var index = 0; index < groupsData.length; index++) {
+                                fetchExpensesData(groupsData[index].gid, true)
+                                    .then(function (data) {
+                                            //console.log(data);
+                                        }, function (error) {
+                                            logErrorMessage(error);
+                                        }
+                                    );
+                            }
+                        },
+                        function (msg) {
+                            logErrorMessage(msg);
+                        }
+                    );
+            }
+            });
         }
         if (!CacheFactory.get('usersCache')) {
             self.usersCache = CacheFactory('usersCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('expensesCache')) {
-            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000});
+            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000, deleteOnExpire: 'aggressive',
+                onExpire: function (key, value) {
+                    console.log("gdApi: usersCache expired, refreshing");
+                    fetchUsersData(true);
+                }
+            });
         }
         if (!CacheFactory.get('userPrefs')) {
             self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000});
         }
+
+        ///fetchUsersData
 
         // keep track of often used properties
         // will be refreshed upon cache refresh
@@ -104,6 +131,9 @@
             }
             var deferred = $q.defer();
             var cacheKey = "groups";
+            if (!CacheFactory.get('groupsCache')) {
+                return;
+            }
             var groupsData = self.groupsCache.get(cacheKey);
             if (groupsData && !forceRefresh) {
                 console.log("Groups data loaded from cache");
