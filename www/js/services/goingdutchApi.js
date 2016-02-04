@@ -440,19 +440,19 @@
                     else {
                         console.log("Expense submitted successfully");
                     }
-                    console.log(response.data);
-                    self.expensesCache.remove("gid-" + gid);
-                    fetchExpensesData(gid)
+                    //console.log(response.data);
+                    //self.expensesCache.remove("gid-" + gid);
+                    fetchExpensesData(gid, true)
                         .then(function (data) {
                             console.log("Expenses updated for group " + gid);
                             //console.log(self.expensesCache.info("gid-" + gid).created);
                             tempExpenseCache = {};
-                            self.groupsCache.remove("groups");
+                            //self.groupsCache.remove("groups");
                         }, function (error) {
                             console.log("Error: " + error);
                         }).then(gdApi.fetchGroupsData);
                 }, function (response) {
-                    console.log("Error submitting expense");
+                    console.log("Error submitting expense: " + response);
                 });
         }
 
@@ -470,11 +470,12 @@
         var newExpensesMargin = 100000000;
 
         function addExpense(gid, expense) {
-            //console.log(expense);
+
             newExpensesMargin += 1;
             expense.eid = newExpensesMargin;
             //$localStorage.expenses[gid].unshift(expense);
-
+            // console.log(expense);
+            //console.log(JSON.stringify(expense));
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.post(url_expenses, expense)
                 .then(function (response) {
@@ -485,12 +486,12 @@
                         console.log("Expense submitted successfully");
                     }
                     console.log(response.data);
-                    self.expensesCache.remove("gid-" + gid);
-                    fetchExpensesData(gid)
+                    //self.expensesCache.remove("gid-" + gid);
+                    fetchExpensesData(gid, true)
                         .then(function (data) {
-                            console.log("Expenses updated for group " + gid);
-                            console.log(self.expensesCache.info("gid-" + gid).created);
-                            self.groupsCache.remove("groups");
+                            //console.log("Expenses updated for group " + gid);
+                            //console.log(self.expensesCache.info("gid-" + gid).created);
+                            //self.groupsCache.remove("groups");
                         }, function (error) {
                             console.log("Error: " + error);
                         }).then(gdApi.fetchGroupsData);
@@ -539,7 +540,7 @@
                         console.log("Updated group list submitted successfully for group " + gid);
                     }
                     //self.expensesCache.remove("gid-" + gid);
-                    fetchExpensesData(gid)
+                    fetchExpensesData(gid, true)
                         .then(function (data) {
                             console.log("Expenses updated for group " + gid);
                             //console.log(self.expensesCache.info("gid-" + gid).created);
@@ -649,11 +650,11 @@
                     }
                     // console.log(response.data);
                     self.expensesCache.remove("gid-" + gid);
-                    fetchExpensesData(gid)
+                    fetchExpensesData(gid, true)
                         .then(function (data) {
                             console.log("Expenses updated for group " + gid);
                             // console.log(self.expensesCache.info("gid-" + gid).created);
-                            self.groupsCache.remove("groups");
+                            // self.groupsCache.remove("groups");
                         }, function (error) {
                             console.log("Error: " + error);
                         }).then(gdApi.fetchGroupsData);

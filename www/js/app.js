@@ -7,7 +7,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
         return {
             host: host,
             port: 80,
-            //port: 443,
+            ///port: 443,
             url_groups: host + '/groups',
             url_users: host + '/users',
             url_expenses: host + '/group/{gid}/expenses',
