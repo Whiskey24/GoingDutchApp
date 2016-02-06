@@ -59,6 +59,18 @@
             $scope.showAlert();
         }
 
+        // An alert dialog
+        $scope.showAlert = function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Invalid credentials',
+                template: "I'm sorry, could not login with these credentials"
+            });
+
+            alertPopup.then(function(res) {
+                //console.log('Thank you for not eating my delicious ice cream cone');
+            });
+        };
+
         /* repeatString() returns a string which has been repeated a set number of times */
         function repeatString(str, num) {
             out = '';
