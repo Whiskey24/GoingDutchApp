@@ -32,7 +32,6 @@
         }
 
         function preLoadExpenses() {
-
             gdApi.fetchUsersData()
                 .then(function () {
                     //users = data;
@@ -55,15 +54,28 @@
 
         function logErrorMessage(error) {
             $ionicLoading.hide();
+            if (error == "Not authorized") {
+                $scope.showAlert("credentials");
+            }
+            else {
+                $scope.showAlert("connectivity");
+            }
             console.log("Error: " + error);
-            $scope.showAlert();
+
         }
 
         // An alert dialog
-        $scope.showAlert = function() {
+        $scope.showAlert = function(errortype) {
+            var title = 'Invalid credentials';
+            var template = "Could not login :(";
+            console.log(errortype);
+            if (errortype != "credentials"){
+                var title = 'Connectivity problem';
+                var template = "Could not reach the server";
+            }
             var alertPopup = $ionicPopup.alert({
-                title: 'Invalid credentials',
-                template: "I'm sorry, could not login with these credentials"
+                title: title,
+                template: template
             });
 
             alertPopup.then(function(res) {

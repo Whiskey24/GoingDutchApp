@@ -109,6 +109,7 @@
                 })
                 .error(function (msg, code) {
                     console.log("Login failed: invalid credentials supplied for " + $username);
+                    console.log(msg);
                     console.log(msg, code);
                     $localStorage.authenticated = false;
                     deferred.reject(msg);

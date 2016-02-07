@@ -265,6 +265,21 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             $httpProvider.interceptors.push('authHttpRequestInterceptor');
         }])
 
+    //.config([
+    //    "$httpProvider", function($httpProvider, $rootScope) {
+    //        $httpProvider.interceptors.push(function ($q) {
+    //            return {
+    //                responseError: function (rejection) {
+    //                    if (rejection.status <= 0) {
+    //                        //window.location = "noresponse.html";
+    //                        console.log("CONNECTION ERROR");
+    //                        return;
+    //                    }
+    //                    return $q.reject(rejection);
+    //                }
+    //            };
+    //        })
+    //}])
 
     // .config should come before .run
     .run(function ($ionicPlatform) {
