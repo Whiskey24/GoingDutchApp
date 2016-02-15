@@ -9,6 +9,18 @@
 
     function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs, $ionicHistory) {
 
+        $scope.$on('$ionicView.enter', function () {
+            // put this here in case group details have been updated
+            var cacheGroup = gdApi.checkGroupSettingsCache(Number($stateParams.gid));
+            if (cacheGroup){
+                $scope.currency = cacheGroup['currency'];
+                $scope.groupTitle = cacheGroup['name'];
+                $scope.groupDescription = cacheGroup['description'];
+                $scope.selectedCurrencyCode = $scope.currency;
+                $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+            }
+        });
+
         gdApi.fetchGroupsData().then(
             function (groupsData) {
                 $scope.groups = groupsData;

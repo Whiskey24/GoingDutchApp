@@ -18,7 +18,7 @@
                 <input type="text" ng-model="formData.groupDescription">
             </label>
 
-            <ion-item class="text-center" ng-click="saveSettings()" ng-show="groupDescription.length > 2 && groupTitle.length > 2">
+            <ion-item class="text-center" ng-click="saveSettings()" ng-show="formData.groupDescription.length > 2 && formData.groupTitle.length > 2">
                 Save
             </ion-item>
 

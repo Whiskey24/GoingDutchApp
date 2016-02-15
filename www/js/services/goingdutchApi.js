@@ -453,6 +453,12 @@
 
         function updateGroupSettings(settings) {
             // cacheExpenseChange(expense);
+            for (var key in settings) {
+                // skip loop if the property is from prototype
+                if (!settings.hasOwnProperty(key)) continue;
+                cacheGroupSettingsChange(key, settings[key]);
+            }
+
             var url_updateGroupSettings = gdConfig.url_updateGroupSettings;
             $http.put(url_updateGroupSettings, settings)
                 .then(function (response) {
@@ -467,7 +473,7 @@
                     fetchGroupsData(true)
                         .then(function (data) {
                             console.log("Groups updated");
-                            // tempExpenseCache = {};
+                            tempGroupSettingsCache = {};
                         }, function (error) {
                             console.log("Error: " + error);
                         });
@@ -486,6 +492,17 @@
         function checkTempCache(eid){
             return (eid in tempExpenseCache) ? tempExpenseCache[eid] : false;
         }
+
+        var tempGroupSettingsCache = {};
+
+        function cacheGroupSettingsChange(gid, settings) {
+            tempGroupSettingsCache[gid] = settings;
+        }
+
+        function checkGroupSettingsCache(gid){
+            return (gid in tempGroupSettingsCache) ? tempGroupSettingsCache[gid] : false;
+        }
+
 
         var newExpensesMargin = 100000000;
 
@@ -747,7 +764,8 @@
             updateGroupSort: updateGroupSort,
             updateGroupCategories: updateGroupCategories,
             updateGroupSettings: updateGroupSettings,
-            checkTempCache: checkTempCache
+            checkTempCache: checkTempCache,
+            checkGroupSettingsCache: checkGroupSettingsCache
         };
 
 
