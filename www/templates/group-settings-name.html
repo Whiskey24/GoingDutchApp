@@ -1,0 +1,27 @@
+<ion-view>
+    <ion-nav-title>{{groupTitle}}</ion-nav-title>
+
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content>
+        <form name="expenseForm">
+            <label class="item item-input">
+                <span class="input-label">Title</span>
+                <input type="text" ng-model="formData.groupTitle">
+            </label>
+
+            <label class="item item-input">
+                <span class="input-label">description</span>
+                <input type="text" ng-model="formData.groupDescription">
+            </label>
+
+            <ion-item class="text-center" ng-click="saveSettings()" ng-show="groupDescription.length > 2 && groupTitle.length > 2">
+                Save
+            </ion-item>
+
+        </form>
+    </ion-content>
+</ion-view>

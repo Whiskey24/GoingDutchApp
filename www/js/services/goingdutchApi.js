@@ -425,12 +425,6 @@
 
 
         function updateExpense(gid, expense) {
-            //for (var i = 0, len = $localStorage.expenses[gid].length; i < len; i++) {
-            //    if ($localStorage.expenses[gid][i].eid == Number(expense.eid)) {
-            //        $localStorage.expenses[gid][i] = expense;
-            //        break;
-            //    }
-            //}
             cacheExpenseChange(expense);
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.put(url_expenses, expense)
@@ -454,6 +448,31 @@
                         }).then(gdApi.fetchGroupsData);
                 }, function (response) {
                     console.log("Error submitting expense: " + response);
+                });
+        }
+
+        function updateGroupSettings(settings) {
+            // cacheExpenseChange(expense);
+            var url_updateGroupSettings = gdConfig.url_updateGroupSettings;
+            $http.put(url_updateGroupSettings, settings)
+                .then(function (response) {
+                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                        console.log("Error updating group settings");
+                    }
+                    else {
+                        console.log("Group settings updated successfully");
+                    }
+                    //console.log(response.data);
+                    //self.expensesCache.remove("gid-" + gid);
+                    fetchGroupsData(true)
+                        .then(function (data) {
+                            console.log("Groups updated");
+                            // tempExpenseCache = {};
+                        }, function (error) {
+                            console.log("Error: " + error);
+                        });
+                }, function (response) {
+                    console.log("Error updating group settings: " + response);
                 });
         }
 
@@ -727,6 +746,7 @@
             isOwner: isOwner,
             updateGroupSort: updateGroupSort,
             updateGroupCategories: updateGroupCategories,
+            updateGroupSettings: updateGroupSettings,
             checkTempCache: checkTempCache
         };
 

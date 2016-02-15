@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('SettingsCtrl', ['$stateParams', '$scope', 'gdApi', 'iso4217', '$state', '$cordovaDialogs', SettingsCtrl]);
+    angular.module('GoingDutchApp').controller('SettingsCtrl', ['$stateParams', '$scope', 'gdApi', 'iso4217', '$state', '$cordovaDialogs', '$ionicHistory', SettingsCtrl]);
 
-    function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs) {
+    function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs, $ionicHistory) {
 
         gdApi.fetchGroupsData().then(
             function (groupsData) {
@@ -17,19 +17,65 @@
                 logErrorMessage(msg);
             }
         ).then(function () {
-                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
-                $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
-                $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
-                $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
-                $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
-                $scope.categoryCount = $scope.categories.length;
-
-                $scope.groupCurrency = $scope.currency;
-                $scope.selectedCurrencyCode = $scope.currency;
-                $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+                //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                //$scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                //$scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                //$scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+                //$scope.groupDescription = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'description')[0];
+                //$scope.formData = {};
+                //$scope.formData.groupTitle = $scope.groupTitle;
+                //$scope.formData.groupDescription  = $scope.groupDescription ;
+                //$scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
+                //$scope.categoryCount = $scope.categories.length;
+                //
+                //$scope.groupCurrency = $scope.currency;
+                //$scope.selectedCurrencyCode = $scope.currency;
+                //$scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+                updateGroupsList();
             }
         );
         $scope.gid = $stateParams.gid;
+
+        $scope.$watch(
+            function () {
+                return gdApi.groupsCacheCreated($scope.gid);
+            },
+
+            function(newVal, oldVal) {
+                console.log("Groups were updated, reloading");
+                //console.log(newVal);
+                //console.log(oldVal);
+                var uid = gdApi.UID();
+                if (typeof(uid) != 'undefined') {
+                    updateGroupsList();
+                }
+            }, true
+        );
+
+        function updateGroupsList(){
+            gdApi.fetchGroupsData().then(
+                function (groupsData) {
+                    $scope.groups = groupsData;
+                    var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                    $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                    $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+                    $scope.groupDescription = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'description')[0];
+                    $scope.formData = {};
+                    $scope.formData.groupTitle = $scope.groupTitle;
+                    $scope.formData.groupDescription  = $scope.groupDescription ;
+                    $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
+                    $scope.categoryCount = $scope.categories.length;
+
+                    $scope.groupCurrency = $scope.currency;
+                    $scope.selectedCurrencyCode = $scope.currency;
+                    $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            );
+        }
 
         var currenciesKeys = gdApi.getCurrencies();
         var currencies = [];
@@ -39,10 +85,11 @@
         }
         $scope.currencyList = currencies;
 
-
         $scope.newCurrencySelected = function (newCurrencyCode) {
-            gdApi.setGroupCurrency($scope.gid, newCurrencyCode);
-            $state.go('group.settings', {gid: $scope.gid});
+            //gdApi.setGroupCurrency($scope.gid, newCurrencyCode);
+            $scope.currency = newCurrencyCode;
+            $scope.saveSettings();
+            //$state.go('group.settings', {gid: $scope.gid});
         };
 
         $scope.data = {};
@@ -79,7 +126,6 @@
         $scope.moveCategory = function (category, fromIndex, toIndex) {
             $scope.categories = moveItemForSort($scope.categories, category, fromIndex, toIndex);
         };
-
 
         var changeTitleMsg = 'Enter new category title';
         $scope.changeCategoryTitle = function (category) {
@@ -158,6 +204,25 @@
 
             sendCategoryUpdate();
         }
+
+        $scope.saveSettings = function() {
+
+            $scope.groupTitle = $scope.formData.groupTitle;
+            $scope.groupDescription = $scope.formData.groupDescription;
+
+            var settings = {};
+            settings[$scope.gid] = {
+                    'gid': $scope.gid,
+                    'name': $scope.groupTitle,
+                    'description': $scope.groupDescription,
+                    'currency': $scope.currency
+                    };
+
+            gdApi.updateGroupSettings(settings);
+            $ionicHistory.clearCache().then((function () {
+                    return $state.go('group.settings', {gid: $scope.gid})
+                }));
+        };
 
     }
 

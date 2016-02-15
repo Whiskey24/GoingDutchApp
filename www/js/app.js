@@ -11,6 +11,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_groups: host + '/groups',
             url_users: host + '/users',
             url_expenses: host + '/group/{gid}/expenses',
+            url_updateGroupSettings: host + '/groups',
             url_updateGroupSort: host + '/user/{uid}/groups',
             url_updateGroupCategories: host + '/group/{gid}/categories',
             url_login: host + '/version'
@@ -207,6 +208,16 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 views: {
                     'group-settings': {
                         templateUrl: 'templates/group-settings-categories.html',
+                        controller: 'SettingsCtrl'
+                    }
+                }
+            })
+
+            .state('group.settings-name', {
+                url: '/settings/name',
+                views: {
+                    'group-settings': {
+                        templateUrl: 'templates/group-settings-name.html',
                         controller: 'SettingsCtrl'
                     }
                 }
