@@ -5,10 +5,33 @@
             <label class="item item-input">
                 <input type="text" placeholder="Email" ng-model="data.username">
             </label>
-            <label class="item item-input">
+            <label class="item" ng-if="newPwdSendSuccess == true">
+                A new password has been emailed.
+            </label>
+            <label class="item item-input" ng-if="showForgetEmail == false">
                 <input type="password" placeholder="Password" ng-model="data.password">
             </label>
         </div>
-        <button class="button button-block button-positive" ng-enter="login(data)"  ng-click="login(data)">Login</button>
+        <button class="button button-block button-positive" ng-if="showForgetEmail == false"
+                ng-enter="login(data)" ng-click="login(data)">Login</button>
+
+        <div class="row">
+            <div class="col text-center">
+                <button class="button-clear" ng-if="showForgetEmail == true && emailNotFound == true">Unknown email address :(</button>
+            </div>
+        </div>
+
+        <button class="button button-block button-positive" ng-if="showForgetEmail == true && newPwdSendSuccess == false"
+                ng-enter="resetPwd(data)" ng-click="resetPwd(data)">Send new password to this email address</button>
+        <button class="button button-block button-positive" ng-if="showForgetEmail == true && newPwdSendSuccess == true"
+                ng-enter="returnToLogin()" ng-click="returnToLogin()">Return to login</button>
+
+        <br />
+        <div class="row">
+            <div class="col text-center">
+                <button class="button-clear" ng-if="showForgetEmail == false" ng-click="forgotPwd()">Forgot password</button>
+                <button class="button-clear" ng-if="showForgetEmail == true && newPwdSendSuccess == false" ng-click="forgotPwd()">I remembered my password</button>
+            </div>
+        </div>
     </ion-content>
 </ion-view>

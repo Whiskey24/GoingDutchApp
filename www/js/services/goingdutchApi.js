@@ -210,6 +210,46 @@
             return deferred.promise;
         }
 
+        function validateEmailExists(email){
+            var deferred = $q.defer();
+            var emailObj = {};
+            emailObj.email = email;
+            $http.post(gdConfig.url_emailExists, emailObj)
+                        .success(function (data, status) {
+                            console.log("Emailexists successfully called");
+                            var result = false;
+                            if (data.error == 0 && data.exists == 1) {
+                                result = true;
+                            }
+                            deferred.resolve(result);
+                        })
+                        .error(function (msg, code) {
+                            console.log("Error calling Emailexists");
+                            deferred.reject(msg);
+                        });
+            return deferred.promise;
+        }
+
+        function sendNewPwd(email){
+            var deferred = $q.defer();
+            var emailObj = {};
+            emailObj.email = email;
+            $http.post(gdConfig.url_sendNewPwd, emailObj)
+                .success(function (data, status) {
+                    console.log("sendNewPwd successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling sendNewPwd");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
         function fetchExpensesData(gid, forceRefresh) {
             if (typeof forceRefresh === "undefined" || forceRefresh === null) {
                 forceRefresh = false;
@@ -765,7 +805,9 @@
             updateGroupCategories: updateGroupCategories,
             updateGroupSettings: updateGroupSettings,
             checkTempCache: checkTempCache,
-            checkGroupSettingsCache: checkGroupSettingsCache
+            checkGroupSettingsCache: checkGroupSettingsCache,
+            validateEmailExists: validateEmailExists,
+            sendNewPwd: sendNewPwd
         };
 
 

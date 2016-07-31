@@ -10,7 +10,10 @@
     function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading, $ionicPopup) {
 
         var credentials = gdApi.getCredentials();
-        //console.log(credentials);
+        $scope.showForgetEmail = false;
+        $scope.emailNotFound = false;
+        $scope.newPwdSendSuccess = false;
+        $scope.newPwdSendFailed = false;
 
 
         $scope.login = function (credentials) {
@@ -18,6 +21,51 @@
             gdApi.login(credentials)
                 .then(gdApi.fetchGroupsData)
                 .then(gotoHome, logErrorMessage);
+        };
+
+        $scope.returnToLogin = function () {
+            $scope.showForgetEmail = false;
+            $scope.emailNotFound = false;
+            $scope.newPwdSendSuccess = false;
+            $scope.newPwdSendFailed = false;
+        };
+
+        $scope.forgotPwd = function () {
+            $scope.showForgetEmail = !$scope.showForgetEmail;
+        };
+
+
+        $scope.resetPwd = function (credentials){
+            $scope.emailNotFound = false;
+            $scope.newPwdSendSuccess = false;
+            $scope.newPwdSendFailed = false;
+            console.log("check " + credentials.username);
+            gdApi.validateEmailExists(credentials.username).then(
+                function (emailFound) {
+                    //console.log("email found: " + emailFound);
+                    if (emailFound){
+                        // send email
+                        gdApi.sendNewPwd(credentials.username).then(
+                            function(sendResult) {
+                                if (sendResult == true) {
+                                    $scope.newPwdSendSuccess = true;
+                                } else {
+                                    $scope.newPwdSendFailed = true;
+                                }
+                            },
+                            function (msg) {
+                                console.log(msg);
+                            }
+                        )
+                    } else {
+                        $scope.emailNotFound = true;
+                    }
+
+                },
+                function (msg) {
+                    console.log(msg);
+                }
+            );
         };
 
         if (credentials !== undefined){
