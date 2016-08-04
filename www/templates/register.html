@@ -1,0 +1,64 @@
+<ion-view view-title="Register">
+    <ion-content class="padding">
+        <h2>Going Dutch</h2>
+        <form name="registerForm">
+            <div class="list list-inset">
+
+                <label class="item item-input" ng-if="newAccountSuccess == false" >
+                    <input name="email" type="email" placeholder="Email" ng-model="data.email"
+                           ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+                </label>
+                <span class="col text-center"
+                      ng-show="registerForm.email.$touched && registerForm.email.$error.pattern">
+                    Not a valid email address
+                </span>
+                <span class="col text-center" ng-show="emailExists">
+                    This email address is already registered
+                </span>
+
+                <label class="item item-input" ng-if="newAccountSuccess == false">
+                    <input name="firstName" type="text" placeholder="First or given name" ng-model="data.firstName"
+                           required>
+                </label>
+                <label class="item item-input" ng-if="newAccountSuccess == false" >
+                    <input type="text" placeholder="Last or surname" ng-model="data.lastName"
+                            required>
+                </label>
+                <label class="item item-input" ng-if="newAccountSuccess == false" >
+                    <input type="text" placeholder="Full name" ng-model="data.fullName"
+                            required>
+                </label>
+                <label class="item item-input" ng-if="newAccountSuccess == false" >
+                    <input type="text" placeholder="Nickname (optional)" ng-model="data.nickName">
+                </label>
+
+                <span class="col text-center" ng-if="newAccountSuccess == true">
+                    Your new account is ready!
+                </span>
+
+                <label class="item item-input" ng-if="newAccountSuccess == false" >
+                    <input name="pwd" id="pwd" type="password" placeholder="Password" ng-model="data.pass"
+                           ng-pattern="/.{4,}$/" required>
+                </label>
+                <span class="col text-center" ng-show="registerForm.pwd.$touched && registerForm.pwd.$error.pattern">
+                    Use at least 4 characters
+                </span>
+
+                <label class="item item-input" ng-if="newAccountSuccess == false" >
+                    <input type="password" match-password="pwd" id="pwd2" name="pwd2" placeholder="Retype password"
+                           ng-model="data.password2" required>
+                </label>
+                <span class="col text-center" ng-show="registerForm.pwd.$touched && registerForm.pwd2.$touched && registerForm.pwd2.$invalid">Passwords are not identical</span>
+
+                <button class="button button-block button-positive" ng-if="newAccountSuccess == false"
+                        ng-enter="register(data)" ng-click="register(data)"
+                        ng-disabled="registerForm.email.$error.pattern || registerForm.$invalid">Register
+                </button>
+
+                <button class="button button-block button-positive" ng-if="newAccountSuccess == true"
+                        ng-enter="returnToLogin()" ng-click="returnToLogin()">Return to login
+                </button>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>

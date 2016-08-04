@@ -1,4 +1,4 @@
-angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache' ])
+angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache', 'ngPassword'])
 
     .constant('gdConfig', (function () {
         var host = 'http://api.gdutch.dev';
@@ -16,7 +16,8 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_updateGroupCategories: host + '/group/{gid}/categories',
             url_login: host + '/version',
             url_emailExists: host + '/emailexists',
-            url_sendNewPwd: host + '/user/forgetpwd'
+            url_sendNewPwd: host + '/user/forgetpwd',
+            url_registerUser: host + '/user'
         }
     })())
 
@@ -60,6 +61,16 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                     'public-login': {
                         templateUrl: 'templates/login.html',
                         controller: 'LoginCtrl'
+                    }
+                }
+            })
+
+            .state('public.register', {
+                url: '/register',
+                views: {
+                    'public-register': {
+                        templateUrl: 'templates/register.html',
+                        controller: 'RegisterCtrl'
                     }
                 }
             })
@@ -325,8 +336,103 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             }
         });
 
+    })
+
+    .directive('nxEqualEx', function() {
+        return {
+            require: 'ngModel',
+            link: function (scope, elem, attrs, model) {
+                if (!attrs.nxEqualEx) {
+                    console.error('nxEqualEx expects a model as an argument!');
+                    return;
+                }
+                scope.$watch(attrs.nxEqualEx, function (value) {
+                    // Only compare values if the second ctrl has a value.
+                    if (model.$viewValue !== undefined && model.$viewValue !== '') {
+                        model.$setValidity('nxEqualEx', value === model.$viewValue);
+                    }
+                });
+                model.$parsers.push(function (value) {
+                    // Mute the nxEqual error if the second ctrl is empty.
+                    if (value === undefined || value === '') {
+                        model.$setValidity('nxEqualEx', true);
+                        return value;
+                    }
+                    var isValid = value === scope.$eval(attrs.nxEqualEx);
+                    model.$setValidity('nxEqualEx', isValid);
+                    return isValid ? value : undefined;
+                });
+            }
+        };
     });
 
+
+// angular.module('GoingDutchApp.directives', [])
+//     .directive('pwCheck', [function () {
+//         return {
+//             require: 'ngModel',
+//             link: function (scope, elem, attrs, ctrl) {
+//                 var firstPassword = '#' + attrs.pwCheck;
+//                 elem.add(firstPassword).on('keyup', function () {
+//                     scope.$apply(function () {
+//                          console.info(elem.val() === $(firstPassword).val());
+//                         ctrl.$setValidity('pwmatch', elem.val() === $(firstPassword).val());
+//                     });
+//                 });
+//             }
+//         }
+//     }]);
+
+// var compareTo = function() {
+//     return {
+//         require: "ngModel",
+//         scope: {
+//             otherModelValue: "=compareTo"
+//         },
+//         link: function(scope, element, attributes, ngModel) {
+//
+//             ngModel.$validators.compareTo = function(modelValue) {
+//                 console.log (modelValue + " == " +  scope.otherModelValue);
+//                 return modelValue == scope.otherModelValue;
+//             };
+//
+//             scope.$watch("otherModelValue", function() {
+//                 ngModel.$validate();
+//             });
+//         }
+//     };
+// };
+//
+// angular.module('GoingDutchApp.directives', [])
+//     .directive("compareTo", compareTo);
+
+// angular.module('GoingDutchApp.directives', []).directive('nxEqualEx', function() {
+//     return {
+//         require: 'ngModel',
+//         link: function (scope, elem, attrs, model) {
+//             if (!attrs.nxEqualEx) {
+//                 console.error('nxEqualEx expects a model as an argument!');
+//                 return;
+//             }
+//             scope.$watch(attrs.nxEqualEx, function (value) {
+//                 // Only compare values if the second ctrl has a value.
+//                 if (model.$viewValue !== undefined && model.$viewValue !== '') {
+//                     model.$setValidity('nxEqualEx', value === model.$viewValue);
+//                 }
+//             });
+//             model.$parsers.push(function (value) {
+//                 // Mute the nxEqual error if the second ctrl is empty.
+//                 if (value === undefined || value === '') {
+//                     model.$setValidity('nxEqualEx', true);
+//                     return value;
+//                 }
+//                 var isValid = value === scope.$eval(attrs.nxEqualEx);
+//                 model.$setValidity('nxEqualEx', isValid);
+//                 return isValid ? value : undefined;
+//             });
+//         }
+//     };
+// });
 
 
 /*

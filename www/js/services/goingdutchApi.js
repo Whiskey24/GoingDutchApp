@@ -230,6 +230,25 @@
             return deferred.promise;
         }
 
+        function registerUser(details){
+            var deferred = $q.defer();
+            $http.post(gdConfig.url_registerUser, details)
+                .success(function (data, status) {
+                    console.log("registerUser successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling registerUser");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
+
         function sendNewPwd(email){
             var deferred = $q.defer();
             var emailObj = {};
@@ -807,7 +826,8 @@
             checkTempCache: checkTempCache,
             checkGroupSettingsCache: checkGroupSettingsCache,
             validateEmailExists: validateEmailExists,
-            sendNewPwd: sendNewPwd
+            sendNewPwd: sendNewPwd,
+            registerUser: registerUser
         };
 
 
