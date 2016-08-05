@@ -126,6 +126,7 @@
 
         // keep track of which groups user is owner
         var ownerGroups = [];
+        var adminGroups = [];
         function fetchGroupsData(forceRefresh) {
             if (typeof forceRefresh === "undefined" || forceRefresh === null) {
                 forceRefresh = false;
@@ -145,6 +146,7 @@
                     .success(function (data, status) {
                         console.log("Groups data fetched successfully");
                         ownerGroups = [];
+                        adminGroups = [];
                         //$localStorage.groups = data;
                         groupProperties = {};
                         var groupsArray = [];
@@ -154,6 +156,9 @@
                                 groupsArray[i] = data[key];
                                 if (data[key].role === "founder"){
                                     ownerGroups.push(data[key].gid);
+                                }
+                                if (data[key].role === "admin (full)"){
+                                    adminGroups.push(data[key].gid);
                                 }
                                 if (typeof(groupProperties[data[key].gid]) == 'undefined') {
                                     groupProperties[data[key].gid] = {
@@ -248,6 +253,42 @@
             return deferred.promise;
         }
 
+        function createGroup(details){
+            var deferred = $q.defer();
+            $http.post(gdConfig.url_createGroup, details)
+                .success(function (data, status) {
+                    console.log("createGroup successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling createGroup");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
+        function deleteGroup(gid){
+            var deferred = $q.defer();
+            var url_deleteGroup = gdConfig.url_deleteGroup.replace('{gid}', gid);
+            $http.delete(url_deleteGroup)
+                .success(function (data, status) {
+                    console.log("deleteGroup successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling deleteGroup");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
 
         function sendNewPwd(email){
             var deferred = $q.defer();
@@ -786,6 +827,10 @@
             return ownerGroups.indexOf(gid) > -1;
         }
 
+        function isAdmin(gid){
+            return adminGroups.indexOf(gid) > -1;
+        }
+
         return {
             //getGroups: getGroups,
             getGroupTitle: getGroupTitle,
@@ -820,6 +865,7 @@
             expenseCacheCreated: expenseCacheCreated,
             groupsCacheCreated: groupsCacheCreated,
             isOwner: isOwner,
+            isAdmin: isAdmin,
             updateGroupSort: updateGroupSort,
             updateGroupCategories: updateGroupCategories,
             updateGroupSettings: updateGroupSettings,
@@ -827,7 +873,9 @@
             checkGroupSettingsCache: checkGroupSettingsCache,
             validateEmailExists: validateEmailExists,
             sendNewPwd: sendNewPwd,
-            registerUser: registerUser
+            registerUser: registerUser,
+            createGroup: createGroup,
+            deleteGroup: deleteGroup
         };
 
 

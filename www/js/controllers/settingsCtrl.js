@@ -9,6 +9,7 @@
 
     function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs, $ionicHistory) {
 
+        var deleteGroupMsg = 'Delete group ?';
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details have been updated
             var cacheGroup = gdApi.checkGroupSettingsCache(Number($stateParams.gid));
@@ -18,7 +19,8 @@
                 $scope.groupDescription = cacheGroup['description'];
                 $scope.selectedCurrencyCode = $scope.currency;
                 $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
-            }
+                deleteGroupMsg = 'Delete group ' + $scope.groupTitle + '? Confirm by typing the group name.';
+                }
         });
 
         gdApi.fetchGroupsData().then(
@@ -65,27 +67,38 @@
         );
 
         function updateGroupsList(){
-            gdApi.fetchGroupsData().then(
-                function (groupsData) {
-                    $scope.groups = groupsData;
-                    var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
-                    $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
-                    $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
-                    $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
-                    $scope.groupDescription = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'description')[0];
-                    $scope.formData = {};
-                    $scope.formData.groupTitle = $scope.groupTitle;
-                    $scope.formData.groupDescription  = $scope.groupDescription ;
-                    $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
-                    $scope.categoryCount = $scope.categories.length;
-
-                    $scope.groupCurrency = $scope.currency;
-                    $scope.selectedCurrencyCode = $scope.currency;
-                    $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+            gdApi.fetchUsersData().then(
+                function (usersData) {
+                    $scope.users = usersData;
                 },
                 function (msg) {
                     logErrorMessage(msg);
                 }
+            ).then(
+                gdApi.fetchGroupsData().then(
+                    function (groupsData) {
+                        $scope.groups = groupsData;
+                        var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                        $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                        $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
+                        $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+                        $scope.groupDescription = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'description')[0];
+                        $scope.formData = {};
+                        $scope.formData.groupTitle = $scope.groupTitle;
+                        $scope.formData.groupDescription  = $scope.groupDescription ;
+                        $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
+                        $scope.categoryCount = $scope.categories.length;
+
+                        $scope.groupCurrency = $scope.currency;
+                        $scope.selectedCurrencyCode = $scope.currency;
+                        $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+                        deleteGroupMsg = 'Delete group ' + $scope.groupTitle + '? Confirm by typing the group name.';
+                        console.log($scope.groups);
+                    },
+                    function (msg) {
+                        logErrorMessage(msg);
+                    }
+                )
             );
         }
 
@@ -192,6 +205,39 @@
                 });
         };
 
+        $scope.isGroupFounder = true;
+        var deleteGroupTitle = 'Delete group';
+        $scope.deleteGroup = function () {
+            $cordovaDialogs.prompt(deleteGroupMsg, deleteGroupTitle , ['OK', 'Cancel'], '')
+                .then(function (result) {
+                    if (result.input1.length > 0 && result.input1 == $scope.groupTitle) {
+                        console.log('Deleting group ' + result.input1);
+                        gdApi.deleteGroup(Number($stateParams.gid)).then(
+                            function (groupDeleted) {
+                                //console.log("email found: " + emailFound);
+                                if (groupDeleted){
+                                    console.log("group is deleted");
+                                } else {
+                                    console.log("Error deleting group");
+                                }
+                            },
+                            function (msg) {
+                                console.log(msg);
+                            }
+                        ).then(
+                            function (response) {
+                                gdApi.fetchGroupsData(true);
+                                $state.go('home.groups');
+                            },
+                            function (msg) {
+                                console.log(msg);
+                            }
+                        );
+
+                    }
+                });
+        };
+
         function newCategory(title) {
             console.log($scope.categories);
 
@@ -234,6 +280,14 @@
             $ionicHistory.clearCache().then((function () {
                     return $state.go('group.settings', {gid: $scope.gid})
                 }));
+        };
+
+
+        $scope.memberName = function (uid) {
+            if (typeof($scope.users[uid]) == 'undefined') {
+                return "Error: user " + uid + " not found";
+            }
+            return $scope.users[uid]['nickName'];
         };
 
     }

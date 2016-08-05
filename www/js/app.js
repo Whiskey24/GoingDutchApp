@@ -17,7 +17,9 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_login: host + '/version',
             url_emailExists: host + '/emailexists',
             url_sendNewPwd: host + '/user/forgetpwd',
-            url_registerUser: host + '/user'
+            url_registerUser: host + '/user',
+            url_createGroup: host + '/group',
+            url_deleteGroup: host + '/group/{gid}'
         }
     })())
 
@@ -77,6 +79,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('home.newgroup', {
                 url: '/newgroup',
+                cache: false,
                 views: {
                     'home-new-group': {
                         templateUrl: 'templates/home-newgroup.html',
@@ -242,6 +245,16 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                     'group-settle': {
                         templateUrl: 'templates/group-settle.html',
                         controller: 'SettleBalanceCtrl'
+                    }
+                }
+            })
+
+            .state('group.manage', {
+                url: '/manage',
+                views: {
+                    'group-manage': {
+                        templateUrl: 'templates/group-manage.html',
+                        controller: 'SettingsCtrl'
                     }
                 }
             })

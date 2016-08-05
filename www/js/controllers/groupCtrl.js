@@ -9,6 +9,7 @@
 
     function GroupCtrl($scope, gdApi) {
         var currencies = {};
+        $scope.noGroupsFound = true;
 
         /*.then(function () {
                 for (var i = 0, len = $scope.groups.length; i < len; i++) {
@@ -52,6 +53,7 @@
             gdApi.fetchGroupsData().then(
                 function (groupsData) {
                     $scope.groups = groupsData;
+                    $scope.noGroupsFound = groupsData.length == 0;
                 },
                 function (msg) {
                     logErrorMessage(msg);

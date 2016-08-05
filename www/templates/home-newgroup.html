@@ -1,13 +1,22 @@
-<ion-view view-title="Going Dutch">
+<ion-view view-title="New Group">
+    <ion-content class="padding">
+        <h3>Create a new group</h3>
+        <form name="form.newGroupForm">
+            <div class="list list-inset">
 
-    <ion-header-bar class="bar-positive">
-        <div class="buttons">
-            <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
-        </div>
-        <h1 class="title">Going Dutch</h1>
-    </ion-header-bar>
+                <label class="item item-input" >
+                    <input name="name" type="text" placeholder="Group name" ng-model="data.name"
+                           required>
+                </label>
 
-    <ion-content class="has-header">
-        <p>{{debug}}</p>
+                <label class="item item-input" >
+                    <input name="description" type="text" placeholder="Group description" ng-model="data.description">
+                </label>
+
+                <button class="button button-block button-positive"
+                        ng-enter="createGroup()" ng-click="createGroup(data)">Create group
+                </button>
+            </div>
+        </form>
     </ion-content>
 </ion-view>

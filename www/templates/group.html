@@ -48,6 +48,11 @@ navigation history that also transitions its views in and out.
                 <ion-nav-view name="group-settings"></ion-nav-view>
             </ion-tab>
 
+            <!-- Manage Members Tab -->
+            <ion-tab hidden="true" title="Manage Members" ui-sref="group.manage">
+                <ion-nav-view name="group-manage"></ion-nav-view>
+            </ion-tab>
+
             <!-- Settle Balance Tab -->
             <ion-tab hidden="true" title="Settle Balance" ui-sref="group.settle">
                 <ion-nav-view name="group-settle"></ion-nav-view>
@@ -79,6 +84,9 @@ navigation history that also transitions its views in and out.
                 </ion-item>
                 <ion-item menu-close ui-sref="group.settings">
                     Group Settings
+                </ion-item>
+                <ion-item menu-close ui-sref="group.manage">
+                    Manage Members
                 </ion-item>
                 <ion-item menu-close ui-sref="group.settle">
                     Settle Balance

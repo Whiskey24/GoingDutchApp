@@ -1,0 +1,22 @@
+<ion-view>
+    <ion-nav-title>{{groupTitle}}</ion-nav-title>
+    <ion-content>
+
+        <ion-list>
+
+            <ion-item ng-repeat="member in members" class="item item-icon-left item-icon-right"
+                      ui-sref="group.member-detail({uid: member.uid})">
+                {{memberName(member.uid)}}
+                <span class="item-note" ng-if="member.balance >= 0" ng-style="{'color':'green'}">
+                  member-role
+                </span>
+                <span class="item-note" ng-if="member.balance < 0" ng-style="{'color':'red'}">
+                  member-role
+                </span>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+
+        </ion-list>
+
+    </ion-content>
+</ion-view>
