@@ -8,11 +8,19 @@
     </ion-header-bar>
 
     <ion-content>
-        {{debug}}
         <ion-list>
-            <ion-toggle ng-model="settings.stayLoggedIn">
-                Stay logged in
-            </ion-toggle>
+            <ion-item class="item item-icon-right" ui-sref="home.account-details">
+                Change name details
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item item-icon-right" ui-sref="home.account-email">
+                Change email
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+            <ion-item class="item item-icon-right" ui-sref="home.account-password">
+                Change password
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
         </ion-list>
     </ion-content>
 </ion-view>

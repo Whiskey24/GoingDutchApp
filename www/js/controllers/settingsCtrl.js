@@ -230,7 +230,6 @@
                 });
         };
 
-        $scope.isGroupFounder = true;
         var deleteGroupTitle = 'Delete group';
         $scope.deleteGroup = function () {
             $cordovaDialogs.prompt(deleteGroupMsg, deleteGroupTitle , ['OK', 'Cancel'], '')

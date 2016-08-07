@@ -110,6 +110,36 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 }
             })
 
+            .state('home.account-details', {
+                url: '/account/details',
+                views: {
+                    'home-account': {
+                        templateUrl: 'templates/home-account-details.html',
+                        controller: 'AccountCtrl'
+                    }
+                }
+            })
+
+            .state('home.account-email', {
+                url: '/account/email',
+                views: {
+                    'home-account': {
+                        templateUrl: 'templates/home-account-email.html',
+                        controller: 'AccountCtrl'
+                    }
+                }
+            })
+
+            .state('home.account-password', {
+                url: '/account/password',
+                views: {
+                    'home-account': {
+                        templateUrl: 'templates/home-account-password.html',
+                        controller: 'AccountCtrl'
+                    }
+                }
+            })
+            
             .state('home.logout', {
                 url: '/logout',
                 views: {

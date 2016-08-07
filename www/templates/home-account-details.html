@@ -1,0 +1,40 @@
+<ion-view view-title="Going Dutch">
+
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content>
+        <span class="col text-center">Change name details</span>
+
+        <form name="nameDetailsForm">
+            <div class="list list-inset">
+
+                <label class="item item-input">
+                    <input name="firstName" type="text" placeholder="First or given name" ng-model="data.firstName"
+                           required>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Last or surname" ng-model="data.lastName"
+                           required>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Full name" ng-model="data.fullName"
+                           required>
+                </label>
+                <label class="item item-input">
+                    <input type="text" placeholder="Nickname (optional)" ng-model="data.nickName">
+                </label>
+
+                <button class="button button-block button-positive"
+                        ng-enter="register(data)" ng-click="updateDetails(data)"
+                        ng-disabled="nameDetailsForm.$invalid">Update
+                </button>
+
+            </div>
+        </form>
+
+    </ion-content>
+
+</ion-view>

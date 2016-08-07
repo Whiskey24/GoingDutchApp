@@ -18,7 +18,7 @@
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
 
-            <ion-item ng-if="isGroupFounder" ng-click="deleteGroup()" class="text-center">
+            <ion-item ng-if="my_role_id == 0" ng-click="deleteGroup()" class="text-center">
                 Delete group
             </ion-item>
         </ion-list>
