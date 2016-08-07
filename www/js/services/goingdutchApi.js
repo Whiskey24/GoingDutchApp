@@ -274,6 +274,27 @@
             return deferred.promise;
         }
 
+        function updateUserDetails(details){
+            var deferred = $q.defer();
+            var url_updateUserDetails= gdConfig.url_updateUserDetails.replace('{uid}', details.uid);
+            $http.put(url_updateUserDetails, details)
+                .success(function (data, status) {
+                    console.log("updateUserDetails successfully called");
+                    console.log(data);
+                    var result = false;
+                    if (data.uid == details.uid) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling updateUserDetails");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
+
         function createGroup(details){
             var deferred = $q.defer();
             $http.post(gdConfig.url_createGroup, details)
@@ -917,7 +938,8 @@
             createGroup: createGroup,
             deleteGroup: deleteGroup,
             removeMember: removeMember,
-            changeRole: changeRole
+            changeRole: changeRole,
+            updateUserDetails: updateUserDetails
         };
 
 

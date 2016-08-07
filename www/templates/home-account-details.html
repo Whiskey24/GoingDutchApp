@@ -10,25 +10,31 @@
 
         <form name="nameDetailsForm">
             <div class="list list-inset">
+                <span class="col text-left">First or given name</span>
+                <label class="item item-input">
+                    <input name="firstName" type="text" placeholder="First or given name" ng-model="userData.firstName"
+                           required>
+                </label>
 
+                <span class="col text-left">Last or surname</span>
                 <label class="item item-input">
-                    <input name="firstName" type="text" placeholder="First or given name" ng-model="data.firstName"
+                    <input type="text" placeholder="Last or surname" ng-model="userData.lastName"
                            required>
                 </label>
+
+                <span class="col text-left">Full name</span>
                 <label class="item item-input">
-                    <input type="text" placeholder="Last or surname" ng-model="data.lastName"
+                    <input type="text" placeholder="Full name" ng-model="userData.realname"
                            required>
                 </label>
+
+                <span class="col text-left">Nickname</span>
                 <label class="item item-input">
-                    <input type="text" placeholder="Full name" ng-model="data.fullName"
-                           required>
-                </label>
-                <label class="item item-input">
-                    <input type="text" placeholder="Nickname (optional)" ng-model="data.nickName">
+                    <input type="text" placeholder="Nickname (optional)" ng-model="userData.nickName">
                 </label>
 
                 <button class="button button-block button-positive"
-                        ng-enter="register(data)" ng-click="updateDetails(data)"
+                        ng-enter="updateDetails(userData)" ng-click="updateDetails(userData)"
                         ng-disabled="nameDetailsForm.$invalid">Update
                 </button>
 

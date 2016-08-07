@@ -21,7 +21,8 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_createGroup: host + '/group',
             url_deleteGroup: host + '/group/{gid}',
             url_removeMember: host + '/group/{gid}/members/',
-            url_changeRole: host + '/group/{gid}/members/'
+            url_changeRole: host + '/group/{gid}/members/',
+            url_updateUserDetails: host + '/user/{uid}/details',
         }
     })())
 
