@@ -19,7 +19,8 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_sendNewPwd: host + '/user/forgetpwd',
             url_registerUser: host + '/user',
             url_createGroup: host + '/group',
-            url_deleteGroup: host + '/group/{gid}'
+            url_deleteGroup: host + '/group/{gid}',
+            url_removeMember: host + '/group/{gid}/members/'
         }
     })())
 
@@ -133,6 +134,17 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                     'group-members': {
                         templateUrl: 'templates/member-detail.html',
                         controller: 'MemberDetailCtrl'
+                    }
+                }
+            })
+
+            .state('group.manage-member', {
+                url: '/members/:uid/manage',
+                params: { current_role: 4, groupTitle:  ''},
+                views: {
+                    'group-manage': {
+                        templateUrl: 'templates/group-manage-member.html',
+                        controller: 'manageMemberCtrl'
                     }
                 }
             })

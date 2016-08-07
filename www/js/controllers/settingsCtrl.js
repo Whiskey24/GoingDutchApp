@@ -93,7 +93,7 @@
                         $scope.selectedCurrencyCode = $scope.currency;
                         $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
                         deleteGroupMsg = 'Delete group ' + $scope.groupTitle + '? Confirm by typing the group name.';
-                        console.log($scope.groups);
+                        manageMemberArray();
                     },
                     function (msg) {
                         logErrorMessage(msg);
@@ -101,6 +101,25 @@
                 )
             );
         }
+
+        $scope.memberList = [];
+        function manageMemberArray(){
+            var memberList = [];
+            for (var i = 0; i < $scope.members.length; i++) {
+                //console.log($scope.members[i]);
+                if (typeof($scope.users[$scope.members[i].uid]) == 'undefined') {
+                    console.log("Error: user " + uid + " not found");
+                }
+                memberList[i] = $scope.users[$scope.members[i].uid];
+                memberList[i].role_id = $scope.members[i].role_id;
+                memberList[i].role = $scope.members[i].role;
+
+            }
+            $scope.memberList =  gdApi.sortByKey(memberList, 'lastName', 'ASC');
+            //console.log($scope.memberList);
+        }
+
+
 
         var currenciesKeys = gdApi.getCurrencies();
         var currencies = [];

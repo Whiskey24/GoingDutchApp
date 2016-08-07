@@ -290,6 +290,25 @@
             return deferred.promise;
         }
 
+        function removeMember(gid,uid){
+            var deferred = $q.defer();
+            var url_removeMember = gdConfig.url_removeMember.replace('{gid}', gid) + uid;
+            $http.delete(url_removeMember)
+                .success(function (data, status) {
+                    console.log("removeMember successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling removeMember");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
         function sendNewPwd(email){
             var deferred = $q.defer();
             var emailObj = {};
@@ -875,7 +894,8 @@
             sendNewPwd: sendNewPwd,
             registerUser: registerUser,
             createGroup: createGroup,
-            deleteGroup: deleteGroup
+            deleteGroup: deleteGroup,
+            removeMember: removeMember
         };
 
 

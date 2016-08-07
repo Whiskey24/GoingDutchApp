@@ -1,0 +1,23 @@
+<ion-view>
+    <ion-nav-title>{{groupTitle}}</ion-nav-title>
+
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content>
+        <span class="col text-center h4">{{user.realname}}</span>
+        <ion-list>
+            <ion-radio ng-repeat="role in roles"
+                       ng-value="role.role_id"
+                       ng-click="newCurrencySelected(role.role_id)"
+                       ng-model="current_role">
+                {{ role.name }}
+            </ion-radio>
+            <ion-item ng-click="removeMember()" class="text-center">
+                Remove member from group
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
