@@ -19,6 +19,7 @@
                 $scope.groupDescription = cacheGroup['description'];
                 $scope.selectedCurrencyCode = $scope.currency;
                 $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
+                $scope.my_role_id = 4;
                 deleteGroupMsg = 'Delete group ' + $scope.groupTitle + '? Confirm by typing the group name.';
                 }
         });
@@ -93,6 +94,7 @@
                         $scope.selectedCurrencyCode = $scope.currency;
                         $scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
                         deleteGroupMsg = 'Delete group ' + $scope.groupTitle + '? Confirm by typing the group name.';
+                        $scope.my_role_id = 4;
                         manageMemberArray();
                     },
                     function (msg) {
@@ -105,15 +107,19 @@
         $scope.memberList = [];
         function manageMemberArray(){
             var memberList = [];
+            var myUID = gdApi.UID();
             for (var i = 0; i < $scope.members.length; i++) {
                 //console.log($scope.members[i]);
                 if (typeof($scope.users[$scope.members[i].uid]) == 'undefined') {
                     console.log("Error: user " + uid + " not found");
+                } else {
+                    memberList[i] = $scope.users[$scope.members[i].uid];
+                    memberList[i].role_id = $scope.members[i].role_id;
+                    memberList[i].role = $scope.members[i].role;
+                    if ($scope.members[i].uid == myUID) {
+                        $scope.my_role_id = $scope.members[i].role_id;
+                    }
                 }
-                memberList[i] = $scope.users[$scope.members[i].uid];
-                memberList[i].role_id = $scope.members[i].role_id;
-                memberList[i].role = $scope.members[i].role;
-
             }
             $scope.memberList =  gdApi.sortByKey(memberList, 'lastName', 'ASC');
             //console.log($scope.memberList);

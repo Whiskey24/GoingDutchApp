@@ -13,6 +13,9 @@
         $scope.uid = Number($stateParams.uid);
         $scope.current_role = Number($stateParams.current_role);
         $scope.groupTitle = $stateParams.groupTitle;
+        $scope.my_role_id = $stateParams.my_role;
+        //$scope.my_role_id = 4;
+        console.log("my role: " + $scope.my_role_id);
 
         gdApi.fetchUsersData().then(
             function (usersData) {
@@ -24,12 +27,39 @@
             }
         );
 
-        console.log("gid: " + $scope.gid + " user: " + $scope.uid);
+        var allRoles = [];
+        allRoles[0] = {name: 'founder', role_id: 0};
+        allRoles[1] = {name: 'admin', role_id: 1};
+        allRoles[2] = {name: 'member', role_id: 4};
 
         $scope.roles = [];
-        $scope.roles[0] = {name: 'founder', role_id: 0};
-        $scope.roles[1] = {name: 'admin', role_id: 1};
-        $scope.roles[2] = {name: 'member', role_id: 4};
+        var j = 0;
+        for (var i = 0; i < allRoles.length; i++) {
+            if ($scope.my_role_id <= allRoles[i].role_id){
+                $scope.roles[j] = allRoles[i];
+                j++;
+            }
+        }
+
+        $scope.newRoleSelected = function (newRoleId) {
+            gdApi.changeRole($scope.gid,$scope.uid,newRoleId).then(
+                function (result) {
+                    //console.log("email found: " + emailFound);
+                    if (result){
+                        gdApi.fetchGroupsData(true);
+                        console.log("member role has been changed");
+                    } else {
+                        console.log("Error changing role of member");
+                    }
+                    $ionicHistory.clearCache().then((function () {
+                        return $state.go('group.manage', {gid: $scope.gid});
+                    }));
+                },
+                function (msg) {
+                    console.log(msg);
+                }
+            )
+        };
 
         $scope.removeMember = function () {
             var removeTitle = 'Remove group member';
@@ -43,12 +73,12 @@
                                 if (result){
                                     gdApi.fetchGroupsData(true);
                                     console.log("member has been removed");
-                                    $ionicHistory.clearCache().then((function () {
-                                        return $state.go('group.manage', {gid: $scope.gid});
-                                    }));
                                 } else {
                                     console.log("Error removing member");
                                 }
+                                $ionicHistory.clearCache().then((function () {
+                                    return $state.go('group.manage', {gid: $scope.gid});
+                                }));
                             },
                             function (msg) {
                                 console.log(msg);

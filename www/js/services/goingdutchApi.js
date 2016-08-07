@@ -253,6 +253,27 @@
             return deferred.promise;
         }
 
+        function changeRole(gid, uid, role_id){
+            var details = {};
+            details.role_id = role_id;
+            var deferred = $q.defer();
+            var url_changeRole= gdConfig.url_changeRole.replace('{gid}', gid) + uid;
+            $http.put(url_changeRole, details)
+                .success(function (data, status) {
+                    console.log("changeRole successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling changeRole");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
         function createGroup(details){
             var deferred = $q.defer();
             $http.post(gdConfig.url_createGroup, details)
@@ -895,7 +916,8 @@
             registerUser: registerUser,
             createGroup: createGroup,
             deleteGroup: deleteGroup,
-            removeMember: removeMember
+            removeMember: removeMember,
+            changeRole: changeRole
         };
 
 

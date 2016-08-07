@@ -3,18 +3,17 @@
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/www/templates/group.html" line="5" />
     <bookmark url="file://$PROJECT_DIR$/www/js/app.js" />
-    <bookmark url="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js" line="1082" />
-    <bookmark url="file://C:/xampp/htdocs/api.gdutch.nl/Models/Group.php" description="                $sql = &quot;UPDATE users_groups SET re..." line="442" />
+    <bookmark url="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js" line="1104" />
+    <bookmark url="file://C:/xampp/htdocs/api.gdutch.nl/Models/Group.php" description="                $sql = &quot;UPDATE users_groups SET re..." line="445" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="afd1b35c-fec2-493f-8aa5-932bc27d8e6d" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/js/controllers/manageMemberCtrl.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/www/templates/group-manage-member.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/index.html" afterPath="$PROJECT_DIR$/www/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/app.js" afterPath="$PROJECT_DIR$/www/js/app.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/manageMemberCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/manageMemberCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" afterPath="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" afterPath="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-manage-member.html" afterPath="$PROJECT_DIR$/www/templates/group-manage-member.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/templates/group-manage.html" afterPath="$PROJECT_DIR$/www/templates/group-manage.html" />
     </list>
     <ignored path="GoingDutchApp.iws" />
@@ -45,8 +44,8 @@
       <file leaf-file-name="goingdutchApi.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="22">
-              <caret line="129" column="32" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="32" />
+            <state relative-caret-position="280">
+              <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -55,8 +54,8 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="263" column="32" selection-start-line="263" selection-start-column="26" selection-end-line="263" selection-end-column="32" />
+            <state relative-caret-position="373">
+              <caret line="146" column="46" selection-start-line="146" selection-start-column="46" selection-end-line="146" selection-end-column="46" />
               <folding />
             </state>
           </provider>
@@ -65,18 +64,8 @@
       <file leaf-file-name="group-manage.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/group-manage.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="7" column="121" selection-start-line="7" selection-start-column="121" selection-end-line="7" selection-end-column="121" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/templates/register.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="426">
-              <caret line="51" column="0" selection-start-line="50" selection-start-column="16" selection-end-line="51" selection-end-column="0" />
+            <state relative-caret-position="432">
+              <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -85,8 +74,8 @@
       <file leaf-file-name="group-manage-member.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/templates/group-manage-member.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+            <state relative-caret-position="459">
+              <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
               <folding />
             </state>
           </provider>
@@ -102,11 +91,21 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="group-settings-currency.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/templates/group-settings-currency.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="378">
+              <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="settingsCtrl.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/settingsCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
+            <state relative-caret-position="445">
+              <caret line="110" column="12" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="61" />
               <folding />
             </state>
           </provider>
@@ -115,8 +114,8 @@
       <file leaf-file-name="manageMemberCtrl.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/controllers/manageMemberCtrl.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="436">
-              <caret line="41" column="64" selection-start-line="41" selection-start-column="64" selection-end-line="41" selection-end-column="64" />
+            <state relative-caret-position="351">
+              <caret line="55" column="24" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -197,12 +196,12 @@
         <option value="$PROJECT_DIR$/www/js/controllers/manageMembersCtrl.js" />
         <option value="$PROJECT_DIR$/www/templates/group.html" />
         <option value="$PROJECT_DIR$/www/index.html" />
+        <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
         <option value="$PROJECT_DIR$/www/js/services/goingdutchApi.js" />
-        <option value="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" />
-        <option value="$PROJECT_DIR$/www/templates/group-manage-member.html" />
         <option value="$PROJECT_DIR$/www/js/app.js" />
         <option value="$PROJECT_DIR$/www/templates/group-manage.html" />
-        <option value="$PROJECT_DIR$/www/js/controllers/expenseDetailCtrl.js" />
+        <option value="$PROJECT_DIR$/www/js/controllers/settingsCtrl.js" />
+        <option value="$PROJECT_DIR$/www/templates/group-manage-member.html" />
         <option value="$PROJECT_DIR$/www/js/controllers/manageMemberCtrl.js" />
       </list>
     </option>
@@ -326,108 +325,6 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="lib" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="angular-password" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="services" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GoingDutchApp" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="www" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="controllers" />
-              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -536,14 +433,7 @@
       <workItem from="1469982136296" duration="18662000" />
       <workItem from="1470148581860" duration="1956000" />
       <workItem from="1470155924142" duration="5524000" />
-      <workItem from="1470212350991" duration="35628000" />
-    </task>
-    <task id="LOCAL-00031" summary="Edit expense added participants and title.">
-      <created>1437343516868</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1437343516868</updated>
+      <workItem from="1470212350991" duration="39264000" />
     </task>
     <task id="LOCAL-00032" summary="Minor update.&#10;This pull request is not in yet: https://github.com/driftyco/ionic/pull/3724">
       <created>1437426509944</created>
@@ -881,11 +771,18 @@
       <option name="project" value="LOCAL" />
       <updated>1470436695121</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="Started work on member management for a group.">
+      <created>1470564185235</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1470564185235</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="62316000" />
+    <option name="totallyTimeSpent" value="65952000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1221,14 +1118,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/group-settings-currency.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/eventCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -1285,38 +1174,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/group-settings.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="702">
-          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/group-manage.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="7" column="121" selection-start-line="7" selection-start-column="121" selection-end-line="7" selection-end-column="121" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/templates/group-manage-member.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="263" column="32" selection-start-line="263" selection-start-column="26" selection-end-line="263" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/newGroupCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="269">
@@ -1333,26 +1190,66 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/controllers/settingsCtrl.js">
+    <entry file="file://$PROJECT_DIR$/www/templates/group-settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="54" column="35" selection-start-line="54" selection-start-column="35" selection-end-line="54" selection-end-column="35" />
+        <state relative-caret-position="702">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/group-settings-currency.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="14" column="35" selection-start-line="14" selection-start-column="35" selection-end-line="14" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/services/goingdutchApi.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="129" column="32" selection-start-line="129" selection-start-column="17" selection-end-line="129" selection-end-column="32" />
+        <state relative-caret-position="280">
+          <caret line="58" column="17" selection-start-line="58" selection-start-column="17" selection-end-line="58" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="373">
+          <caret line="146" column="46" selection-start-line="146" selection-start-column="46" selection-end-line="146" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/group-manage.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="16" column="67" selection-start-line="16" selection-start-column="67" selection-end-line="16" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/controllers/settingsCtrl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="445">
+          <caret line="110" column="12" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/templates/group-manage-member.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="17" column="45" selection-start-line="17" selection-start-column="45" selection-end-line="17" selection-end-column="45" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/js/controllers/manageMemberCtrl.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="436">
-          <caret line="41" column="64" selection-start-line="41" selection-start-column="64" selection-end-line="41" selection-end-column="64" />
+        <state relative-caret-position="351">
+          <caret line="55" column="24" selection-start-line="55" selection-start-column="24" selection-end-line="55" selection-end-column="24" />
           <folding />
         </state>
       </provider>
