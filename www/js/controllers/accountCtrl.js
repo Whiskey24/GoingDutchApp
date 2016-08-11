@@ -5,17 +5,20 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('AccountCtrl', ['$scope', 'gdApi', '$ionicHistory', '$state', AccountCtrl]);
+    angular.module('GoingDutchApp').controller('AccountCtrl', ['$scope', 'gdApi', '$ionicHistory', '$state', '$stateParams', AccountCtrl]);
 
-    function AccountCtrl($scope, gdApi, $ionicHistory, $state) {
+    function AccountCtrl($scope, gdApi, $ionicHistory, $state, $stateParams) {
+        $scope.refresh = Number($stateParams.refresh);
+        var refresh = $scope.refresh == 1;
         $scope.userData = {};
         var currentEmail = '';
-        gdApi.fetchUsersData().then(
+        gdApi.fetchUsersData(refresh).then(
             function (usersData) {
                 var uid = gdApi.UID();
                 $scope.users = usersData;
                 $scope.userData = usersData[uid];
                 currentEmail = $scope.userData.email;
+                // console.log($scope.userData );
             },
             function (msg) {
                 logErrorMessage(msg);
@@ -38,32 +41,7 @@
                         console.log("Error changing details of member");
                     }
                     $ionicHistory.clearCache().then((function () {
-                        return $state.go('home.account');
-                    }));
-                },
-                function (msg) {
-                    console.log(msg);
-                }
-            )
-        };
-
-        $scope.updateEmail = function (userData) {
-
-            if (currentEmail == $scope.userData.email) {
-                return $state.go('home.account');
-            }
-
-            gdApi.updateUserDetails($scope.userData).then(
-                function (result) {
-                    //console.log("email found: " + emailFound);
-                    if (result) {
-                        gdApi.fetchUsersData(true);
-                        console.log("member details have been changed");
-                    } else {
-                        console.log("Error changing details of member");
-                    }
-                    $ionicHistory.clearCache().then((function () {
-                        return $state.go('home.account');
+                        return $state.go('home.account', {refresh: 1});
                     }));
                 },
                 function (msg) {
@@ -77,7 +55,6 @@
             if (currentEmail == $scope.userData.email) {
                 return $state.go('home.account');
             }
-
             gdApi.validateEmailExists($scope.userData.email).then(
                 function (emailFound) {
                     if (emailFound) {
@@ -101,47 +78,7 @@
                                 console.log(msg);
                             }
                         )
-
                     }
-
-                },
-                function (msg) {
-                    console.log(msg);
-                }
-            );
-        };
-
-        $scope.updateEmail = function (userData) {
-            if (currentEmail == $scope.userData.email) {
-                return $state.go('home.account');
-            }
-
-            gdApi.validateEmailExists($scope.userData.email).then(
-                function (emailFound) {
-                    if (emailFound) {
-                        $scope.emailExists = true;
-                    } else {
-                        $scope.emailExists = false;
-                        gdApi.updateUserDetails($scope.userData).then(
-                            function (result) {
-                                if (result) {
-                                    gdApi.updateEmail($scope.userData.email);
-                                    gdApi.fetchUsersData(true);
-                                    console.log("member email has been changed");
-                                } else {
-                                    console.log("Error changing email of member");
-                                }
-                                $ionicHistory.clearCache().then((function () {
-                                    return $state.go('home.account');
-                                }));
-                            },
-                            function (msg) {
-                                console.log(msg);
-                            }
-                        )
-
-                    }
-
                 },
                 function (msg) {
                     console.log(msg);

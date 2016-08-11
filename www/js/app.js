@@ -104,6 +104,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('home.account', {
                 url: '/account',
+                params: { refresh: 1},
                 views: {
                     'home-account': {
                         templateUrl: 'templates/home-account.html',
