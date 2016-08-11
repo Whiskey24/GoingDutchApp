@@ -23,7 +23,8 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_removeMember: host + '/group/{gid}/members/',
             url_changeRole: host + '/group/{gid}/members/',
             url_updateUserDetails: host + '/user/{uid}/details',
-            url_updatePass: host + '/user/{uid}/pass'
+            url_updatePass: host + '/user/{uid}/pass',
+            url_changeSendEmail: host + '/group/{gid}/members/{uid}/email'
         }
     })())
 

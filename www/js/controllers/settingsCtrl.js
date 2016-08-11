@@ -10,10 +10,14 @@
     function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs, $ionicHistory) {
 
         var deleteGroupMsg = 'Delete group ?';
+        var uid = gdApi.UID();
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details have been updated
             var cacheGroup = gdApi.checkGroupSettingsCache(Number($stateParams.gid));
             if (cacheGroup){
+                console.log(cacheGroup);
+
+                $scope.send_email = cacheGroup['members'][uid]['send_mail'] == 1;
                 $scope.currency = cacheGroup['currency'];
                 $scope.groupTitle = cacheGroup['name'];
                 $scope.groupDescription = cacheGroup['description'];
@@ -51,6 +55,18 @@
         );
         $scope.gid = $stateParams.gid;
 
+        $scope.toggleSendEmail = function() {
+            $scope.send_email = !$scope.send_email;
+            gdApi.changeSendEmail($scope.gid, uid, $scope.send_email).then(
+                function (result) {
+                    updateGroupsList(false, true);
+                },
+                function (msg) {
+                    logErrorMessage(msg);
+                }
+            );
+        };
+
         $scope.$watch(
             function () {
                 return gdApi.groupsCacheCreated($scope.gid);
@@ -67,8 +83,10 @@
             }, true
         );
 
-        function updateGroupsList(){
-            gdApi.fetchUsersData().then(
+        function updateGroupsList(forceRefreshUsers, forceRefreshGroups){
+            forceRefreshUsers = typeof forceRefreshUsers !== 'undefined' ? forceRefreshUsers : false;
+            forceRefreshGroups = typeof forceRefreshGroups !== 'undefined' ? forceRefreshGroups : false;
+            gdApi.fetchUsersData(forceRefreshUsers).then(
                 function (usersData) {
                     $scope.users = usersData;
                 },
@@ -76,8 +94,10 @@
                     logErrorMessage(msg);
                 }
             ).then(
-                gdApi.fetchGroupsData().then(
+                gdApi.fetchGroupsData(forceRefreshGroups).then(
                     function (groupsData) {
+                        //console.log(groupsData);
+
                         $scope.groups = groupsData;
                         var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
                         $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
@@ -118,6 +138,7 @@
                     memberList[i].role = $scope.members[i].role;
                     if ($scope.members[i].uid == myUID) {
                         $scope.my_role_id = $scope.members[i].role_id;
+                        $scope.send_email = $scope.members[i].send_mail == 1;
                     }
                 }
             }
@@ -305,7 +326,6 @@
                     return $state.go('group.settings', {gid: $scope.gid})
                 }));
         };
-
 
         $scope.memberName = function (uid) {
             if (typeof($scope.users[uid]) == 'undefined') {

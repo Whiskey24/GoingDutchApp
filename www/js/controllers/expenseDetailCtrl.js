@@ -143,13 +143,21 @@
 
                 //$scope.categories = gdApi.objectToArraySorted(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'categories')[0],  $scope.categories);
                 $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
-                    for (var j in  $scope.categories[$stateParams.gid]) {
-                        if ( $scope.categories[$stateParams.gid][j].cid == $scope.expense.cid){
-                            $scope.category =   $scope.categories[$stateParams.gid][j];
-                            break;
-                        }
-                    }
+                //console.log($scope.categories );
 
+                // this seems wrong because categories array is already limited to this group
+                // for (var j in  $scope.categories[$stateParams.gid]) {
+                //         if ( $scope.categories[$stateParams.gid][j].cid == $scope.expense.cid){
+                //             $scope.category = $scope.categories[$stateParams.gid][j];
+                //             break;
+                //         }
+                //     }
+                for (var j in $scope.categories) {
+                    if ( $scope.categories[j].cid == $scope.expense.cid){
+                        $scope.category = $scope.categories[j];
+                        break;
+                    }
+                }
 
                 //$scope.category = gdApi.getGroupCategory($scope.gid, $scope.expense.cid);
                 //return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);

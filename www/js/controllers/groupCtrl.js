@@ -38,6 +38,7 @@
             gdApi.fetchGroupsData(true).then(
                 function (groupsData) {
                     $scope.groups = groupsData;
+                    console.log(groupsData);
                 },
                 function (msg) {
                     logErrorMessage(msg);

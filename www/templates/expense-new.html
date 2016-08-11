@@ -29,14 +29,14 @@
 
             <label class="item item-input">
                 <span class="input-label">Category</span>
-                <select name="mySelect" id="mySelect"
+                <select name="mySelectCat" id="mySelectCat"
                         ng-options="category.cid as category.title for category in categories"
                         ng-model="newValues.cid"></select>
             </label>
 
             <label class="item item-input">
                 <span class="input-label">Paid by</span>
-                <select name="mySelect" id="mySelect"
+                <select name="mySelectPaid" id="mySelectPaid"
                         ng-options="member.uid as member.name for member in memberNames"
                         ng-model="newValues.paidBy">
 

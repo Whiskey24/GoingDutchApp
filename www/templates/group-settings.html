@@ -1,8 +1,14 @@
 <ion-view>
     <ion-nav-title>{{groupTitle}}</ion-nav-title>
     <ion-content>
-        <ion-list>
 
+        <h5 class="col text-center">Personal Group Settings</h5>
+        <ion-toggle ng-model="send_email" ng-change="toggleSendEmail()">
+            Send email notifications
+        </ion-toggle>
+
+        <h5 class="col text-center">Global Group Settings</h5>
+        <ion-list>
             <ion-item class="item item-icon-right" ui-sref="group.settings-currency">
                 Currency - {{selectedCurrency.text}}
                 <i class="icon ion-chevron-right icon-accessory"></i>

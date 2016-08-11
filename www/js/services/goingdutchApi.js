@@ -287,6 +287,27 @@
             return deferred.promise;
         }
 
+        function changeSendEmail(gid, uid, send_email){
+            var details = {};
+            details.send_email = send_email == true ? 1 : 0;
+            var deferred = $q.defer();
+            var url_changeSendEmail= gdConfig.url_changeSendEmail.replace('{gid}', gid).replace('{uid}', uid);
+            $http.put(url_changeSendEmail, details)
+                .success(function (data, status) {
+                    console.log("changeSendEmail successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling changeSendEmail");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
         function updateUserDetails(details){
             var deferred = $q.defer();
             var url_updateUserDetails= gdConfig.url_updateUserDetails.replace('{uid}', details.uid);
@@ -979,7 +1000,8 @@
             changeRole: changeRole,
             updateUserDetails: updateUserDetails,
             updateEmail: updateEmail,
-            updatePass: updatePass
+            updatePass: updatePass,
+            changeSendEmail: changeSendEmail
         };
 
 
