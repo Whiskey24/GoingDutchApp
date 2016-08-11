@@ -70,6 +70,19 @@
         // ToDo: encrypt this
         function setCredentials(credentials) {
             self.userPrefsCache.put('credentials', credentials);
+            authenticationDataService.setAuthData(credentials.username, credentials.password);
+        }
+
+        function updateEmail(email){
+            var credentials = getCredentials();
+            credentials.username = email;
+            setCredentials(credentials);
+        }
+
+        function updatePassCredentials(password){
+            var credentials = getCredentials();
+            credentials.password = password;
+            setCredentials(credentials);
         }
 
         function clearAllCache() {
@@ -280,7 +293,7 @@
             $http.put(url_updateUserDetails, details)
                 .success(function (data, status) {
                     console.log("updateUserDetails successfully called");
-                    console.log(data);
+                    // console.log(data);
                     var result = false;
                     if (data.uid == details.uid) {
                         result = true;
@@ -293,6 +306,31 @@
                 });
             return deferred.promise;
         }
+
+        function updatePass(uid, password){
+            var details = {};
+            details.password = password;
+
+            var deferred = $q.defer();
+            var url_updatePass = gdConfig.url_updatePass.replace('{uid}', uid);
+            $http.put(url_updatePass, details)
+                .success(function (data, status) {
+                    console.log("updatePass successfully called");
+                    // console.log(data);
+                    var result = false;
+                    if (data.uid == details.uid) {
+                        result = true;
+                        updatePassCredentials(password);
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    console.log("Error calling updatePass");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
 
 
         function createGroup(details){
@@ -939,7 +977,9 @@
             deleteGroup: deleteGroup,
             removeMember: removeMember,
             changeRole: changeRole,
-            updateUserDetails: updateUserDetails
+            updateUserDetails: updateUserDetails,
+            updateEmail: updateEmail,
+            updatePass: updatePass
         };
 
 

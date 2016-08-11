@@ -5,9 +5,32 @@
         </ion-nav-back-button>
     </ion-nav-bar>
 
-
     <ion-content>
-        Account Email Change
+        <span class="col text-center">Change email</span>
+
+        <form name="emailForm">
+            <div class="list list-inset">
+
+                <label class="item item-input">
+                    <input name="email" type="email" placeholder="Email" ng-model="userData.email"
+                           ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
+                </label>
+                <span class="col text-center"
+                      ng-show="emailForm.email.$touched && emailForm.email.$error.pattern">
+                    Not a valid email address
+                </span>
+                <span class="col text-center" ng-show="emailExists">
+                    This email address is already registered
+                </span>
+
+                <button class="button button-block button-positive"
+                        ng-enter="updateEmail(userData)" ng-click="updateEmail(userData)"
+                        ng-disabled="nameDetailsForm.$invalid">Update
+                </button>
+
+            </div>
+        </form>
+
     </ion-content>
 
 </ion-view>
