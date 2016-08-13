@@ -5,22 +5,22 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService', '$rootScope', '$state', 'gdConfig', '$q', 'CacheFactory', gdApi]);
+    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService', '$rootScope', '$state', 'gdConfig', '$q', 'CacheFactory', '$log', gdApi]);
 
-    function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q, CacheFactory) {
+    function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q, CacheFactory, $log) {
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
 
         if (!CacheFactory.get('groupsCache')) {
             self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000, deleteOnExpire: 'aggressive',
                 onExpire: function (key, value) {
-                    console.log("gdApi: groupsCache expired, refreshing");
+                    $log.info("gdApi: groupsCache expired, refreshing");
                     fetchGroupsData(true).then(
                         function (groupsData) {
                             for (var index = 0; index < groupsData.length; index++) {
                                 fetchExpensesData(groupsData[index].gid, true)
                                     .then(function (data) {
-                                            //console.log(data);
+                                            //$log.info(data);
                                         }, function (error) {
                                             logErrorMessage(error);
                                         }
@@ -40,7 +40,7 @@
         if (!CacheFactory.get('expensesCache')) {
             self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000, deleteOnExpire: 'aggressive',
                 onExpire: function (key, value) {
-                    console.log("gdApi: usersCache expired, refreshing");
+                    $log.info("gdApi: usersCache expired, refreshing");
                     fetchUsersData(true);
                 }
             });
@@ -94,14 +94,14 @@
             //var users = self.expensesCache.get("users");
             //var groups = self.expensesCache.get("groups");
             //var userPrefs = self.expensesCache.get("userPrefs");
-            //console.log("Expenses:");
-            //console.log(expenses);
-            //console.log("Users:");
-            //console.log(users);
-            //console.log("Groups:");
-            //console.log(groups);
-            //console.log("UserPrefs:");
-            //console.log(userPrefs);
+            //$log.info("Expenses:");
+            //$log.info(expenses);
+            //$log.info("Users:");
+            //$log.info(users);
+            //$log.info("Groups:");
+            //$log.info(groups);
+            //$log.info("UserPrefs:");
+            //$log.info(userPrefs);
         }
 
         function login(credentials) {
@@ -114,16 +114,16 @@
             authenticationDataService.setAuthData($username, $password);
             $http.get(gdConfig.url_login)
                 .success(function (data, status) {
-                    console.log("Login success: credentials for " + $username + " are valid");
+                    $log.info("Login success: credentials for " + $username + " are valid");
                     setCredentials(credentials);
                     $localStorage.authenticated = true;
                     setUid(data['uid']);
                     deferred.resolve(data);
                 })
                 .error(function (msg, code) {
-                    console.log("Login failed: invalid credentials supplied for " + $username);
-                    console.log(msg);
-                    console.log(msg, code);
+                    $log.info("Login failed: invalid credentials supplied for " + $username);
+                    $log.info(msg);
+                    $log.info(msg, code);
                     $localStorage.authenticated = false;
                     deferred.reject(msg);
                 });
@@ -151,13 +151,13 @@
             }
             var groupsData = self.groupsCache.get(cacheKey);
             if (groupsData && !forceRefresh) {
-                console.log("Groups data loaded from cache");
-                //console.log(groupsData);
+                $log.info("Groups data loaded from cache");
+                //$log.info(groupsData);
                 deferred.resolve(groupsData);
             } else {
                 $http.get(gdConfig.url_groups)
                     .success(function (data, status) {
-                        console.log("Groups data fetched successfully");
+                        $log.info("Groups data fetched successfully");
                         ownerGroups = [];
                         adminGroups = [];
                         //$localStorage.groups = data;
@@ -182,13 +182,13 @@
                                 i++;
                             }
                         }
-                        // console.log(groupsArray);
+                        // $log.info(groupsArray);
                         groupsArray = sortByKey(groupsArray, 'sort', 'ASC');
                         self.groupsCache.put(cacheKey, groupsArray);
                         deferred.resolve(groupsArray);
                     })
                     .error(function (msg, code) {
-                        console.log("Error fetching groups data");
+                        $log.info("Error fetching groups data");
                         $localStorage.authenticated = false;
                         deferred.reject(msg);
                     });
@@ -209,18 +209,18 @@
             var usersData = self.usersCache.get(cacheKey);
 
             if (usersData && !forceRefresh) {
-                console.log("Users data loaded from cache");
+                $log.info("Users data loaded from cache");
                 deferred.resolve(usersData);
             } else {
                 $http.get(gdConfig.url_users)
                     .success(function (data, status) {
-                        console.log("Users data fetched successfully");
+                        $log.info("Users data fetched successfully");
                         //$localStorage.users = data;
                         self.usersCache.put(cacheKey, data);
                         deferred.resolve(data);
                     })
                     .error(function (msg, code) {
-                        console.log("Error fetching users data");
+                        $log.info("Error fetching users data");
                         $localStorage.authenticated = false;
                         deferred.reject(msg);
                     });
@@ -234,7 +234,7 @@
             emailObj.email = email;
             $http.post(gdConfig.url_emailExists, emailObj)
                         .success(function (data, status) {
-                            console.log("Emailexists successfully called");
+                            $log.info("Emailexists successfully called");
                             var result = false;
                             if (data.error == 0 && data.exists == 1) {
                                 result = true;
@@ -242,7 +242,7 @@
                             deferred.resolve(result);
                         })
                         .error(function (msg, code) {
-                            console.log("Error calling Emailexists");
+                            $log.info("Error calling Emailexists");
                             deferred.reject(msg);
                         });
             return deferred.promise;
@@ -252,7 +252,7 @@
             var deferred = $q.defer();
             $http.post(gdConfig.url_registerUser, details)
                 .success(function (data, status) {
-                    console.log("registerUser successfully called");
+                    $log.info("registerUser successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -260,7 +260,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling registerUser");
+                    $log.info("Error calling registerUser");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -273,7 +273,7 @@
             var url_changeRole= gdConfig.url_changeRole.replace('{gid}', gid) + uid;
             $http.put(url_changeRole, details)
                 .success(function (data, status) {
-                    console.log("changeRole successfully called");
+                    $log.info("changeRole successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -281,7 +281,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling changeRole");
+                    $log.info("Error calling changeRole");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -294,7 +294,7 @@
             var url_changeSendEmail= gdConfig.url_changeSendEmail.replace('{gid}', gid).replace('{uid}', uid);
             $http.put(url_changeSendEmail, details)
                 .success(function (data, status) {
-                    console.log("changeSendEmail successfully called");
+                    $log.info("changeSendEmail successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -302,7 +302,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling changeSendEmail");
+                    $log.info("Error calling changeSendEmail");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -313,8 +313,8 @@
             var url_updateUserDetails= gdConfig.url_updateUserDetails.replace('{uid}', details.uid);
             $http.put(url_updateUserDetails, details)
                 .success(function (data, status) {
-                    console.log("updateUserDetails successfully called");
-                    // console.log(data);
+                    $log.info("updateUserDetails successfully called");
+                    // $log.info(data);
                     var result = false;
                     if (data.uid == details.uid) {
                         result = true;
@@ -322,7 +322,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling updateUserDetails");
+                    $log.info("Error calling updateUserDetails");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -336,8 +336,8 @@
             var url_updatePass = gdConfig.url_updatePass.replace('{uid}', uid);
             $http.put(url_updatePass, details)
                 .success(function (data, status) {
-                    console.log("updatePass successfully called");
-                    // console.log(data);
+                    $log.info("updatePass successfully called");
+                    // $log.info(data);
                     var result = false;
                     if (data.uid == details.uid) {
                         result = true;
@@ -346,7 +346,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling updatePass");
+                    $log.info("Error calling updatePass");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -358,7 +358,7 @@
             var deferred = $q.defer();
             $http.post(gdConfig.url_createGroup, details)
                 .success(function (data, status) {
-                    console.log("createGroup successfully called");
+                    $log.info("createGroup successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -366,7 +366,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling createGroup");
+                    $log.info("Error calling createGroup");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -377,7 +377,7 @@
             var url_deleteGroup = gdConfig.url_deleteGroup.replace('{gid}', gid);
             $http.delete(url_deleteGroup)
                 .success(function (data, status) {
-                    console.log("deleteGroup successfully called");
+                    $log.info("deleteGroup successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -385,7 +385,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling deleteGroup");
+                    $log.info("Error calling deleteGroup");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -396,7 +396,7 @@
             var url_removeMember = gdConfig.url_removeMember.replace('{gid}', gid) + uid;
             $http.delete(url_removeMember)
                 .success(function (data, status) {
-                    console.log("removeMember successfully called");
+                    $log.info("removeMember successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -404,7 +404,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling removeMember");
+                    $log.info("Error calling removeMember");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -416,7 +416,7 @@
             emailObj.email = email;
             $http.post(gdConfig.url_sendNewPwd, emailObj)
                 .success(function (data, status) {
-                    console.log("sendNewPwd successfully called");
+                    $log.info("sendNewPwd successfully called");
                     var result = false;
                     if (data.success == 1) {
                         result = true;
@@ -424,7 +424,7 @@
                     deferred.resolve(result);
                 })
                 .error(function (msg, code) {
-                    console.log("Error calling sendNewPwd");
+                    $log.info("Error calling sendNewPwd");
                     deferred.reject(msg);
                 });
             return deferred.promise;
@@ -445,21 +445,21 @@
             var cacheKey = "gid-" + gid;
             var expensesData = self.expensesCache.get(cacheKey);
             if (expensesData && !forceRefresh) {
-                console.log("Expenses data for group " + gid + " loaded from cache");
+                $log.info("Expenses data for group " + gid + " loaded from cache");
                 deferred.resolve(expensesData);
             } else {
                 var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
                 $http.get(url_expenses)
                     .success(function (data, status) {
-                        console.log("Expenses data for group " + gid + " fetched successfully");
+                        $log.info("Expenses data for group " + gid + " fetched successfully");
                         //$localStorage.expenses[gid] = data[gid];
-                        //console.log($localStorage.expenses);
+                        //$log.info($localStorage.expenses);
                         self.expensesCache.put(cacheKey, data[gid]);
-                        //console.log(self.expensesCache.info(cacheKey));
+                        //$log.info(self.expensesCache.info(cacheKey));
                         deferred.resolve(data[gid]);
                     })
                     .error(function () {
-                        console.log("Error fetching groups data");
+                        $log.info("Error fetching groups data");
                         $localStorage.authenticated = false;
                         deferred.reject();
                     });
@@ -485,7 +485,7 @@
 
         function getGroupTitle($stateParams) {
             //return getGroupTitleByGid($stateParams.gid);
-            console.log("OBSOLETE - REMOVE USE OF THIS FUNCTION, it returns group title: " + groupProperties[$stateParams.gid].title);
+            $log.info("OBSOLETE - REMOVE USE OF THIS FUNCTION, it returns group title: " + groupProperties[$stateParams.gid].title);
             return groupProperties[$stateParams.gid].title;
         }
 
@@ -534,7 +534,7 @@
             for (var key in arr) {
                 str += "[ sort=" + arr[key].sort + " " + arr[key].title + " cid=" + arr[key].cid  + "\n";
             }
-            console.log(str);
+            $log.info(str);
         }
 
         function moveItemForSort(arr, item, fromIndex, toIndex) {
@@ -580,7 +580,7 @@
 
             fetchGroupsData(gid).then(
                 function (groups) {
-                    //console.log(_.pluck(_.filter(groups, {'gid': Number(gid)}), 'members')[0]);
+                    //$log.info(_.pluck(_.filter(groups, {'gid': Number(gid)}), 'members')[0]);
                     //return groups[gid]['members'];
                     return _.pluck(_.filter(groups, {'gid': Number(gid)}), 'members')[0];
                 });
@@ -628,7 +628,7 @@
             fetchGroupsData(gid).then(
                 function (groups) {
                     var currency = _.pluck(_.filter(groups, {'gid': Number(gid)}), 'currency')[0];
-                    console.log("OBSOLETE - REMOVE USE OF THIS FUNCTION, it returns currency: " + currency);
+                    $log.info("OBSOLETE - REMOVE USE OF THIS FUNCTION, it returns currency: " + currency);
                     return currency;
                 });
         }
@@ -650,24 +650,24 @@
             $http.put(url_expenses, expense)
                 .then(function (response) {
                     if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
-                        console.log("Error submitting expense");
+                        $log.info("Error submitting expense");
                     }
                     else {
-                        console.log("Expense submitted successfully");
+                        $log.info("Expense submitted successfully");
                     }
-                    //console.log(response.data);
+                    //$log.info(response.data);
                     //self.expensesCache.remove("gid-" + gid);
                     fetchExpensesData(gid, true)
                         .then(function (data) {
-                            console.log("Expenses updated for group " + gid);
-                            //console.log(self.expensesCache.info("gid-" + gid).created);
+                            $log.info("Expenses updated for group " + gid);
+                            //$log.info(self.expensesCache.info("gid-" + gid).created);
                             tempExpenseCache = {};
                             //self.groupsCache.remove("groups");
                         }, function (error) {
-                            console.log("Error: " + error);
+                            $log.info("Error: " + error);
                         }).then(gdApi.fetchGroupsData);
                 }, function (response) {
-                    console.log("Error submitting expense: " + response);
+                    $log.info("Error submitting expense: " + response);
                 });
         }
 
@@ -683,22 +683,22 @@
             $http.put(url_updateGroupSettings, settings)
                 .then(function (response) {
                     if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
-                        console.log("Error updating group settings");
+                        $log.info("Error updating group settings");
                     }
                     else {
-                        console.log("Group settings updated successfully");
+                        $log.info("Group settings updated successfully");
                     }
-                    //console.log(response.data);
+                    //$log.info(response.data);
                     //self.expensesCache.remove("gid-" + gid);
                     fetchGroupsData(true)
                         .then(function (data) {
-                            console.log("Groups updated");
+                            $log.info("Groups updated");
                             tempGroupSettingsCache = {};
                         }, function (error) {
-                            console.log("Error: " + error);
+                            $log.info("Error: " + error);
                         });
                 }, function (response) {
-                    console.log("Error updating group settings: " + response);
+                    $log.info("Error updating group settings: " + response);
                 });
         }
 
@@ -731,42 +731,42 @@
             newExpensesMargin += 1;
             expense.eid = newExpensesMargin;
             //$localStorage.expenses[gid].unshift(expense);
-            // console.log(expense);
-            //console.log(JSON.stringify(expense));
+            // $log.info(expense);
+            //$log.info(JSON.stringify(expense));
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.post(url_expenses, expense)
                 .then(function (response) {
                     if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
-                        console.log("Error submitting expense");
+                        $log.info("Error submitting expense");
                     }
                     else {
-                        console.log("Expense submitted successfully");
+                        $log.info("Expense submitted successfully");
                     }
-                    console.log(response.data);
+                    $log.info(response.data);
                     //self.expensesCache.remove("gid-" + gid);
                     fetchExpensesData(gid, true)
                         .then(function (data) {
-                            //console.log("Expenses updated for group " + gid);
-                            //console.log(self.expensesCache.info("gid-" + gid).created);
+                            //$log.info("Expenses updated for group " + gid);
+                            //$log.info(self.expensesCache.info("gid-" + gid).created);
                             //self.groupsCache.remove("groups");
                         }, function (error) {
-                            console.log("Error: " + error);
+                            $log.info("Error: " + error);
                         }).then(gdApi.fetchGroupsData);
                 }, function (response) {
-                    console.log("Error submitting expense");
+                    $log.info("Error submitting expense");
                 });
                 //
                 //.success(function (data, status) {
                 //    if (data.substring(0,5) == "Error"){
-                //        console.log("Error submitting expense");
+                //        $log.info("Error submitting expense");
                 //    }
                 //    else {
-                //        console.log("Expense submitted successfully");
+                //        $log.info("Expense submitted successfully");
                 //    }
-                //    console.log(data);
+                //    $log.info(data);
                 //})
                 //.error(function () {
-                //    console.log("Error submitting expense");
+                //    $log.info("Error submitting expense");
                 //});
         }
 
@@ -775,14 +775,14 @@
             $http.put(url_updateGroups, groupList)
                 .then(function (response) {
                     if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
-                        console.log("Error submitting updated group list");
+                        $log.info("Error submitting updated group list");
                     }
                     else {
-                        console.log("Updated group list submitted successfully");
+                        $log.info("Updated group list submitted successfully");
                     }
                     fetchGroupsData(true);
                 }, function (response) {
-                    console.log("Error updating group sort");
+                    $log.info("Error updating group sort");
                 });
         }
 
@@ -791,23 +791,23 @@
             $http.put(url_updateCategories, categoryList)
                 .then(function (response) {
                     if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
-                        console.log("Error submitting updated category list for group " + gid);
+                        $log.info("Error submitting updated category list for group " + gid);
                     }
                     else {
-                        console.log("Updated group list submitted successfully for group " + gid);
+                        $log.info("Updated group list submitted successfully for group " + gid);
                     }
                     //self.expensesCache.remove("gid-" + gid);
                     fetchExpensesData(gid, true)
                         .then(function (data) {
-                            console.log("Expenses updated for group " + gid);
-                            //console.log(self.expensesCache.info("gid-" + gid).created);
+                            $log.info("Expenses updated for group " + gid);
+                            //$log.info(self.expensesCache.info("gid-" + gid).created);
                             tempExpenseCache = {};
                             //self.groupsCache.remove("groups");
                         }, function (error) {
-                            console.log("Error: " + error);
+                            $log.info("Error: " + error);
                         }).then(fetchGroupsData(true));
                 }, function (response) {
-                    console.log("Error submitting updated category list for group " + gid);
+                    $log.info("Error submitting updated category list for group " + gid);
                 });
         }
 
@@ -900,23 +900,23 @@
             $http.delete(url_expenses)
                 .then(function (response) {
                     if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
-                        console.log("Error submitting expense");
+                        $log.info("Error submitting expense");
                     }
                     else {
-                        console.log("Expense deleted successfully");
+                        $log.info("Expense deleted successfully");
                     }
-                    // console.log(response.data);
+                    // $log.info(response.data);
                     self.expensesCache.remove("gid-" + gid);
                     fetchExpensesData(gid, true)
                         .then(function (data) {
-                            console.log("Expenses updated for group " + gid);
-                            // console.log(self.expensesCache.info("gid-" + gid).created);
+                            $log.info("Expenses updated for group " + gid);
+                            // $log.info(self.expensesCache.info("gid-" + gid).created);
                             // self.groupsCache.remove("groups");
                         }, function (error) {
-                            console.log("Error: " + error);
+                            $log.info("Error: " + error);
                         }).then(gdApi.fetchGroupsData);
                 }, function (response) {
-                    console.log("Error deleting expense");
+                    $log.info("Error deleting expense");
                 });
 
         }
@@ -935,8 +935,8 @@
 
         //var test = new Date();
         // offset in minutes but negative is really adding to utc
-        //console.log(test.getTimezoneOffset());
-        //console.log(createOffset(test));
+        //$log.info(test.getTimezoneOffset());
+        //$log.info(createOffset(test));
 
 
         //var currentTS = Math.floor(Date.now() / 1000)

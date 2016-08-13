@@ -5,9 +5,9 @@
 (function () {
 //    'use strict';
 
-    angular.module('GoingDutchApp').controller('LoginCtrl', ['$stateParams', '$scope', 'gdApi', '$state', '$ionicLoading', '$ionicPopup', LoginCtrl]);
+    angular.module('GoingDutchApp').controller('LoginCtrl', ['$stateParams', '$scope', 'gdApi', '$state', '$ionicLoading', '$ionicPopup', '$log', LoginCtrl]);
 
-    function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading, $ionicPopup) {
+    function LoginCtrl($stateParams, $scope, gdApi, $state, $ionicLoading, $ionicPopup, $log) {
 
         var credentials = gdApi.getCredentials();
         $scope.showForgetEmail = false;
@@ -39,7 +39,7 @@
             $scope.emailNotFound = false;
             $scope.newPwdSendSuccess = false;
             $scope.newPwdSendFailed = false;
-            console.log("check " + credentials.username);
+            $log.debug("check " + credentials.username);
             gdApi.validateEmailExists(credentials.username).then(
                 function (emailFound) {
                     //console.log("email found: " + emailFound);
@@ -54,7 +54,7 @@
                                 }
                             },
                             function (msg) {
-                                console.log(msg);
+                                $log.error(msg);
                             }
                         )
                     } else {
@@ -63,7 +63,7 @@
 
                 },
                 function (msg) {
-                    console.log(msg);
+                    $log.error(msg);
                 }
             );
         };
@@ -88,7 +88,7 @@
                 }
             );
 
-            console.log("Group count: " + $scope.groups.length);
+            $log.debug("Group count: " + $scope.groups.length);
             for (var index = 0; index < $scope.groups.length; index++) {
                 gdApi.fetchExpensesData($scope.groups[index].gid)
                     .then(function (data) {
@@ -108,7 +108,7 @@
             else {
                 $scope.showAlert("connectivity");
             }
-            console.log("Error: " + error);
+            $log.debug("Error: " + error);
 
         }
 
@@ -116,7 +116,7 @@
         $scope.showAlert = function(errortype) {
             var title = 'Invalid credentials';
             var template = "Could not login :(";
-            console.log(errortype);
+            $log.debug(errortype);
             if (errortype != "credentials"){
                 var title = 'Connectivity problem';
                 var template = "Could not reach the server";
