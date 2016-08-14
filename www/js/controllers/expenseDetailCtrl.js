@@ -5,10 +5,10 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', 'iso4217', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', '$ionicHistory', ExpenseDetailCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseDetailCtrl', ['$stateParams', '$scope', '$filter', '$state', 'iso4217', '$cordovaDialogs', '$cordovaDatePicker', 'gdApi', '$ionicHistory', '$log', ExpenseDetailCtrl]);
 
 
-    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, iso4217, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory) {
+    function ExpenseDetailCtrl($stateParams, $scope, $filter, $state, iso4217, $cordovaDialogs, $cordovaDatePicker,gdApi, $ionicHistory, $log) {
 
         $scope.$on('$ionicView.enter', function () {
             // put this here in case expense details have been updated
@@ -50,9 +50,7 @@
             },
 
             function(newVal, oldVal) {
-                console.log("Expenses were updated, reloading");
-                //console.log(newVal);
-                //console.log(oldVal);
+                $log.info("Expenses were updated, reloading");
                 updateExpenseDetails();
             }, true
         );
@@ -63,7 +61,6 @@
                     function (expensesData) {
                         $scope.expenses = expensesData;
                         $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
-                        //console.log($scope.expense);
 
                         if (typeof ($scope.expense.uids) === "string")
                             $scope.participants = $scope.expense.uids.split(",");
@@ -111,7 +108,6 @@
         var members;
         gdApi.fetchGroupsData().then(
             function (groupsData) {
-                // console.log("FETCHING GROUPS DATA");
                 $scope.groups = groupsData;
             },
             function (msg) {
