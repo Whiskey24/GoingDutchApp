@@ -26,20 +26,28 @@
                 </div>
             </form>
         -->
-
+        <form name="addMemberForm">
         <fieldset  data-ng-repeat="emailInput in emailList">
-
-                <input name="{{emailInput.id}}" id="{{emailInput.id}}" type="email" placeholder="email address" ng-model="newEmails[emailInput.id]"
-                       ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/" required>
-
-            <span class="col text-center"
-                  ng-show="registerForm.email.$touched && registerForm.email.$error.pattern">
-                    Not a valid email address
-                </span>
-            <span class="col text-center" ng-show="emailExists">
-                    This email address is already registered
-                </span>
+            <label class=" item-input">
+            <input
+                        name="{{emailInput.id}}"
+                        id="{{emailInput.id}}"
+                        type="text" placeholder="email address"
+                        ng-model="newEmails[emailInput.id]"
+                        ng-blur="validateAddedEmail(emailInput.id)"
+                        ng-focus="checkForNewField(emailInput.id)"
+                >
+            </label>
+            <span class="col text-center" ng-show="newEmails[emailInput.id].length > 0">
+                    {{validatedEmails[emailInput.id].status}}
+            </span>
             </fieldset>
-            <button class="addEmailInput" ng-click="addEmailInput()">Add fields</button>
+
+            <button class="button button-block button-positive"
+                    ng-enter="addNewMembers" ng-click="addNewMembers()"
+                    ng-disabled="canAddNewMembers == false">Add Members
+            </button>
+
+            </form>
     </ion-content>
 </ion-view>

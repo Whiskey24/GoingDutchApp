@@ -92,7 +92,88 @@
 
         $scope.newEmails = {};
 
+        $scope.validatedEmails = {};
 
+        //ToDo: check for emails already in group and duplicates in list
+
+        $scope.validateAddedEmail = function(id){
+             if (!_.has($scope.validatedEmails, id)){
+                 $scope.validatedEmails[id] = {};
+                 $scope.validatedEmails[id]['previousEntry'] = '';
+                 $scope.validatedEmails[id]['checked'] = false;
+                 $scope.validatedEmails[id]['status'] = "checking";
+             }
+
+             if ($scope.validatedEmails[id]['previousEntry'] == $scope.newEmails[id]){
+                 checkCanAdd();
+                 return;
+             } else {
+                 $scope.validatedEmails[id]['previousEntry'] = $scope.newEmails[id];
+             }
+
+            if(validateEmail($scope.newEmails[id])) {
+                $scope.validatedEmails[id]['ok'] = true;
+                $scope.validatedEmails[id]['Found'] = false;
+                $scope.validatedEmails[id]['status'] = "Checking for account...";
+                gdApi.validateEmailExists($scope.newEmails[id]).then(
+                    function (emailFound) {
+                        if (emailFound){
+                            $scope.validatedEmails[id]['status'] = "User found and can be added to this group";
+                            $scope.validatedEmails[id]['Found'] = true;
+
+                        } else {
+                            $scope.validatedEmails[id]['status'] = "User is not registered with Going Dutch, cannot add";
+                        }
+                        checkCanAdd();
+                    },
+                    function (msg) {
+                        $log.info(msg);
+                    }
+                );
+            } else {
+                $scope.validatedEmails[id]['status'] = "Not a valid email address";
+                $scope.validatedEmails[id]['ok'] = false;
+            }
+            checkCanAdd();
+        };
+
+        function checkCanAdd() {
+            var canAdd = true;
+            var nobodyFound = true;
+            for (var i in $scope.newEmails) {
+                if($scope.newEmails[i].length == 0){
+                    continue;
+                }
+                $log.debug('CanAdd? $scope.validatedEmails[i][ok] = ' + $scope.validatedEmails[i]['ok']);
+                canAdd = $scope.validatedEmails[i]['ok'] == false ? false: canAdd;
+                nobodyFound = $scope.validatedEmails[i]['Found']  ? false : nobodyFound;
+            }
+            $log.debug("Nobody: " + nobodyFound + " - canAdd: " + canAdd);
+            $scope.canAddNewMembers = nobodyFound ? false: canAdd;
+        }
+
+        $scope.canAddNewMembers = false;
+
+        $scope.checkForNewField = function (id) {
+            var Ecount = 0;
+            var Tcount = $scope.emailList .length;
+            // for (var i in $scope.emailList) {
+            //     $log.debug("Entry: \"" + $scope.newEmails[$scope.emailList[i]] + "\"");
+            //     if ($scope.newEmails[$scope.emailList[i]] !== undefined && $scope.newEmails[$scope.emailList[i]] != ''){
+            //         Ecount++;
+            //     }
+            // }
+            for (var i in $scope.newEmails){
+                $log.debug("email entry " + i + ": " + $scope.newEmails[i]);
+                if ($scope.newEmails[i] != '' ){
+                    Ecount++;
+                }
+            }
+            $log.debug("length: " + Tcount + ", count: " + Ecount);
+            if (Tcount ==  Ecount + 1){
+                $scope.addEmailInput();
+            }
+        };
 
         $scope.addEmailInput = function() {
             var dlog = "";
@@ -105,6 +186,11 @@
             $scope.emailList.push({'id':'email'+newItemNo});
         };
 
+
+        function validateEmail(email) {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
     }
 
 })();
