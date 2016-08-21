@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('SettingsCtrl', ['$stateParams', '$scope', 'gdApi', 'iso4217', '$state', '$cordovaDialogs', '$ionicHistory', SettingsCtrl]);
+    angular.module('GoingDutchApp').controller('SettingsCtrl', ['$stateParams', '$scope', 'gdApi', 'iso4217', '$state', '$cordovaDialogs', '$ionicHistory', '$log', SettingsCtrl]);
 
-    function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs, $ionicHistory) {
+    function SettingsCtrl($stateParams, $scope, gdApi, iso4217, $state, $cordovaDialogs, $ionicHistory, $log) {
 
         var deleteGroupMsg = 'Delete group ?';
         var uid = gdApi.UID();
@@ -15,7 +15,7 @@
             // put this here in case group details have been updated
             var cacheGroup = gdApi.checkGroupSettingsCache(Number($stateParams.gid));
             if (cacheGroup){
-                console.log(cacheGroup);
+                $log.debug(cacheGroup);
 
                 $scope.send_email = cacheGroup['members'][uid]['send_mail'] == 1;
                 $scope.currency = cacheGroup['currency'];
@@ -73,7 +73,7 @@
             },
 
             function(newVal, oldVal) {
-                console.log("Groups were updated, reloading");
+                $log.info("Groups were updated, reloading");
                 //console.log(newVal);
                 //console.log(oldVal);
                 var uid = gdApi.UID();
@@ -131,7 +131,7 @@
             for (var i = 0; i < $scope.members.length; i++) {
                 //console.log($scope.members[i]);
                 if (typeof($scope.users[$scope.members[i].uid]) == 'undefined') {
-                    console.log("Error: user " + uid + " not found");
+                    $log.info("Error: user " + uid + " not found");
                 } else {
                     memberList[i] = $scope.users[$scope.members[i].uid];
                     memberList[i].role_id = $scope.members[i].role_id;
@@ -206,7 +206,6 @@
                         if (checkIfCategoryTitleExists(result.input1.trim(), category.cid)) {
                             changeTitleMsg = 'Enter new category title - title "' + result.input1.trim() + '" already exists';
                             $scope.changeCategoryTitle(category);
-                            console.log("DSF");
                         }
                         else {
                             //gdApi.setGroupCategory($scope.gid, category, result.input1.trim());
@@ -256,18 +255,18 @@
             $cordovaDialogs.prompt(deleteGroupMsg, deleteGroupTitle , ['OK', 'Cancel'], '')
                 .then(function (result) {
                     if (result && result.input1 !== 'undefined' && result.input1.length > 0 && result.input1 == $scope.groupTitle) {
-                        console.log('Deleting group ' + result.input1);
+                        $log.info('Deleting group ' + result.input1);
                         gdApi.deleteGroup(Number($stateParams.gid)).then(
                             function (groupDeleted) {
                                 //console.log("email found: " + emailFound);
                                 if (groupDeleted){
-                                    console.log("group is deleted");
+                                    $log.debug("group is deleted");
                                 } else {
-                                    console.log("Error deleting group");
+                                    $log.info("Error deleting group");
                                 }
                             },
                             function (msg) {
-                                console.log(msg);
+                                $log.info(msg);
                             }
                         ).then(
                             function (response) {
@@ -275,7 +274,7 @@
                                 $state.go('home.groups');
                             },
                             function (msg) {
-                                console.log(msg);
+                                $log.info(msg);
                             }
                         );
 
@@ -284,7 +283,7 @@
         };
 
         function newCategory(title) {
-            console.log($scope.categories);
+            $log.debug($scope.categories);
 
             var newSort = 0;
             for (var i = 0, len = $scope.categories.length; i < len; i++) {
@@ -303,7 +302,7 @@
                 "can_delete": 0,
                 "sort": newSort
             });
-            console.log($scope.categories);
+            $log.debug($scope.categories);
 
             sendCategoryUpdate();
         }

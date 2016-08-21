@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp.controllers').controller('GroupCtrl', ['$scope', 'gdApi', GroupCtrl]);
+    angular.module('GoingDutchApp.controllers').controller('GroupCtrl', ['$scope', 'gdApi', '$log', GroupCtrl]);
 
-    function GroupCtrl($scope, gdApi) {
+    function GroupCtrl($scope, gdApi, $log) {
         var currencies = {};
         $scope.noGroupsFound = true;
 
@@ -24,7 +24,7 @@
             },
 
             function(newVal, oldVal) {
-                console.log("Groups were updated, reloading");
+                $log.info("Groups were updated, reloading");
                 //console.log(newVal);
                 //console.log(oldVal);
                 var uid = gdApi.UID();
@@ -38,7 +38,7 @@
             gdApi.fetchGroupsData(true).then(
                 function (groupsData) {
                     $scope.groups = groupsData;
-                    console.log(groupsData);
+                    $log.debug(groupsData);
                 },
                 function (msg) {
                     logErrorMessage(msg);
@@ -85,7 +85,7 @@
         };
 
         function logErrorMessage(error) {
-            console.log("Error: " + error);
+            $log.info("Error: " + error);
         }
 
         // return fetchGroupsData().then(moveItemForSort(groups, group, fromIndex, toIndex));

@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('manageMemberCtrl', ['$stateParams', '$scope', 'gdApi', '$cordovaDialogs', '$state', '$ionicHistory', manageMemberCtrl]);
+    angular.module('GoingDutchApp').controller('manageMemberCtrl', ['$stateParams', '$scope', 'gdApi', '$cordovaDialogs', '$state', '$ionicHistory', '$log', manageMemberCtrl]);
 
-    function manageMemberCtrl($stateParams, $scope, gdApi, $cordovaDialogs, $state, $ionicHistory) {
+    function manageMemberCtrl($stateParams, $scope, gdApi, $cordovaDialogs, $state, $ionicHistory, $log) {
 
         $scope.gid = Number($stateParams.gid);
         $scope.uid = Number($stateParams.uid);
@@ -15,7 +15,7 @@
         $scope.groupTitle = $stateParams.groupTitle;
         $scope.my_role_id = $stateParams.my_role;
         //$scope.my_role_id = 4;
-        console.log("my role: " + $scope.my_role_id);
+        $log.debug("my role: " + $scope.my_role_id);
 
         gdApi.fetchUsersData().then(
             function (usersData) {
@@ -47,16 +47,16 @@
                     //console.log("email found: " + emailFound);
                     if (result){
                         gdApi.fetchGroupsData(true);
-                        console.log("member role has been changed");
+                        $log.info("member role has been changed");
                     } else {
-                        console.log("Error changing role of member");
+                        $log.info("Error changing role of member");
                     }
                     $ionicHistory.clearCache().then((function () {
                         return $state.go('group.manage', {gid: $scope.gid});
                     }));
                 },
                 function (msg) {
-                    console.log(msg);
+                    $log.info(msg);
                 }
             )
         };
@@ -72,22 +72,38 @@
                                 //console.log("email found: " + emailFound);
                                 if (result){
                                     gdApi.fetchGroupsData(true);
-                                    console.log("member has been removed");
+                                    $log.info("member has been removed");
                                 } else {
-                                    console.log("Error removing member");
+                                    $log.info("Error removing member");
                                 }
                                 $ionicHistory.clearCache().then((function () {
                                     return $state.go('group.manage', {gid: $scope.gid});
                                 }));
                             },
                             function (msg) {
-                                console.log(msg);
+                                $log.info(msg);
                             }
                         )
                     }
                 });
         };
 
+        $scope.emailList = [{id: 'email1'}, {id: 'email2'}];
+
+        $scope.newEmails = {};
+
+
+
+        $scope.addEmailInput = function() {
+            var dlog = "";
+            for (var i in $scope.newEmails) {
+                dlog += $scope.newEmails[i] + " ";
+            }
+            $log.debug(dlog);
+
+            var newItemNo = $scope.emailList .length+1;
+            $scope.emailList.push({'id':'email'+newItemNo});
+        };
 
     }
 

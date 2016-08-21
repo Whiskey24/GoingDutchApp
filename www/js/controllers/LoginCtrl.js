@@ -88,7 +88,7 @@
                 }
             );
 
-            $log.debug("Group count: " + $scope.groups.length);
+            //$log.debug("Group count: " + $scope.groups.length);
             for (var index = 0; index < $scope.groups.length; index++) {
                 gdApi.fetchExpensesData($scope.groups[index].gid)
                     .then(function (data) {

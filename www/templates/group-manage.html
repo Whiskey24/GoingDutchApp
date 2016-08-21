@@ -11,6 +11,12 @@
                 </span>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
+
+            <ion-item class="item item-icon-right"
+                      ui-sref="group.members-add({uid: member.uid, my_role: my_role_id, groupTitle: groupTitle})">
+                Add new members
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
         </ion-list>
 
         <ion-list ng-if="my_role_id >= 4">

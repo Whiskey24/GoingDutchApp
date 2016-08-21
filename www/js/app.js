@@ -1,14 +1,14 @@
 angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache', 'ngPassword'])
 
     .constant('gdConfig', (function () {
-        //var host = 'http://api.gdutch.dev';
+        var host = 'http://api.gdutch.dev';
         //var host = 'https://api.santema.eu/GoingDutchApi';
-        var host = 'https://going-dutch-eu.appspot.com';
+        //var host = 'https://going-dutch-eu.appspot.com';
         //console.log("API host: " + host);
         return {
             host: host,
-            //port: 80,
-            port: 443,
+            port: 80,
+            //port: 443,
             url_groups: host + '/groups',
             url_users: host + '/users',
             url_expenses: host + '/group/{gid}/expenses',
@@ -180,6 +180,17 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 views: {
                     'group-manage': {
                         templateUrl: 'templates/group-manage-member.html',
+                        controller: 'manageMemberCtrl'
+                    }
+                }
+            })
+
+            .state('group.members-add', {
+                url: '/members/add',
+                params: {  current_role: 4, my_role: 4, groupTitle:  ''},
+                views: {
+                    'group-manage': {
+                        templateUrl: 'templates/group-members-add.html',
                         controller: 'manageMemberCtrl'
                     }
                 }
