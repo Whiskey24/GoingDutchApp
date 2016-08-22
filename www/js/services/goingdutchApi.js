@@ -248,6 +248,27 @@
             return deferred.promise;
         }
 
+        function addMembersToGroup(gid, emailList){
+            var deferred = $q.defer();
+            var emailObj = {};
+            emailObj.emails = emailList;
+            var url_addMembersToGroup = gdConfig.url_addMembersToGroup.replace('{gid}', gid);
+            $http.post(url_addMembersToGroup, emailObj)
+                .success(function (data, status) {
+                    $log.info("addMembersToGroup successfully called");
+                    var result = false;
+                    if (data.success == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    $log.info("Error calling addMembersToGroup");
+                    deferred.reject(msg);
+                });
+            return deferred.promise;
+        }
+
         function registerUser(details){
             var deferred = $q.defer();
             $http.post(gdConfig.url_registerUser, details)
@@ -1001,7 +1022,8 @@
             updateUserDetails: updateUserDetails,
             updateEmail: updateEmail,
             updatePass: updatePass,
-            changeSendEmail: changeSendEmail
+            changeSendEmail: changeSendEmail,
+            addMembersToGroup: addMembersToGroup
         };
 
 

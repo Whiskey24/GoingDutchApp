@@ -11,6 +11,9 @@
 
         var deleteGroupMsg = 'Delete group ?';
         var uid = gdApi.UID();
+
+        var forceRefresh = $stateParams.forceRefresh == 1;
+
         $scope.$on('$ionicView.enter', function () {
             // put this here in case group details have been updated
             var cacheGroup = gdApi.checkGroupSettingsCache(Number($stateParams.gid));
@@ -50,7 +53,7 @@
                 //$scope.groupCurrency = $scope.currency;
                 //$scope.selectedCurrencyCode = $scope.currency;
                 //$scope.selectedCurrency = iso4217.getCurrencyByCode($scope.selectedCurrencyCode);
-                updateGroupsList();
+                updateGroupsList(forceRefresh, forceRefresh);
             }
         );
         $scope.gid = $stateParams.gid;

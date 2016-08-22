@@ -25,7 +25,8 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             url_changeRole: host + '/group/{gid}/members/',
             url_updateUserDetails: host + '/user/{uid}/details',
             url_updatePass: host + '/user/{uid}/pass',
-            url_changeSendEmail: host + '/group/{gid}/members/{uid}/email'
+            url_changeSendEmail: host + '/group/{gid}/members/{uid}/email',
+            url_addMembersToGroup: host + '/group/{gid}/members'
         }
     })())
 
@@ -176,7 +177,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('group.manage-member', {
                 url: '/members/:uid/manage',
-                params: { current_role: 4, my_role: 4, groupTitle:  ''},
+                params: { current_role: 4, my_role: 4, groupTitle:  '', forceRefresh: 0},
                 views: {
                     'group-manage': {
                         templateUrl: 'templates/group-manage-member.html',
@@ -310,6 +311,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('group.manage', {
                 url: '/manage',
+                params: {forceRefresh: 0},
                 views: {
                     'group-manage': {
                         templateUrl: 'templates/group-manage.html',
