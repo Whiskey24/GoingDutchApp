@@ -17,6 +17,9 @@
 
         var forceRefresh = $stateParams.forceRefresh == 1;
 
+        var original = $scope.data;
+        $scope.form = {};
+
         //$scope.my_role_id = 4;
         // $log.debug("my role: " + $scope.my_role_id);
 
@@ -169,7 +172,7 @@
 
             // $log.debug($scope.newEmails);
             for (var key in $scope.newEmails) {
-                $log.debug($scope.newEmails[key]);
+                //$log.debug($scope.newEmails[key]);
                 if (key == id)
                     continue;
                 if ($scope.newEmails[key] == $scope.newEmails[id]){
@@ -248,6 +251,14 @@
 
             // $log.debug(emailsToAdd);
             gdApi.addMembersToGroup($scope.gid, emailsToAdd);
+
+            $scope.emailList = [{id: 'email1'}, {id: 'email2'}];
+            $scope.newEmails = {};
+            $scope.validatedEmails = {};
+
+            $scope.data = angular.copy(original);
+            $scope.form.addMemberForm.$setPristine();
+
             $ionicHistory.clearCache().then((function () {
                 return $state.go('group.manage', {gid: $scope.gid, forceRefresh: 1});
             }));
