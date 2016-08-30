@@ -27,6 +27,7 @@
 
             <button class="button button-block button-positive"
                     ng-if="showForgetEmail == true && newPwdSendSuccess == false"
+                    ng-disabled="forgetPwdButtonisDisabled"
                     ng-enter="resetPwd(data)" ng-click="resetPwd(data)">Send new password to this email address
             </button>
             <button class="button button-block button-positive"

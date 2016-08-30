@@ -32,10 +32,17 @@
 
         $scope.forgotPwd = function () {
             $scope.showForgetEmail = !$scope.showForgetEmail;
+            $scope.forgetPwdButtonisDisabled = false;
         };
 
+        $scope.forgetPwdButtonisDisabled = false;
+
+        $scope.disableForgetPwdButton = function() {
+            $scope.forgetPwdButtonisDisabled = true;
+        };
 
         $scope.resetPwd = function (credentials){
+            $scope.forgetPwdButtonisDisabled = true;
             $scope.emailNotFound = false;
             $scope.newPwdSendSuccess = false;
             $scope.newPwdSendFailed = false;
@@ -59,6 +66,7 @@
                         )
                     } else {
                         $scope.emailNotFound = true;
+                        $scope.forgetPwdButtonisDisabled = false;
                     }
 
                 },
