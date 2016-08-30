@@ -16,9 +16,10 @@
             function (usersData) {
                 var uid = gdApi.UID();
                 $scope.users = usersData;
+
                 $scope.userData = usersData[uid];
                 currentEmail = $scope.userData.email;
-                // console.log($scope.userData );
+                 console.log($scope.userData );
             },
             function (msg) {
                 logErrorMessage(msg);

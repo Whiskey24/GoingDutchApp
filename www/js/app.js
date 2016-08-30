@@ -3,7 +3,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
     .constant('gdConfig', (function () {
         var host = 'http://api.gdutch.dev';
         //var host = 'https://api.santema.eu/GoingDutchApi';
-        //var host = 'https://going-dutch-eu.appspot.com';
+        //var host = 'https://going-dutch-api.appspot.com';
         //console.log("API host: " + host);
         return {
             host: host,
@@ -107,6 +107,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('home.account', {
                 url: '/account',
+                cache: false,
                 params: { refresh: 1},
                 views: {
                     'home-account': {
