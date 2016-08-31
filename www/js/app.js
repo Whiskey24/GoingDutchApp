@@ -1,8 +1,12 @@
 angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache', 'ngPassword'])
 
+    // this does not seem to disable debug messages ...
+    .config(['$logProvider', function($logProvider){
+        $logProvider.debugEnabled(false);
+    }])
+
     .constant('gdConfig', (function () {
         var host = 'http://api.gdutch.dev';
-        //var host = 'https://api.santema.eu/GoingDutchApi';
         //var host = 'https://going-dutch-api.appspot.com';
         //console.log("API host: " + host);
         return {

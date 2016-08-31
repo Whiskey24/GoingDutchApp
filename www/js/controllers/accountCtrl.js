@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('AccountCtrl', ['$scope', 'gdApi', '$ionicHistory', '$state', '$stateParams', AccountCtrl]);
+    angular.module('GoingDutchApp').controller('AccountCtrl', ['$scope', 'gdApi', '$ionicHistory', '$state', '$stateParams', '$log', AccountCtrl]);
 
-    function AccountCtrl($scope, gdApi, $ionicHistory, $state, $stateParams) {
+    function AccountCtrl($scope, gdApi, $ionicHistory, $state, $stateParams, $log) {
         $scope.refresh = Number($stateParams.refresh);
         var refresh = $scope.refresh == 1;
         $scope.userData = {};
@@ -19,7 +19,7 @@
 
                 $scope.userData = usersData[uid];
                 currentEmail = $scope.userData.email;
-                 console.log($scope.userData );
+                 //$log.debug($scope.userData );
             },
             function (msg) {
                 logErrorMessage(msg);
@@ -37,16 +37,16 @@
                     //console.log("email found: " + emailFound);
                     if (result) {
                         gdApi.fetchUsersData(true);
-                        console.log("member details have been changed");
+                        $log.info("member details have been changed");
                     } else {
-                        console.log("Error changing details of member");
+                        $log.info("Error changing details of member");
                     }
                     $ionicHistory.clearCache().then((function () {
                         return $state.go('home.account', {refresh: 1});
                     }));
                 },
                 function (msg) {
-                    console.log(msg);
+                    $log.info(msg);
                 }
             )
         };
@@ -67,22 +67,22 @@
                                 if (result) {
                                     gdApi.updateEmail($scope.userData.email);
                                     gdApi.fetchUsersData(true);
-                                    console.log("member email has been changed");
+                                    $log.info("member email has been changed");
                                 } else {
-                                    console.log("Error changing email of member");
+                                    $log.info("Error changing email of member");
                                 }
                                 $ionicHistory.clearCache().then((function () {
                                     return $state.go('home.account');
                                 }));
                             },
                             function (msg) {
-                                console.log(msg);
+                                $log.info(msg);
                             }
                         )
                     }
                 },
                 function (msg) {
-                    console.log(msg);
+                    $log.info(msg);
                 }
             );
         };
@@ -92,16 +92,16 @@
             gdApi.updatePass(gdApi.UID(), userData.pass).then(
                 function (passUpdated) {
                     if (passUpdated) {
-                        console.log("member password has been changed");
+                        $log.info("member password has been changed");
                     } else {
-                        console.log("Error changing password of member");
+                        $log.info("Error changing password of member");
                     }
                     $ionicHistory.clearCache().then((function () {
                         return $state.go('home.account');
                     }));
                 },
                 function (msg) {
-                    console.log(msg);
+                    $log.info(msg);
                 }
             );
         };
