@@ -115,7 +115,8 @@
             }
         ).then(
             function () {
-                members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                //members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                members = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 0});
                 members =  gdApi.sortByKey(members, 'uid', 'ASC');
 
                 $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];

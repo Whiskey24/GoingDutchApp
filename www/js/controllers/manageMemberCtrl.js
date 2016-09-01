@@ -45,7 +45,8 @@
             gdApi.fetchGroupsData(forceRefresh).then(
                 function (groupsData) {
                     $scope.groups = groupsData;
-                    var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    var members = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 0});
                     // $log.debug(members);
                     for (var key in members) {
                         // check also if property is not inherited from prototype
