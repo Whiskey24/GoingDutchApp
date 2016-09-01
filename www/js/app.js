@@ -13,6 +13,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
             host: host,
             port: 80,
             // port: 443,
+            max_cache_age: 60 * 60 * 1000,  // 1 hour
             url_groups: host + '/groups',
             url_users: host + '/users',
             url_expenses: host + '/group/{gid}/expenses',

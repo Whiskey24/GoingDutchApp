@@ -10,9 +10,8 @@
     function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q, CacheFactory, $log) {
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
-
         if (!CacheFactory.get('groupsCache')) {
-            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000, deleteOnExpire: 'aggressive',
+            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: gdConfig.max_cache_age, deleteOnExpire: 'aggressive',
                 onExpire: function (key, value) {
                     $log.info("gdApi: groupsCache expired, refreshing");
                     fetchGroupsData(true).then(
@@ -38,7 +37,7 @@
             self.usersCache = CacheFactory('usersCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('expensesCache')) {
-            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000, deleteOnExpire: 'aggressive',
+            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: gdConfig.max_cache_age, deleteOnExpire: 'aggressive',
                 onExpire: function (key, value) {
                     $log.info("gdApi: usersCache expired, refreshing");
                     fetchUsersData(true);
@@ -46,7 +45,7 @@
             });
         }
         if (!CacheFactory.get('userPrefs')) {
-            self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage', maxAge: 15 * 60 * 1000});
+            self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage', maxAge: gdConfig.max_cache_age});
         }
 
         ///fetchUsersData
