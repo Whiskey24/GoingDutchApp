@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('MemberCtrl', ['$scope', '$stateParams', 'gdApi', MemberCtrl]);
+    angular.module('GoingDutchApp').controller('MemberCtrl', ['$scope', '$stateParams', 'gdApi', '$log', MemberCtrl]);
 
-    function MemberCtrl($scope, $stateParams, gdApi) {
+    function MemberCtrl($scope, $stateParams, gdApi, $log) {
 
         // $scope.$on('$ionicView.enter', function () {
             // put this here in case group details change
@@ -18,7 +18,6 @@
         //$scope.currency = "EUR";
 
         $scope.users = {};
-
         gdApi.fetchGroupsData().then(
             function (groupsData) {
                 $scope.groups = groupsData;
@@ -27,8 +26,10 @@
                 logErrorMessage(msg);
             }
         ).then(function () {
-                var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                var members = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 0});
                 $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                //$log.debug($scope.members);
                 $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
                 $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
             }
@@ -44,8 +45,10 @@
                     logErrorMessage(msg);
                 }
             ).then(function () {
-                    var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
+                    var members = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 0});
                     $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                    //$log.debug($scope.members);
                     $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
                     $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
                 }

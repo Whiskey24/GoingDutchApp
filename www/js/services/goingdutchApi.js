@@ -182,7 +182,7 @@
                                 i++;
                             }
                         }
-                        // $log.info(groupsArray);
+                         $log.info(groupsArray);
                         groupsArray = sortByKey(groupsArray, 'sort', 'ASC');
                         self.groupsCache.put(cacheKey, groupsArray);
                         deferred.resolve(groupsArray);

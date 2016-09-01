@@ -2,7 +2,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
     // this does not seem to disable debug messages ...
     .config(['$logProvider', function($logProvider){
-        $logProvider.debugEnabled(false);
+        $logProvider.debugEnabled(true);
     }])
 
     .constant('gdConfig', (function () {
