@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseCtrl', ['$stateParams', '$scope', '$filter', 'gdApi', ExpenseCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseCtrl', ['$stateParams', '$scope', '$filter', 'gdApi', '$log', ExpenseCtrl]);
 
-    function ExpenseCtrl($stateParams, $scope, $filter, gdApi) {
+    function ExpenseCtrl($stateParams, $scope, $filter, gdApi, $log) {
 
         //$scope.$on('$ionicView.enter', function () {
         //    // put this here in case group details change
@@ -39,7 +39,7 @@
             },
 
             function(newVal, oldVal) {
-                console.log("Groups were updated, reloading");
+                $log.info("Groups were updated, reloading");
                 //console.log(newVal);
                 //console.log(oldVal);
                 updateExpenseList();
@@ -118,7 +118,7 @@
         };
 
         function logErrorMessage(error) {
-            console.log("Error: " + error);
+            $log.info("Error: " + error);
         }
 
         //$scope.expenses = gdApi.getExpenses($stateParams.gid);

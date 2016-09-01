@@ -763,7 +763,7 @@
                     else {
                         $log.info("Expense submitted successfully");
                     }
-                    $log.info(response.data);
+                    //$log.info(response.data);
                     //self.expensesCache.remove("gid-" + gid);
                     fetchExpensesData(gid, true)
                         .then(function (data) {

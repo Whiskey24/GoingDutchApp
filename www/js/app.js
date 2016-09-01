@@ -7,12 +7,12 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
     .constant('gdConfig', (function () {
         var host = 'http://api.gdutch.dev';
-        //var host = 'https://going-dutch-api.appspot.com';
+        // var host = 'https://going-dutch-api.appspot.com';
         //console.log("API host: " + host);
         return {
             host: host,
             port: 80,
-            //port: 443,
+            // port: 443,
             url_groups: host + '/groups',
             url_users: host + '/users',
             url_expenses: host + '/group/{gid}/expenses',
