@@ -18,9 +18,8 @@
             // put this here in case group details have been updated
             var cacheGroup = gdApi.checkGroupSettingsCache(Number($stateParams.gid));
             if (cacheGroup){
-                $log.debug(cacheGroup);
-
-                $scope.send_email = cacheGroup['members'][uid]['send_mail'] == 1;
+                //$log.debug(cacheGroup);
+                //$scope.send_email = cacheGroup['members'][uid]['send_mail'] == 1;
                 $scope.currency = cacheGroup['currency'];
                 $scope.groupTitle = cacheGroup['name'];
                 $scope.groupDescription = cacheGroup['description'];
@@ -242,7 +241,7 @@
         $scope.addCategory = function () {
             $cordovaDialogs.prompt(newTitleMsg, 'Add Category', ['OK', 'Cancel'], '')
                 .then(function (result) {
-                    if (checkIfCategoryTitleExists(result.input1.trim(), 0)) {
+                    if (result.buttonIndex != 2 && checkIfCategoryTitleExists(result.input1.trim(), 0)) {
                         newTitleMsg = 'Enter new category - title "' + result.input1.trim() + '" already exists';
                         $scope.addCategory();
                     }
@@ -287,7 +286,7 @@
         };
 
         function newCategory(title) {
-            $log.debug($scope.categories);
+            // $log.debug($scope.categories);
 
             var newSort = 0;
             for (var i = 0, len = $scope.categories.length; i < len; i++) {
@@ -306,7 +305,7 @@
                 "can_delete": 0,
                 "sort": newSort
             });
-            $log.debug($scope.categories);
+            // $log.debug($scope.categories);
 
             sendCategoryUpdate();
         }
