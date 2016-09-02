@@ -91,7 +91,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('home.newgroup', {
                 url: '/newgroup',
-                cache: false,
+                // cache: false,
                 views: {
                     'home-new-group': {
                         templateUrl: 'templates/home-newgroup.html',
@@ -112,7 +112,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('home.account', {
                 url: '/account',
-                cache: false,
+                // cache: false,
                 params: { refresh: 1},
                 views: {
                     'home-account': {

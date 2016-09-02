@@ -38,7 +38,7 @@
             gdApi.fetchGroupsData(true).then(
                 function (groupsData) {
                     $scope.groups = groupsData;
-                    $log.debug(groupsData);
+                    // $log.debug(groupsData);
                 },
                 function (msg) {
                     logErrorMessage(msg);
