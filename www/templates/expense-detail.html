@@ -36,7 +36,8 @@
             </ion-item>
 
         </ion-list>
-        <small>Last update: {{formatDateTime(expense.eupdated)}} UTC<br />By: {{memberName(expense.uid)}}</small>
+        <small>Last update: {{formatDateTime(expense.eupdated)}} UTC<br />
+            <span ng-if="expense.updated_by > 0">By: {{memberName(expense.updated_by)}}</span></small>
     </ion-content >
 
 </ion-view>

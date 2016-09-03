@@ -61,7 +61,7 @@
                     function (expensesData) {
                         $scope.expenses = expensesData;
                         $scope.expense = _.filter($scope.expenses, {'eid': Number($scope.eid)})[0];
-
+                        $log.debug($scope.expense);
                         if (typeof ($scope.expense.uids) === "string")
                             $scope.participants = $scope.expense.uids.split(",");
                         else
