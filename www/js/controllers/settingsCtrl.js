@@ -257,7 +257,7 @@
         $scope.deleteGroup = function () {
             $cordovaDialogs.prompt(deleteGroupMsg, deleteGroupTitle , ['OK', 'Cancel'], '')
                 .then(function (result) {
-                    if (result && result.input1 !== 'undefined' && result.input1.length > 0 && result.input1 == $scope.groupTitle) {
+                    if (result && result.input1 != null && result.input1 !== 'undefined' && result.input1.length > 0 && result.input1 == $scope.groupTitle) {
                         $log.info('Deleting group ' + result.input1);
                         gdApi.deleteGroup(Number($stateParams.gid)).then(
                             function (groupDeleted) {
