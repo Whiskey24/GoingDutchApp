@@ -104,6 +104,13 @@
                 paidBy: $scope.expense.uid,
                 cid: $scope.expense.cid
             };
+
+            for (var j in $scope.categories) {
+                if ( $scope.categories[j].cid == $scope.expense.cid){
+                    $scope.category = $scope.categories[j];
+                    break;
+                }
+            }
         }
 
         var members;
@@ -259,7 +266,7 @@
             $scope.expense.cid = $scope.newValues.cid;
             $scope.expense.gid = $scope.gid;
             $scope.expense.event_id = 0;
-
+            // $log.debug($scope.expense);
             if (!$scope.newExpense) {
                 gdApi.updateExpense($scope.gid, $scope.expense);
                 $ionicHistory.clearCache().then((function () {
