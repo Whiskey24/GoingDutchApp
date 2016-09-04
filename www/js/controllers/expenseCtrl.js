@@ -62,7 +62,9 @@
             gdApi.fetchExpensesData($stateParams.gid, true).then(
                 function (expensesData) {
                     $scope.expenses = expensesData;
-                    //console.log(expensesData[0]);
+                    // $log.debug(expensesData);
+                    // var expenses_paid = _.filter($scope.expenses, {'uid': 4});
+                    // $log.debug(expenses_paid);
                 },
                 function (msg) {
                     logErrorMessage(msg);

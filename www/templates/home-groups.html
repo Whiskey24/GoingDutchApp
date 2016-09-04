@@ -15,6 +15,9 @@
         <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
         <ion-list show-reorder="data.showReorder">
 
+            <span class="col text-center" ng-show="updatingGroups">
+                    <br /><br />Please wait, updating groups...
+            </span>
             <span class="col text-center" ng-show="noGroupsFound">
                     <br /><br />No groups here... Go create your first one!
             </span>

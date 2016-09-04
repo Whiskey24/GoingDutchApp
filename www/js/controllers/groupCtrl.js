@@ -9,14 +9,15 @@
 
     function GroupCtrl($scope, gdApi, $log) {
         var currencies = {};
-        $scope.noGroupsFound = true;
+        $scope.updatingGroups = true;
+        $scope.noGroupsFound = false;
 
         /*.then(function () {
-                for (var i = 0, len = $scope.groups.length; i < len; i++) {
-                    currencies[$scope.groups[i].gid] = gdApi.getGroupCurrency($scope.groups[i].gid);
-                }
-            }
-        );*/
+         for (var i = 0, len = $scope.groups.length; i < len; i++) {
+         currencies[$scope.groups[i].gid] = gdApi.getGroupCurrency($scope.groups[i].gid);
+         }
+         }
+         );*/
 
         $scope.$watch(
             function () {
@@ -55,6 +56,7 @@
                 function (groupsData) {
                     $scope.groups = groupsData;
                     $scope.noGroupsFound = groupsData.length == 0;
+                    $scope.updatingGroups = false;
                 },
                 function (msg) {
                     logErrorMessage(msg);
