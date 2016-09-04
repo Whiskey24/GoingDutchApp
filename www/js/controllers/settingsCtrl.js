@@ -263,7 +263,7 @@
                             function (groupDeleted) {
                                 //console.log("email found: " + emailFound);
                                 if (groupDeleted){
-                                    $log.debug("group is deleted");
+                                    // $log.debug("group is deleted");
                                 } else {
                                     $log.info("Error deleting group");
                                 }
