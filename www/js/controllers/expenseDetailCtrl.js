@@ -24,6 +24,7 @@
                 if (gdApi.isOwner($scope.gid) || $scope.expense.uid == gdApi.UID())
                     $scope.canDelete = true;
             }
+            //$log.debug($scope.participants);
         });
 
         var UID = gdApi.UID();
@@ -127,28 +128,16 @@
                 // console.log("PARSING GROUPS DATA");
 
                 /*for (var key in membersSort ) {
-                    if (membersSort .hasOwnProperty(key)) {
-                        console.log(key + " -> " + membersSort [key]);
-                    }
-                }*/
+                 if (membersSort .hasOwnProperty(key)) {
+                 console.log(key + " -> " + membersSort [key]);
+                 }
+                 }*/
                 $scope.members = {};
                 for (var index in members){
                     $scope.members[members[index].uid] = members[index].balance;
                 }
-                //console.log($scope.members);
-                // $scope.categories = gdApi.getGroupCategories($scope.gid);
-
-                //$scope.categories = gdApi.objectToArraySorted(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'categories')[0],  $scope.categories);
                 $scope.categories = gdApi.getGroupCategories($scope.groups,$scope.gid);
-                //console.log($scope.categories );
 
-                // this seems wrong because categories array is already limited to this group
-                // for (var j in  $scope.categories[$stateParams.gid]) {
-                //         if ( $scope.categories[$stateParams.gid][j].cid == $scope.expense.cid){
-                //             $scope.category = $scope.categories[$stateParams.gid][j];
-                //             break;
-                //         }
-                //     }
                 for (var j in $scope.categories) {
                     if ( $scope.categories[j].cid == $scope.expense.cid){
                         $scope.category = $scope.categories[j];
@@ -156,18 +145,7 @@
                     }
                 }
 
-                //$scope.category = gdApi.getGroupCategory($scope.gid, $scope.expense.cid);
-                //return objectToArraySorted(_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0], groupCategories[gid]);
-
                 if ($scope.newExpense) {
-                    //console.log(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0]);
-                    //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
-                    //for (var prop in members){
-                    //    //console.log(members[prop]);
-                    //    $scope.newValues.paidBy = members[prop].uid;
-                    //    break;
-                    //}
-///                    $scope.newValues.paidBy = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0].slice(0, 1).uid;
                     $scope.newValues.paidBy = UID;
                     $scope.newValues.cid = $scope.categories[0].cid;
                 }
@@ -176,8 +154,6 @@
             function () {
                 gdApi.fetchUsersData().then(
                     function (usersData) {
-                        // console.log("FETCHING USERS DATA");
-                        // console.log(members);
                         $scope.users = usersData;
                         $scope.memberNames = {};
                         for (var index in usersData) {
@@ -202,21 +178,6 @@
             }
             return $scope.users[uid]['nickName'];
         };
-
-        // $scope.members = gdApi.getGroupMembers($stateParams.gid);
-
-        /*$scope.memberNames = [];
-        Object.keys($scope.members).forEach(function (key) {
-            // do something with obj[key]
-            $scope.memberNames.push({uid: Number(key), name:gdApi.getUserName(key)})
-        });*/
-
-
-/*
-        $scope.memberName = function (uid) {
-            return gdApi.getUserName(uid);
-        };
-*/
 
         $scope.formatDateTimeLocal = function (timestamp, offset) {
             return $scope.formatDateTime(timestamp - offset * 60);
@@ -266,10 +227,10 @@
         };
 
         $scope.flipMember = function (uid) {
-           var index = $scope.participants.indexOf(uid);
+            var index = $scope.participants.indexOf(uid);
             if (index > -1)
                 $scope.participants.splice(index,1);
-              else
+            else
                 $scope.participants.push(uid);
         };
 
@@ -283,7 +244,7 @@
 
         $scope.datePickerCallback = function (val) {
             if (typeof(val) === 'undefined') {
-                // console.log('Date not selected');
+                // $log.debug('Date not selected');
             } else {
                 $scope.newValues.date = Math.floor(val.getTime()/ 1000) - ($scope.expense.timezoneoffset * 60);
             }
@@ -305,7 +266,6 @@
                     return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
                 }));
             } else {
-                //console.log($scope.expense);
                 gdApi.addExpense($scope.gid, $scope.expense);
                 $ionicHistory.clearCache().then((function () {
                     return $state.go('group.expenses')

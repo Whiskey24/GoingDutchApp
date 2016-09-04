@@ -17,7 +17,7 @@
                     <span class="item-note">{{ expense.amount | isoCurrency:currency }}</span>
                 </p>
                 <p>{{category.title}}</p>
-                <p>{{memberName(expense.uid)}}</p>
+                <p ng-if="participants.length > 0">{{memberName(expense.uid)}}</p>
             </ion-item>
 
             <ion-item class="item-text-wrap">
@@ -36,7 +36,8 @@
             </ion-item>
 
         </ion-list>
-        <small>Last update: {{formatDateTime(expense.eupdated)}} UTC<br />
+        <small>Expense ID: {{expense.eid}}<br />
+            Last update: {{formatDateTime(expense.eupdated)}} UTC<br />
             <span ng-if="expense.updated_by > 0">By: {{memberName(expense.updated_by)}}</span></small>
     </ion-content >
 
