@@ -25,7 +25,7 @@
                 update: function (filteredItems, filterText) {
                     $scope.expenses = filteredItems;
                     if (filterText) {
-                        console.log(filterText);
+                        //$log.debug(filterText);
                     }
                 }
             });
