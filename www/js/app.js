@@ -1,4 +1,4 @@
-angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache', 'ngPassword'])
+angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurrency', 'ngCordova', 'ionic-timepicker', 'ionic-datepicker', 'ngStorage', 'angular-cache', 'ngPassword', 'jett.ionic.filter.bar'])
 
     // this does not seem to disable debug messages ...
     .config(['$logProvider', function($logProvider){

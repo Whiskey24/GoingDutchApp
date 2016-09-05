@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').controller('ExpenseCtrl', ['$stateParams', '$scope', '$filter', 'gdApi', '$log', ExpenseCtrl]);
+    angular.module('GoingDutchApp').controller('ExpenseCtrl', ['$stateParams', '$scope', '$filter', 'gdApi', '$log', '$ionicFilterBar', ExpenseCtrl]);
 
-    function ExpenseCtrl($stateParams, $scope, $filter, gdApi, $log) {
+    function ExpenseCtrl($stateParams, $scope, $filter, gdApi, $log, $ionicFilterBar) {
 
         //$scope.$on('$ionicView.enter', function () {
         //    // put this here in case group details change
@@ -15,7 +15,21 @@
         //    $scope.groupTitle = gdApi.getGroupTitle($stateParams);
         //});
 
+        var filterBarInstance;
+
         $scope.gid = $stateParams.gid;
+
+        $scope.showFilterBar = function () {
+            filterBarInstance = $ionicFilterBar.show({
+                items: $scope.expenses,
+                update: function (filteredItems, filterText) {
+                    $scope.expenses = filteredItems;
+                    if (filterText) {
+                        console.log(filterText);
+                    }
+                }
+            });
+        };
 
         gdApi.fetchGroupsData().then(
             function (groupsData) {
