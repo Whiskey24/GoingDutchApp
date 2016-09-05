@@ -96,7 +96,12 @@
                     logErrorMessage(msg);
                 }
             );
+        };
 
+        $scope.participants = function (exp){
+            //$log.debug(exp.etitle);
+            for(var count=-1,index=-2; index != -1; count++,index=String(exp.uids).indexOf(',',index+1) );
+            return count == 0 ? "1 participant" : count + 1 + " participants";
         };
 
         $scope.formatDateTimeLocal = function (timestamp, offset) {
