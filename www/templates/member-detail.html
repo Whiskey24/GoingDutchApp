@@ -9,14 +9,14 @@
 
         <h4>Details for member {{nickName}}</h4>
 
-        <ion-item>
+        <ion-item ui-sref="group.expenses({gid: gid, search: paidSearch })">
             Total expenses paid:
                 <span class="item-note" ng-style="{'color':'black', 'font-weight':'bold'}">
                   {{ paid | isoCurrency:currency }}
                 </span>
         </ion-item>
 
-        <ion-item>
+        <ion-item  ui-sref="group.expenses({gid: gid, search: participatedSearch })">
             Total expenses participated:
                 <span class="item-note" ng-style="{'color':'black', 'font-weight':'bold'}">
                   {{ participated | isoCurrency:currency }}

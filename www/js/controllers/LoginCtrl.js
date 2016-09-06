@@ -90,22 +90,31 @@
         function preLoadExpenses() {
             gdApi.fetchUsersData()
                 .then(function () {
-                    //users = data;
+                    // put this here to be able to create expense search string with user details
+                    for (var index = 0; index < $scope.groups.length; index++) {
+                        gdApi.fetchExpensesData($scope.groups[index].gid)
+                            .then(function (data) {
+                                    //console.log(data);
+                                }, function (error) {
+                                    logErrorMessage(error);
+                                }
+                            );
+                    }
                 }, function (msg) {
                     logErrorMessage(msg);
                 }
             );
 
             //$log.debug("Group count: " + $scope.groups.length);
-            for (var index = 0; index < $scope.groups.length; index++) {
-                gdApi.fetchExpensesData($scope.groups[index].gid)
-                    .then(function (data) {
-                        //console.log(data);
-                    }, function (error) {
-                        logErrorMessage(error);
-                    }
-                );
-            }
+            // for (var index = 0; index < $scope.groups.length; index++) {
+            //     gdApi.fetchExpensesData($scope.groups[index].gid)
+            //         .then(function (data) {
+            //             //console.log(data);
+            //         }, function (error) {
+            //             logErrorMessage(error);
+            //         }
+            //     );
+            // }
         }
 
         function logErrorMessage(error) {

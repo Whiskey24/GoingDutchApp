@@ -11,7 +11,8 @@
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
         if (!CacheFactory.get('groupsCache')) {
-            self.groupsCache = CacheFactory('groupsCache', {storageMode: 'localStorage', maxAge: gdConfig.max_cache_age, deleteOnExpire: 'aggressive',
+            self.groupsCache = CacheFactory('groupsCache', {
+                storageMode: 'localStorage', maxAge: gdConfig.max_cache_age, deleteOnExpire: 'aggressive',
                 onExpire: function (key, value) {
                     $log.info("gdApi: groupsCache expired, refreshing");
                     fetchGroupsData(true).then(
@@ -30,14 +31,15 @@
                             logErrorMessage(msg);
                         }
                     );
-            }
+                }
             });
         }
         if (!CacheFactory.get('usersCache')) {
             self.usersCache = CacheFactory('usersCache', {storageMode: 'localStorage'});
         }
         if (!CacheFactory.get('expensesCache')) {
-            self.expensesCache = CacheFactory('expensesCache', {storageMode: 'localStorage', maxAge: gdConfig.max_cache_age, deleteOnExpire: 'aggressive',
+            self.expensesCache = CacheFactory('expensesCache', {
+                storageMode: 'localStorage', maxAge: gdConfig.max_cache_age, deleteOnExpire: 'aggressive',
                 onExpire: function (key, value) {
                     $log.info("gdApi: usersCache expired, refreshing");
                     fetchUsersData(true);
@@ -45,7 +47,10 @@
             });
         }
         if (!CacheFactory.get('userPrefs')) {
-            self.userPrefsCache = CacheFactory('userPrefs', {storageMode: 'localStorage', maxAge: gdConfig.max_cache_age});
+            self.userPrefsCache = CacheFactory('userPrefs', {
+                storageMode: 'localStorage',
+                maxAge: gdConfig.max_cache_age
+            });
         }
 
         ///fetchUsersData
@@ -58,6 +63,7 @@
         function getUid() {
             return self.userPrefsCache.get('uid');
         }
+
         function setUid(userUid) {
             self.userPrefsCache.put('uid', userUid);
         }
@@ -72,13 +78,13 @@
             authenticationDataService.setAuthData(credentials.username, credentials.password);
         }
 
-        function updateEmail(email){
+        function updateEmail(email) {
             var credentials = getCredentials();
             credentials.username = email;
             setCredentials(credentials);
         }
 
-        function updatePassCredentials(password){
+        function updatePassCredentials(password) {
             var credentials = getCredentials();
             credentials.password = password;
             setCredentials(credentials);
@@ -139,6 +145,7 @@
         // keep track of which groups user is owner
         var ownerGroups = [];
         var adminGroups = [];
+
         function fetchGroupsData(forceRefresh) {
             if (typeof forceRefresh === "undefined" || forceRefresh === null) {
                 forceRefresh = false;
@@ -166,10 +173,10 @@
                         for (var key in data) {
                             if (data.hasOwnProperty(key)) {
                                 groupsArray[i] = data[key];
-                                if (data[key].role === "founder"){
+                                if (data[key].role === "founder") {
                                     ownerGroups.push(data[key].gid);
                                 }
-                                if (data[key].role === "admin (full)"){
+                                if (data[key].role === "admin (full)") {
                                     adminGroups.push(data[key].gid);
                                 }
                                 if (typeof(groupProperties[data[key].gid]) == 'undefined') {
@@ -227,27 +234,27 @@
             return deferred.promise;
         }
 
-        function validateEmailExists(email){
+        function validateEmailExists(email) {
             var deferred = $q.defer();
             var emailObj = {};
             emailObj.email = email;
             $http.post(gdConfig.url_emailExists, emailObj)
-                        .success(function (data, status) {
-                            $log.info("Emailexists successfully called");
-                            var result = false;
-                            if (data.error == 0 && data.exists == 1) {
-                                result = true;
-                            }
-                            deferred.resolve(result);
-                        })
-                        .error(function (msg, code) {
-                            $log.info("Error calling Emailexists");
-                            deferred.reject(msg);
-                        });
+                .success(function (data, status) {
+                    $log.info("Emailexists successfully called");
+                    var result = false;
+                    if (data.error == 0 && data.exists == 1) {
+                        result = true;
+                    }
+                    deferred.resolve(result);
+                })
+                .error(function (msg, code) {
+                    $log.info("Error calling Emailexists");
+                    deferred.reject(msg);
+                });
             return deferred.promise;
         }
 
-        function addMembersToGroup(gid, emailList){
+        function addMembersToGroup(gid, emailList) {
             var deferred = $q.defer();
             var emailObj = {};
             emailObj.emails = emailList;
@@ -268,7 +275,7 @@
             return deferred.promise;
         }
 
-        function registerUser(details){
+        function registerUser(details) {
             var deferred = $q.defer();
             $http.post(gdConfig.url_registerUser, details)
                 .success(function (data, status) {
@@ -286,11 +293,11 @@
             return deferred.promise;
         }
 
-        function changeRole(gid, uid, role_id){
+        function changeRole(gid, uid, role_id) {
             var details = {};
             details.role_id = role_id;
             var deferred = $q.defer();
-            var url_changeRole= gdConfig.url_changeRole.replace('{gid}', gid) + uid;
+            var url_changeRole = gdConfig.url_changeRole.replace('{gid}', gid) + uid;
             $http.put(url_changeRole, details)
                 .success(function (data, status) {
                     $log.info("changeRole successfully called");
@@ -307,11 +314,11 @@
             return deferred.promise;
         }
 
-        function changeSendEmail(gid, uid, send_email){
+        function changeSendEmail(gid, uid, send_email) {
             var details = {};
             details.send_email = send_email == true ? 1 : 0;
             var deferred = $q.defer();
-            var url_changeSendEmail= gdConfig.url_changeSendEmail.replace('{gid}', gid).replace('{uid}', uid);
+            var url_changeSendEmail = gdConfig.url_changeSendEmail.replace('{gid}', gid).replace('{uid}', uid);
             $http.put(url_changeSendEmail, details)
                 .success(function (data, status) {
                     $log.info("changeSendEmail successfully called");
@@ -328,9 +335,9 @@
             return deferred.promise;
         }
 
-        function updateUserDetails(details){
+        function updateUserDetails(details) {
             var deferred = $q.defer();
-            var url_updateUserDetails= gdConfig.url_updateUserDetails.replace('{uid}', details.uid);
+            var url_updateUserDetails = gdConfig.url_updateUserDetails.replace('{uid}', details.uid);
             $http.put(url_updateUserDetails, details)
                 .success(function (data, status) {
                     $log.info("updateUserDetails successfully called");
@@ -348,7 +355,7 @@
             return deferred.promise;
         }
 
-        function updatePass(uid, password){
+        function updatePass(uid, password) {
             var details = {};
             details.password = password;
 
@@ -373,8 +380,7 @@
         }
 
 
-
-        function createGroup(details){
+        function createGroup(details) {
             var deferred = $q.defer();
             $http.post(gdConfig.url_createGroup, details)
                 .success(function (data, status) {
@@ -392,7 +398,7 @@
             return deferred.promise;
         }
 
-        function deleteGroup(gid){
+        function deleteGroup(gid) {
             var deferred = $q.defer();
             var url_deleteGroup = gdConfig.url_deleteGroup.replace('{gid}', gid);
             $http.delete(url_deleteGroup)
@@ -411,7 +417,7 @@
             return deferred.promise;
         }
 
-        function removeMember(gid,uid){
+        function removeMember(gid, uid) {
             var deferred = $q.defer();
             var url_removeMember = gdConfig.url_removeMember.replace('{gid}', gid) + uid;
             $http.delete(url_removeMember)
@@ -430,7 +436,7 @@
             return deferred.promise;
         }
 
-        function sendNewPwd(email){
+        function sendNewPwd(email) {
             var deferred = $q.defer();
             var emailObj = {};
             emailObj.email = email;
@@ -451,6 +457,7 @@
         }
 
         function fetchExpensesData(gid, forceRefresh) {
+            $log.debug("ForceRefresh: " + forceRefresh);
             if (typeof forceRefresh === "undefined" || forceRefresh === null) {
                 forceRefresh = false;
             }
@@ -466,25 +473,81 @@
             var expensesData = self.expensesCache.get(cacheKey);
             if (expensesData && !forceRefresh) {
                 $log.info("Expenses data for group " + gid + " loaded from cache");
+                //$log.debug(expensesData);
                 deferred.resolve(expensesData);
             } else {
                 var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
+                var expense_data;
                 $http.get(url_expenses)
                     .success(function (data, status) {
                         $log.info("Expenses data for group " + gid + " fetched successfully");
                         //$localStorage.expenses[gid] = data[gid];
                         //$log.info($localStorage.expenses);
-                        self.expensesCache.put(cacheKey, data[gid]);
-                        //$log.info(self.expensesCache.info(cacheKey));
-                        deferred.resolve(data[gid]);
+                        expense_data = data[gid];
                     })
                     .error(function () {
                         $log.info("Error fetching groups data");
                         $localStorage.authenticated = false;
                         deferred.reject();
-                    });
+                    })
+                    .then(
+                        function () {
+                            fetchUsersData().then(
+                                function (usersData) {
+                                    var expenses = addExpenseSearchString(expense_data, usersData);
+                                    self.expensesCache.put(cacheKey, expenses);
+                                    // $log.debug(expenses);
+                                    deferred.resolve(expenses);
+                                },
+                                function (msg) {
+                                    logErrorMessage(msg);
+                                }
+                            )
+                        }
+                    );
+                    // .then(
+                    //     fetchUsersData().then(function (userData) {
+                    //     //$log.info(self.expensesCache.info(cacheKey));
+                    //     var expenses = addExpenseSearchString(expense_data);
+                    //     self.expensesCache.put(cacheKey, expenses);
+                    //     $log.debug(userData);
+                    //     deferred.resolve(expenses);
+                    // }, function (msg) {
+                    //     $log.info(msg);
+                    // })
+                //;
             }
             return deferred.promise;
+        }
+
+        // gdApi.login(credentials)
+        //     .then(gdApi.fetchGroupsData)
+        //     .then(gotoHome, logErrorMessage);
+
+        // build a search string to search on expenses (title and participants)
+        function addExpenseSearchString(expenses, usersData) {
+            var exp, str;
+            for (var index = 0; index < expenses.length; index++) {
+                exp = expenses[index];
+                str = 'eid:'+ exp.eid + ' ' + exp.etitle + ' ';
+                str += '++' + usersData[exp.uid].firstName + ' ';
+                str += '++' + usersData[exp.uid].lastName + ' ';
+                str += '++' + usersData[exp.uid].nickName + ' ';
+                str += '++uid:' + exp.uid + ' ';
+                var participants;
+                if (typeof (exp.uids) === "string")
+                    participants = exp.uids.split(",");
+                else
+                    participants = [exp.uids];
+                for (var i = 0; i < participants.length; i++) {
+                    str += '--' + usersData[participants[i]].firstName + ' ';
+                    str += '--' + usersData[participants[i]].lastName + ' ';
+                    str += '--' + usersData[participants[i]].nickName + ' ';
+                    str += '--uid:' + [participants[i]] + ' ';
+                }
+                expenses[index].searchStr = str;
+            }
+            return expenses;
         }
 
         function expenseCacheCreated(gid) {
@@ -549,10 +612,10 @@
             return arr;
         }
 
-        function dumpArr(arr){
+        function dumpArr(arr) {
             var str = "";
             for (var key in arr) {
-                str += "[ sort=" + arr[key].sort + " " + arr[key].title + " cid=" + arr[key].cid  + "\n";
+                str += "[ sort=" + arr[key].sort + " " + arr[key].title + " cid=" + arr[key].cid + "\n";
             }
             $log.info(str);
         }
@@ -663,13 +726,12 @@
         }
 
 
-
         function updateExpense(gid, expense) {
             cacheExpenseChange(expense);
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.put(url_expenses, expense)
                 .then(function (response) {
-                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                    if (typeof (response.data) == "string" && response.data.substring(0, 5) == "Error") {
                         $log.info("Error submitting expense");
                     }
                     else {
@@ -702,7 +764,7 @@
             var url_updateGroupSettings = gdConfig.url_updateGroupSettings;
             $http.put(url_updateGroupSettings, settings)
                 .then(function (response) {
-                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                    if (typeof (response.data) == "string" && response.data.substring(0, 5) == "Error") {
                         $log.info("Error updating group settings");
                     }
                     else {
@@ -729,7 +791,7 @@
             tempExpenseCache[expense.eid] = expense;
         }
 
-        function checkTempCache(eid){
+        function checkTempCache(eid) {
             return (eid in tempExpenseCache) ? tempExpenseCache[eid] : false;
         }
 
@@ -739,7 +801,7 @@
             tempGroupSettingsCache[gid] = settings;
         }
 
-        function checkGroupSettingsCache(gid){
+        function checkGroupSettingsCache(gid) {
             return (gid in tempGroupSettingsCache) ? tempGroupSettingsCache[gid] : false;
         }
 
@@ -756,7 +818,7 @@
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid);
             $http.post(url_expenses, expense)
                 .then(function (response) {
-                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                    if (typeof (response.data) == "string" && response.data.substring(0, 5) == "Error") {
                         $log.info("Error submitting expense");
                     }
                     else {
@@ -775,26 +837,26 @@
                 }, function (response) {
                     $log.info("Error submitting expense");
                 });
-                //
-                //.success(function (data, status) {
-                //    if (data.substring(0,5) == "Error"){
-                //        $log.info("Error submitting expense");
-                //    }
-                //    else {
-                //        $log.info("Expense submitted successfully");
-                //    }
-                //    $log.info(data);
-                //})
-                //.error(function () {
-                //    $log.info("Error submitting expense");
-                //});
+            //
+            //.success(function (data, status) {
+            //    if (data.substring(0,5) == "Error"){
+            //        $log.info("Error submitting expense");
+            //    }
+            //    else {
+            //        $log.info("Expense submitted successfully");
+            //    }
+            //    $log.info(data);
+            //})
+            //.error(function () {
+            //    $log.info("Error submitting expense");
+            //});
         }
 
         function updateGroupSort(groupList) {
             var url_updateGroups = gdConfig.url_updateGroupSort.replace('{uid}', getUid());
             $http.put(url_updateGroups, groupList)
                 .then(function (response) {
-                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                    if (typeof (response.data) == "string" && response.data.substring(0, 5) == "Error") {
                         $log.info("Error submitting updated group list");
                     }
                     else {
@@ -810,7 +872,7 @@
             var url_updateCategories = gdConfig.url_updateGroupCategories.replace('{gid}', gid);
             $http.put(url_updateCategories, categoryList)
                 .then(function (response) {
-                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                    if (typeof (response.data) == "string" && response.data.substring(0, 5) == "Error") {
                         $log.info("Error submitting updated category list for group " + gid);
                     }
                     else {
@@ -832,7 +894,7 @@
         }
 
         function getGroupCategories(groupsArray, gid) {
-            var categories =_.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
+            var categories = _.pluck(_.filter(groupsArray, {'gid': Number(gid)}), 'categories')[0];
             return objectToArraySorted(categories);
         }
 
@@ -919,7 +981,7 @@
             var url_expenses = gdConfig.url_expenses.replace('{gid}', gid) + '/' + eid;
             $http.delete(url_expenses)
                 .then(function (response) {
-                    if (typeof (response.data) == "string" && response.data.substring(0,5) == "Error"){
+                    if (typeof (response.data) == "string" && response.data.substring(0, 5) == "Error") {
                         $log.info("Error submitting expense");
                     }
                     else {
@@ -963,11 +1025,11 @@
         //var dateObj = new Date(currentTS * 1000);
         //var London = new Date(currentTS * 1000 - 60 * 60 * 1000);
 
-        function isOwner(gid){
+        function isOwner(gid) {
             return ownerGroups.indexOf(gid) > -1;
         }
 
-        function isAdmin(gid){
+        function isAdmin(gid) {
             return adminGroups.indexOf(gid) > -1;
         }
 

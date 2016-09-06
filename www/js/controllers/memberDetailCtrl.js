@@ -11,6 +11,8 @@
 
         $scope.gid = Number($stateParams.gid);
         $scope.uid = Number($stateParams.uid);
+        $scope.paidSearch = '++uid:' + $scope.uid + ' ';
+        $scope.participatedSearch = '--uid:' + $scope.uid + ' ';
 
         gdApi.fetchGroupsData().then(
             function (groupsData) {

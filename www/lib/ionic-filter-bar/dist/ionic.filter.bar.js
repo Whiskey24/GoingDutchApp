@@ -438,10 +438,11 @@ angular.module('jett.ionic.filter.bar', ['ionic']);
             favoritesTitle: 'Favorite Searches',
             favoritesAddPlaceholder: 'Add a search term',
             favoritesEnabled: false,
-            favoritesKey: 'ionic_filter_bar_favorites'
+            favoritesKey: 'ionic_filter_bar_favorites',
+            initialFilterText: ''
           }, opts);
 
-          scope.data = {filterText: ''};
+          scope.data = {filterText: scope.initialFilterText};
 
           //if no custom theme was configured, get theme of containers bar-header
           if (!scope.config.theme) {
@@ -645,6 +646,12 @@ angular.module('jett.ionic.filter.bar', ['ionic']);
 
           // Expose the scope on $ionFilterBar's return value for the sake of testing it.
           scope.cancelFilterBar.$scope = scope;
+
+          // Check if we need to filter initial text
+          if (scope.initialFilterText !== '') {
+            scope.filterItems(scope.initialFilterText);
+          }
+
 
           return scope.cancelFilterBar;
         }

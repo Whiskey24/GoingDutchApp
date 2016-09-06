@@ -16,17 +16,22 @@
         //});
 
         var filterBarInstance;
-
+        $scope.searchStr = $stateParams.search;
+        $log.debug($scope.searchStr);
         $scope.gid = $stateParams.gid;
 
         $scope.showFilterBar = function () {
             filterBarInstance = $ionicFilterBar.show({
                 items: $scope.expenses,
+                filterProperties: ['searchStr'],
+                debounce: true,
+                // https://github.com/djett41/ionic-filter-bar/issues/57
+                initialFilterText: $scope.searchStr,
                 update: function (filteredItems, filterText) {
                     $scope.expenses = filteredItems;
-                    if (filterText) {
-                        //$log.debug(filterText);
-                    }
+                    // if (filterText) {
+                    //     $log.debug(filterText);
+                    // }
                 }
             });
         };
@@ -44,6 +49,9 @@
                 $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
                 $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
                 $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
+                if ($scope.searchStr !== '') {
+                    $scope.showFilterBar();
+                }
             }
         );
 
