@@ -181,6 +181,17 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 }
             })
 
+            .state('group.expenses-user', {
+                url: '/members/:uid/expenses',
+                params: {  paid:  0, participated: 0, name:''},
+                views: {
+                    'group-members': {
+                        templateUrl: 'templates/group-user-expenses.html',
+                        controller: 'ExpenseCtrl'
+                    }
+                }
+            })
+
             .state('group.manage-member', {
                 url: '/members/:uid/manage',
                 params: { current_role: 4, my_role: 4, groupTitle:  '', forceRefresh: 0},

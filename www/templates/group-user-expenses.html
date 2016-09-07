@@ -1,0 +1,22 @@
+<ion-view view-title="{{viewtitle}}">
+
+    <ion-nav-bar class="bar-positive">
+        <ion-nav-back-button>
+        </ion-nav-back-button>
+    </ion-nav-bar>
+
+    <ion-content>
+        <ion-list>
+            <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
+            <ion-item ng-repeat="expense in expenses" class="item item-icon-right item-expenses"
+                      ui-sref="group.expense-detail({eid: expense.eid})">
+                <h3>{{expense.etitle}}</h3>
+                <p>Expense Owner, {{participants(expense)}}</p>
+                <p>{{ expense.amount | isoCurrency:currency }} - {{formatDateLocal(expense.ecreated, expense.timezoneoffset)}}</p>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+
+</ion-view>

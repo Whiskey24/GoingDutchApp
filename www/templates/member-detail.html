@@ -9,21 +9,26 @@
 
         <h4>Details for member {{nickName}}</h4>
 
-        <ion-item ui-sref="group.expenses({gid: gid, search: paidSearch })">
-            Total expenses paid:
+        <ion-item ui-sref="group.expenses-user({gid: gid, uid:uid, paid: 1, name: nickName})"
+                  class="item item-icon-right">
+            Total paid:
                 <span class="item-note" ng-style="{'color':'black', 'font-weight':'bold'}">
                   {{ paid | isoCurrency:currency }}
                 </span>
+            <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
 
-        <ion-item  ui-sref="group.expenses({gid: gid, search: participatedSearch })">
-            Total expenses participated:
+        <ion-item ui-sref="group.expenses-user({gid: gid, uid:uid, participated: 1, name: nickName})"
+                  class="item item-icon-right">
+            Total participated:
                 <span class="item-note" ng-style="{'color':'black', 'font-weight':'bold'}">
                   {{ participated | isoCurrency:currency }}
                 </span>
+            <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
 
-        <ion-item>
+        <ion-item ui-sref="group.expenses-user({gid: gid, uid:uid, paid: 1, participated: 1,name: nickName})"
+                  class="item item-icon-right">
             Total balance:
                 <span class="item-note" ng-if="balance >= 0" ng-style="{'color':'green', 'font-weight':'bold'}">
                   {{ balance | isoCurrency:currency }}
@@ -31,7 +36,9 @@
                 <span class="item-note" ng-if="balance < 0" ng-style="{'color':'red', 'font-weight':'bold'}">
                   {{ balance  | isoCurrency:currency }}
                 </span>
+            <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
     </ion-content>
 
 </ion-view>
+

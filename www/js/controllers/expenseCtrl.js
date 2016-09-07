@@ -16,8 +16,14 @@
         //});
 
         var filterBarInstance;
-        $scope.searchStr = $stateParams.search;
-        $log.debug($scope.searchStr);
+        // $scope.searchStr = $stateParams.search;
+        // $log.debug($scope.searchStr);
+
+        $scope.showPaid = $stateParams.paid;
+        $scope.showParticated = $stateParams.participated;
+        $scope.uid = $stateParams.uid;
+        // $log.info("uid:" + $scope.uid + ", participated:" + $scope.showParticated + ", paid:" + $scope.showPaid);
+        $scope.expensesName = $stateParams.name;
         $scope.gid = $stateParams.gid;
 
         $scope.showFilterBar = function () {
@@ -26,7 +32,7 @@
                 filterProperties: ['searchStr'],
                 debounce: true,
                 // https://github.com/djett41/ionic-filter-bar/issues/57
-                initialFilterText: $scope.searchStr,
+                //initialFilterText: $scope.searchStr,
                 update: function (filteredItems, filterText) {
                     $scope.expenses = filteredItems;
                     // if (filterText) {
@@ -49,9 +55,10 @@
                 $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
                 $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
                 $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
-                if ($scope.searchStr !== '') {
-                    $scope.showFilterBar();
-                }
+                $scope.viewtitle = $scope.groupTitle + ' - ' + $scope.expensesName;
+                // if ($scope.searchStr !== '') {
+                //     $scope.showFilterBar();
+                // }
             }
         );
 
@@ -73,11 +80,41 @@
                 function (expensesData) {
                     $scope.expenses = expensesData;
                     //console.log(expensesData[0]);
+                    if ($scope.uid != 'undefined' && $scope.uid > 0){
+                        filterForUser();
+                    }
                 },
                 function (msg) {
                     logErrorMessage(msg);
                 }
             );
+            //$log.debug($scope.expenses);
+        }
+
+        function filterForUser(){
+            if ($scope.showPaid == 1 && $scope.showParticated == 0){
+                $scope.expenses = _.filter($scope.expenses, {'uid': Number($scope.uid)});
+                return;
+            }
+            var filtered = [];
+            for (var i = 0; i < $scope.expenses.length; i++) {
+                if ($scope.showPaid == 1 && $scope.expenses[i].uid == $scope.uid){
+                    filtered.push($scope.expenses[i]);
+                    continue;
+                }
+                if ($scope.showParticated == 1){
+                    if (typeof ($scope.expenses[i].uids) === "string"){
+                        var participants = $scope.expenses[i].uids.split(",");
+                        if (participants.indexOf($scope.uid) >= 0){
+                            filtered.push($scope.expenses[i]);
+                        }
+                    }
+                    else if ($scope.expenses[i].uids == $scope.uid){
+                        filtered.push($scope.expenses[i]);
+                     }
+                }
+            }
+            $scope.expenses = filtered;
         }
 
         $scope.doRefresh = function() {

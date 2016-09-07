@@ -648,9 +648,9 @@ angular.module('jett.ionic.filter.bar', ['ionic']);
           scope.cancelFilterBar.$scope = scope;
 
           // Check if we need to filter initial text
-          if (scope.initialFilterText !== '') {
-            scope.filterItems(scope.initialFilterText);
-          }
+          // if (scope.initialFilterText !== '') {
+          //   scope.filterItems(scope.initialFilterText);
+          // }
 
 
           return scope.cancelFilterBar;

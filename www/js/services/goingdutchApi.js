@@ -457,7 +457,7 @@
         }
 
         function fetchExpensesData(gid, forceRefresh) {
-            $log.debug("ForceRefresh: " + forceRefresh);
+            //$log.debug("ForceRefresh: " + forceRefresh);
             if (typeof forceRefresh === "undefined" || forceRefresh === null) {
                 forceRefresh = false;
             }
