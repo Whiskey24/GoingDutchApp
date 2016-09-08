@@ -13,24 +13,24 @@
                 <span class="col text-left">First or given name</span>
                 <label class="item item-input">
                     <input name="firstName" type="text" placeholder="First or given name" ng-model="userData.firstName"
-                           required>
+                           ng-maxlength="100" required>
                 </label>
 
                 <span class="col text-left">Last or surname</span>
                 <label class="item item-input">
-                    <input type="text" placeholder="Last or surname" ng-model="userData.lastName"
+                    <input type="text" placeholder="Last or surname" ng-model="userData.lastName" ng-maxlength="100"
                            required>
                 </label>
 
                 <span class="col text-left">Full name</span>
                 <label class="item item-input">
-                    <input type="text" placeholder="Full name" ng-model="userData.realname"
+                    <input type="text" placeholder="Full name" ng-model="userData.realname" ng-maxlength="100"
                            required>
                 </label>
 
                 <span class="col text-left">Nickname</span>
                 <label class="item item-input">
-                    <input type="text" placeholder="Nickname (optional)" ng-model="userData.nickName">
+                    <input type="text" placeholder="Nickname (optional)" ng-model="userData.nickName" ng-maxlength="25">
                 </label>
 
                 <button class="button button-block button-positive"
