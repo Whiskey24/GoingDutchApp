@@ -34,7 +34,6 @@
             filterBarInstance = $ionicFilterBar.show({
                 items: $scope.expenses,
                 filterProperties: ['searchStr'],
-                debounce: true,
                 // https://github.com/djett41/ionic-filter-bar/issues/57
                 //initialFilterText: $scope.searchStr,
                 update: function (filteredItems, filterText) {
