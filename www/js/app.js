@@ -6,13 +6,13 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
     }])
 
     .constant('gdConfig', (function () {
-        //var host = 'http://api.gdutch.dev';
-        var host = 'https://going-dutch-api.appspot.com';
+        var host = 'http://api.gdutch.dev';
+        //var host = 'https://going-dutch-api.appspot.com';
         //console.log("API host: " + host);
         return {
             host: host,
-            //port: 80,
-            port: 443,
+            port: 80,
+            //port: 443,
             max_cache_age: 60 * 60 * 1000,  // 1 hour
             url_groups: host + '/groups',
             url_users: host + '/users',
@@ -85,6 +85,16 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                     'public-register': {
                         templateUrl: 'templates/register.html',
                         controller: 'RegisterCtrl'
+                    }
+                }
+            })
+
+            .state('public.info', {
+                url: '/info',
+                views: {
+                    'public-info': {
+                        templateUrl: 'templates/info.html',
+                        controller: 'LoginCtrl'
                     }
                 }
             })
