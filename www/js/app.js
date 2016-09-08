@@ -192,6 +192,30 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
                 }
             })
 
+            // "duplicate" templates to create back option for expenses by user
+
+            .state('group.expense-byuser-detail', {
+                url: '/members/:uid/expenses/:eid',
+                views: {
+                    'group-members': {
+                        templateUrl: 'templates/expense-detail.html',
+                        controller: 'ExpenseDetailCtrl'
+                    }
+                }
+            })
+
+            .state('group.expense-byuser-edit', {
+                url: '/members/:uid/expenses/:eid/edit',
+                views: {
+                    'group-members': {
+                        templateUrl: 'templates/expense-edit.html',
+                        controller: 'ExpenseDetailCtrl'
+                    }
+                }
+            })
+
+            ///
+
             .state('group.manage-member', {
                 url: '/members/:uid/manage',
                 params: { current_role: 4, my_role: 4, groupTitle:  '', forceRefresh: 0},

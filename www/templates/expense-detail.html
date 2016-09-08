@@ -25,7 +25,14 @@
                 <p ng-repeat="uid in participants">{{memberName(uid)}}</p>
             </ion-item>
 
-            <ion-item class="text-center item item-icon-right item-icon-left"  ui-sref="group.expense-edit({eid: expense.eid})">
+            <ion-item ng-if="uid == 0" class="text-center item item-icon-right item-icon-left"  ui-sref="group.expense-edit({eid: expense.eid})">
+                <i></i>
+                Edit
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+
+            <ion-item ng-if="uid > 0" class="text-center item item-icon-right item-icon-left"
+                      ui-sref="group.expense-byuser-edit({uid: uid, eid: expense.eid})">
                 <i></i>
                 Edit
                 <i class="icon ion-chevron-right icon-accessory"></i>

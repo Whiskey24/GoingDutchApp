@@ -21,7 +21,8 @@
 
         $scope.showPaid = $stateParams.paid;
         $scope.showParticated = $stateParams.participated;
-        $scope.uid = $stateParams.uid;
+        $scope.uid = $stateParams.uid == 'undefined' ? 0 : $stateParams.uid;
+
         // $log.info("uid:" + $scope.uid + ", participated:" + $scope.showParticated + ", paid:" + $scope.showPaid);
         $scope.expensesName = $stateParams.name;
         $scope.gid = $stateParams.gid;
