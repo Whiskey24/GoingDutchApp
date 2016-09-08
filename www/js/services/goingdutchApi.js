@@ -5,9 +5,9 @@
 (function () {
     'use strict';
 
-    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService', '$rootScope', '$state', 'gdConfig', '$q', 'CacheFactory', '$log', gdApi]);
+    angular.module('GoingDutchApp').factory('gdApi', ['$http', '$localStorage', 'authenticationDataService', '$rootScope', '$state', 'gdConfig', '$q', 'CacheFactory', '$log', '$filter', gdApi]);
 
-    function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q, CacheFactory, $log) {
+    function gdApi($http, $localStorage, authenticationDataService, $rootScope, $state, gdConfig, $q, CacheFactory, $log, $filter) {
 
         var currencies = JSON.parse('["EUR","USD","GBP","CHF"]');
         if (!CacheFactory.get('groupsCache')) {
@@ -22,13 +22,13 @@
                                     .then(function (data) {
                                             //$log.info(data);
                                         }, function (error) {
-                                            logErrorMessage(error);
+                                            $log.info(error);
                                         }
                                     );
                             }
                         },
                         function (msg) {
-                            logErrorMessage(msg);
+                            $log.info(msg);
                         }
                     );
                 }
@@ -496,11 +496,11 @@
                                 function (usersData) {
                                     var expenses = addExpenseSearchString(expense_data, usersData);
                                     self.expensesCache.put(cacheKey, expenses);
-                                    // $log.debug(expenses);
+                                    $log.debug(expenses);
                                     deferred.resolve(expenses);
                                 },
                                 function (msg) {
-                                    logErrorMessage(msg);
+                                    $log.info(msg);
                                 }
                             )
                         }
@@ -534,6 +534,9 @@
                 str += '++' + usersData[exp.uid].lastName + ' ';
                 str += '++' + usersData[exp.uid].nickName + ' ';
                 str += '++uid:' + exp.uid + ' ';
+                str += $filter('date')((exp.ecreated - exp.timezoneoffset) * 1000, 'yyyy', 'UTC') + ' ';
+                str += $filter('date')((exp.ecreated - exp.timezoneoffset) * 1000, 'MMMM', 'UTC') + ' ';
+
                 var participants;
                 if (typeof (exp.uids) === "string")
                     participants = exp.uids.split(",");
@@ -546,6 +549,9 @@
                     str += '--uid:' + [participants[i]] + ' ';
                 }
                 expenses[index].searchStr = str;
+
+                // add username details for expense owner here to
+                expenses[index].ownerName = usersData[expenses[index].uid].nickName;
             }
             return expenses;
         }

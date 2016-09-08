@@ -21,7 +21,10 @@
 
         $scope.showPaid = $stateParams.paid;
         $scope.showParticated = $stateParams.participated;
-        $scope.uid = $stateParams.uid == 'undefined' ? 0 : $stateParams.uid;
+        $scope.uid = $stateParams.uid;
+
+        $scope.updatingExpenses = true;
+        $scope.noExpensesFound = false;
 
         // $log.info("uid:" + $scope.uid + ", participated:" + $scope.showParticated + ", paid:" + $scope.showPaid);
         $scope.expensesName = $stateParams.name;
@@ -81,9 +84,12 @@
                 function (expensesData) {
                     $scope.expenses = expensesData;
                     //console.log(expensesData[0]);
-                    if ($scope.uid != 'undefined' && $scope.uid > 0){
+                    if ($scope.uid > 0){
                         filterForUser();
                     }
+
+                    $scope.noExpensesFound = $scope.expenses.length == 0;
+                    $scope.updatingExpenses = false;
                 },
                 function (msg) {
                     logErrorMessage(msg);
@@ -125,6 +131,11 @@
                     // $log.debug(expensesData);
                     // var expenses_paid = _.filter($scope.expenses, {'uid': 4});
                     // $log.debug(expenses_paid);
+                    if ($scope.uid > 0){
+                        filterForUser();
+                    }
+                    $scope.noExpensesFound = $scope.expenses.length == 0;
+                    $scope.updatingExpenses = false;
                 },
                 function (msg) {
                     logErrorMessage(msg);

@@ -7,9 +7,16 @@
 
     <ion-content>
         <ion-list>
+            <span class="col text-center" ng-if="updatingExpenses">
+                    <br /><br />Please wait, updating expenses...
+            </span>
+            <span class="col text-center" ng-if="noExpensesFound">
+                    <br /><br />No expenses found!
+            </span>
+
             <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()"></ion-refresher>
             <ion-item ng-repeat="expense in expenses" class="item item-icon-right item-expenses"
-                      ui-sref="group.expense-byuser-detail({eid: expense.eid})">
+                      ui-sref="group.expense-byuser-detail({eid: expense.eid, uid: uid})">
                 <h3>{{expense.etitle}}</h3>
                 <p>Expense Owner, {{participants(expense)}}</p>
                 <p>{{ expense.amount | isoCurrency:currency }} - {{formatDateLocal(expense.ecreated, expense.timezoneoffset)}}</p>

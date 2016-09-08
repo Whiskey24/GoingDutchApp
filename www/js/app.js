@@ -240,7 +240,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('group.expenses', {
                 url: '/expenses',
-                params: {  search:  ''},
+                params: {  search:  '', uid: 0},
                 views: {
                     'group-expenses': {
                         templateUrl: 'templates/group-expenses.html',
@@ -251,6 +251,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('group.expense-detail', {
                 url: '/expenses/:eid',
+                params: {  uid:  0},
                 views: {
                     'group-expenses': {
                         templateUrl: 'templates/expense-detail.html',

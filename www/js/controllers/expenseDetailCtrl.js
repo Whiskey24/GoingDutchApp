@@ -29,7 +29,7 @@
 
         var UID = gdApi.UID();
         $scope.newExpense = false;
-
+        $scope.uid = $stateParams.uid;
         //$scope.groupTitle = gdApi.getGroupTitle($stateParams);
         $scope.gid = Number($stateParams.gid);
         $scope.eid = Number($stateParams.eid);
@@ -270,7 +270,13 @@
             if (!$scope.newExpense) {
                 gdApi.updateExpense($scope.gid, $scope.expense);
                 $ionicHistory.clearCache().then((function () {
-                    return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid})
+                if ($scope.uid >0 ){
+                    return $state.go('group.expense-byuser-detail', {gid: $scope.gid, eid: $scope.eid, uid: $scope.uid});
+                }
+                else {
+                    return $state.go('group.expense-detail', {gid: $scope.gid, eid: $scope.eid});
+                }
+
                 }));
             } else {
                 gdApi.addExpense($scope.gid, $scope.expense);
