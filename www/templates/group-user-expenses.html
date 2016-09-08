@@ -18,7 +18,7 @@
             <ion-item ng-repeat="expense in expenses" class="item item-icon-right item-expenses"
                       ui-sref="group.expense-byuser-detail({eid: expense.eid, uid: uid})">
                 <h3>{{expense.etitle}}</h3>
-                <p>Expense Owner, {{participants(expense)}}</p>
+                <p>{{expense.ownerName}}, {{participants(expense)}}</p>
                 <p>{{ expense.amount | isoCurrency:currency }} - {{formatDateLocal(expense.ecreated, expense.timezoneoffset)}}</p>
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>

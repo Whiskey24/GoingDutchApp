@@ -496,7 +496,7 @@
                                 function (usersData) {
                                     var expenses = addExpenseSearchString(expense_data, usersData);
                                     self.expensesCache.put(cacheKey, expenses);
-                                    $log.debug(expenses);
+                                    // $log.debug(expenses);
                                     deferred.resolve(expenses);
                                 },
                                 function (msg) {
