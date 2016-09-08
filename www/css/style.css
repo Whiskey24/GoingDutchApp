@@ -7,3 +7,7 @@
     border: none;
     background-color: #fff;
 }
+
+.opaque {
+    opacity: 0.3;
+}
