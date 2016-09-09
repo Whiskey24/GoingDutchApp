@@ -18,6 +18,22 @@
                 <i class="icon ion-chevron-right icon-accessory"></i>
             </ion-item>
 
+            <span class="opaque col text-center" ng-if="pastMembersCount > 0"><br /><br />Past members</span>
+
+            <ion-item ng-repeat="member in pastMembers" class="item item-icon-left item-icon-right"
+                      ui-sref="group.member-detail({uid: member.uid})" >
+                <i ng-if="member.balance >= 0" class="icon ion-android-happy opaque" ng-style="{'color':'green'}"></i>
+                <i ng-if="member.balance < 0" class="icon ion-android-sad opaque" ng-style="{'color':'red'}"></i>
+                <span class="opaque">{{memberName(member.uid)}}</span>
+                <span class="item-note opaque" ng-if="member.balance >= 0" ng-style="{'color':'green'}">
+                  {{ member.balance | isoCurrency:currency }}
+                </span>
+                <span class="item-note opaque" ng-if="member.balance < 0" ng-style="{'color':'red'}">
+                  {{ member.balance  | isoCurrency:currency }}
+                </span>
+                <i class="icon ion-chevron-right icon-accessory"></i>
+            </ion-item>
+
         </ion-list>
 
     </ion-content>

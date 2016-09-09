@@ -28,7 +28,10 @@
         ).then(function () {
                 //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
                 var members = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 0});
+                var pastMembers = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 1});
+                $scope.pastMembersCount = pastMembers.length;
                 $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                $scope.pastMembers =  gdApi.sortByKey(pastMembers, 'balance', 'DESC');
                 //$log.debug($scope.members);
                 $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
                 $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
@@ -47,7 +50,10 @@
             ).then(function () {
                     //var members = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0];
                     var members = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 0});
+                    var pastMembers = _.filter(_.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'members')[0], {'removed': 1});
+                    $scope.pastMembersCount = pastMembers.length;
                     $scope.members =  gdApi.sortByKey(members, 'balance', 'DESC');
+                    $scope.pastMembers =  gdApi.sortByKey(pastMembers, 'balance', 'DESC');
                     //$log.debug($scope.members);
                     $scope.currency = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'currency')[0];
                     $scope.groupTitle = _.pluck(_.filter($scope.groups, {'gid': Number($stateParams.gid)}), 'name')[0];
