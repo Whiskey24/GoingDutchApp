@@ -282,6 +282,7 @@ angular.module('GoingDutchApp', ['ionic', 'GoingDutchApp.controllers', 'isoCurre
 
             .state('group.expense-new', {
                 url: '/new-expense',
+                cache: false,
                 views: {
                     'group-new-expense': {
                         templateUrl: 'templates/expense-new.html',

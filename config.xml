@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<?xml version="0.9.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ionicframework.goingdutchapp301433" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>GoingDutchApp</name>
-  <description>&#xD;&#xD;
-        An Ionic Framework and Cordova project.&#xD;&#xD;
+  <name>Going Dutch App</name>
+  <description>
+        Easily track who's paid what.
     </description>
-  <author email="hi@ionicframework" href="http://ionicframework.com/">&#xD;&#xD;
-      Ionic Framework Team&#xD;&#xD;
+  <author email="bert@santema.eu" href="http://ionicframework.com/">&#xD;&#xD;
+      Bert Santema
     </author>
   <content src="index.html"/>
   <access origin="*"/>
@@ -19,7 +19,7 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
-  <allow-navigation href="https://api.santema.eu/GoingDutchApi/*"/>
+  <allow-navigation href="https://going-dutch-api.appspot.com/*"/>
   <allow-navigation href="http://api.gdutch.dev/*"/>
   <platform name="android">
     <splash src="resources/android/splash/drawable-land-ldpi-screen.png" density="land-ldpi"/>
